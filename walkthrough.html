@@ -1,0 +1,323 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Data Reduction Walkthrough &#8212; DLNIRSP_Pipeline v0.6.0</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" type="text/css" />
+    <link rel="stylesheet" href="_static/dkist.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/favico.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Configuration File Format" href="config_file.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="col-md-3 navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="http://nso.edu"><img src="_static/img/NSOlogo.gif">
+        </a>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav hidden">
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">DL-NIRSP Pipeline Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config_file.html">Configuration File Format</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Reduction Walkthrough</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Data Reduction Walkthrough</a><ul>
+<li><a class="reference internal" href="#input-data">Input Data</a></li>
+<li><a class="reference internal" href="#polcal-data">PolCal Data</a></li>
+<li><a class="reference internal" href="#knife-edge-scan-data">Knife-edge Scan Data</a></li>
+<li><a class="reference internal" href="#setup">Setup</a></li>
+<li><a class="reference internal" href="#run">Run</a></li>
+<li><a class="reference internal" href="#output-data">Output Data</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="config_file.html" title="Previous Chapter: Configuration File Format"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Configuration...</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+          
+            <ul class="nav navbar-nav navbar-left">
+              <li><a href="http://dkist.nso.edu/">DKIST</a></li>
+              <li><a href="http://docs.cadair.com/devdocs">DC Developer Guide</a></li>
+              <li><a href="http://docs.cadair.com/datarate">DKIST Data Rate</a></li>
+              <li><a href="http://docs.cadair.com/datamodel">DKIST Data Model</a></li>
+            </ul>
+          
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-3"><div id="side-logo" >
+            <a href="http://dkist.nso.edu">
+                <img src="_static/img/DKISTLogo-Medium.jpg">
+            </a>
+        </div><div id="sidebar" class="bs-sidenav" role="complementary">
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">DL-NIRSP Pipeline Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config_file.html">Configuration File Format</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Reduction Walkthrough</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#input-data">Input Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#polcal-data">PolCal Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#knife-edge-scan-data">Knife-edge Scan Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run">Run</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#output-data">Output Data</a></li>
+</ul>
+</li>
+</ul>
+
+            
+        </div>
+    </div>
+
+    <div class="body col-md-9 content" role="main">
+      
+  <div class="section" id="data-reduction-walkthrough">
+<h1>Data Reduction Walkthrough<a class="headerlink" href="#data-reduction-walkthrough" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="input-data">
+<h2>Input Data<a class="headerlink" href="#input-data" title="Permalink to this headline">¶</a></h2>
+<p>For this walkthrough we will use a set of fake data generated by <code class="docutils literal notranslate"><span class="pre">gen_fake_data.py</span></code> (in the utils directory),
+which generates a full suite of input data. You will need some DL-NIRSP simulations to do this; ask either A. Eigenbrot
+or S. Jaeggli. Let’s assume those simulations live in SIM_DIR:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ./DLNIRSP_Pipeline/utils/gen_fake_data -p SIM_DIR raw
+<span class="go">...</span>
+<span class="gp">$</span> ls -1 raw
+<span class="go">DLNIRSP_20160522T000001.000000_0.fits</span>
+<span class="go">DLNIRSP_20160522T000001.033333_1.fits</span>
+<span class="go">DLNIRSP_20160522T000001.066667_2.fits</span>
+<span class="go">DLNIRSP_20160522T000001.100000_3.fits</span>
+<span class="go">DLNIRSP_20160522T000001.133333_4.fits</span>
+<span class="go">DLNIRSP_20160522T000001.166667_5.fits</span>
+<span class="go">DLNIRSP_20160522T000001.200000_6.fits</span>
+<span class="go">DLNIRSP_20160522T000001.233334_7.fits</span>
+<span class="go">DLNIRSP_20160522T001003.266667_0.fits</span>
+<span class="go">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="polcal-data">
+<h2>PolCal Data<a class="headerlink" href="#polcal-data" title="Permalink to this headline">¶</a></h2>
+<p>We’ll also need a set of DL-NIRSP data from a PolCal run. This can be generated by the
+<a class="reference external" href="https://bitbucket.org/dkistdc/pac-pipeline/src/master/">PA&amp;C Modules’</a> own <code class="docutils literal notranslate"><span class="pre">gen_fake_data.py</span></code>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ../pac-pipeline/PAC_Pipeline/utils/gen_fake_data.py -I dlnirsp polcal
+<span class="go">...</span>
+<span class="gp">$</span> ls -1 polcal
+<span class="go">DLNIRSP_20160523T000000.000000_0.fits</span>
+<span class="go">DLNIRSP_20160523T000001.000000_1.fits</span>
+<span class="go">DLNIRSP_20160523T000002.000000_2.fits</span>
+<span class="go">DLNIRSP_20160523T000003.000000_3.fits</span>
+<span class="go">DLNIRSP_20160523T000004.000000_4.fits</span>
+<span class="go">DLNIRSP_20160523T000005.000000_5.fits</span>
+<span class="go">DLNIRSP_20160523T000006.000000_6.fits</span>
+<span class="go">DLNIRSP_20160523T000007.000000_7.fits</span>
+<span class="go">DLNIRSP_20160523T000015.000000_0.fits</span>
+<span class="go">DLNIRSP_20160523T000016.000000_1.fits</span>
+<span class="go">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="knife-edge-scan-data">
+<h2>Knife-edge Scan Data<a class="headerlink" href="#knife-edge-scan-data" title="Permalink to this headline">¶</a></h2>
+<p>We’ll also need a boat load of knife-edge scan observations. Generate via:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ./DLNIRSP_Pipeline/utils/gen_fake_data -p SIM_DIR -k raw_knife
+<span class="go">...</span>
+<span class="gp">$</span> ls -1 raw_knife
+<span class="go">DLNIRSP_20160521T000001.000000_0.fits</span>
+<span class="go">DLNIRSP_20160521T000002.033334_0.fits</span>
+<span class="go">DLNIRSP_20160521T000003.066667_0.fits</span>
+<span class="go">DLNIRSP_20160521T000004.100000_0.fits</span>
+<span class="go">DLNIRSP_20160521T000005.133334_0.fits</span>
+<span class="go">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>Now let’s create a default config file:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> mkdir rdx
+<span class="gp">$</span> <span class="nb">cd</span> rdx
+<span class="gp">$</span> dl_pipeline -b config.ini
+</pre></div>
+</div>
+<p>Now we’ll need to populate the config file, which should be pretty straight forward.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Main]</span>
+<span class="na">raw_sci_dir</span> <span class="o">=</span> <span class="s">raw</span>
+<span class="na">dataset_id</span> <span class="o">=</span>
+<span class="na">output_prefix</span> <span class="o">=</span> <span class="s">rdx/Sci</span>
+<span class="na">dark_cal</span> <span class="o">=</span> <span class="s">DarkCal</span>
+<span class="na">instrument_pol_cal</span> <span class="o">=</span> <span class="s">InstPolCal</span>
+<span class="na">lamp_gain_cal</span> <span class="o">=</span> <span class="s">LampCal</span>
+<span class="na">solar_gain_cal</span> <span class="o">=</span> <span class="s">SolarCal</span>
+<span class="na">geometric_cal</span> <span class="o">=</span> <span class="s">GeoCal</span>
+<span class="na">ifu_cal</span> <span class="o">=</span> <span class="s">IFUCal</span>
+<span class="na">cube_shape</span> <span class="o">=</span> <span class="s">(200, 200)</span>
+<span class="na">threads</span> <span class="o">=</span> <span class="s">4</span>
+
+<span class="k">[DarkCalibration]</span>
+<span class="na">raw_dark_dir</span> <span class="o">=</span> <span class="s">raw</span>
+
+<span class="k">[InstrumentPolarization]</span>
+<span class="na">raw_pol_dir</span> <span class="o">=</span> <span class="s">polcal</span>
+<span class="na">raw_pol_dark_dir</span> <span class="o">=</span> <span class="s">raw</span>
+<span class="na">threads</span> <span class="o">=</span> <span class="s">4</span>
+
+<span class="k">[LampGainCalibration]</span>
+<span class="na">raw_lamp_gain_dir</span> <span class="o">=</span> <span class="s">raw</span>
+
+<span class="k">[SolarGainCalibration]</span>
+<span class="na">raw_solar_gain_dir</span> <span class="o">=</span> <span class="s">raw</span>
+
+<span class="k">[IFUCalibration]</span>
+<span class="na">raw_knife_dir</span> <span class="o">=</span> <span class="s">raw_knife</span>
+<span class="na">threads</span> <span class="o">=</span> <span class="s">4</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="run">
+<h2>Run<a class="headerlink" href="#run" title="Permalink to this headline">¶</a></h2>
+<p>This is the easy part, just call the pipeline</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> dl_pipeline config.ini
+</pre></div>
+</div>
+<p>Creating the IFU Calibration can take a very long time (O(hour)), but after that each individual data objects reduces relatively quickly.</p>
+<p>The DL-NIRSP Pipeline produces a lot of status messages and it is usually a good idea to save these somewhere so you can see exactly
+what was done to the data at a later time (and find any error messages). To do this I usually run the pipeline as</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> dl_pipeline config.ini <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> tee spool.txt
+</pre></div>
+</div>
+<p>On most systems this will cause your terminal (stdout) to update much less frequently than usual. This is due to how
+python decides to flush its buffer to stdout. If you want to save a spool file <em>and</em> get real-time status messages then
+you need to set the environmental variable <code class="xref py py-obj docutils literal notranslate"><span class="pre">PYTHONUNBUFFERED=yes</span></code>.</p>
+</div>
+<div class="section" id="output-data">
+<h2>Output Data<a class="headerlink" href="#output-data" title="Permalink to this headline">¶</a></h2>
+<p>If your config file looks like the one above then your reduction directory will now look like this</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ls -1
+<span class="go">config.ini</span>
+<span class="go">DarkCal.fits</span>
+<span class="go">DarkCal_savg.asdf</span>
+<span class="go">DarkCal_sig.fits</span>
+<span class="go">GeoCal.asdf</span>
+<span class="go">IFUCal.asdf</span>
+<span class="go">InstPolCal.fits</span>
+<span class="go">knife_proc</span>
+<span class="go">LampCal.fits</span>
+<span class="go">LampCal_sig.fits</span>
+<span class="go">Sci_0000-0002-0002.fits</span>
+<span class="go">Sci_0001-0002-0002.fits</span>
+<span class="go">...</span>
+<span class="go">SolarCal.fits</span>
+<span class="go">SolarCal_sig.fits</span>
+<span class="go">spool.txt</span>
+</pre></div>
+</div>
+<p>All of the <code class="docutils literal notranslate"><span class="pre">*Cal*</span></code> files are the intermediate data products used by the pipeline whose names are specified in the
+config file.</p>
+<p>The processed data live in <code class="docutils literal notranslate"><span class="pre">Sci_RRRR-XXXX-YYYY.fits</span></code>. These files each contain a single Primary HDU with no data and 4
+ImageHDUs, one for each of the four Stokes vectors. Each of these ImageHDUs will have 3D data (wave, x, y).
+The <code class="docutils literal notranslate"><span class="pre">RRRR-XXXX-YYYY</span></code> corresponds to the <code class="docutils literal notranslate"><span class="pre">R</span></code>epeat number for mosaic position (<code class="docutils literal notranslate"><span class="pre">X</span></code>, <code class="docutils literal notranslate"><span class="pre">Y</span></code>).</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <div class="left-footer">
+         &copy; 2019, Arthur Eigenbrot
+       <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
+    </div>
+   
+    <div class="right-footer">
+      Last updated on 17 Sep 2019.
+    </div>
+    <div class="centre-footer">
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

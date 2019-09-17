@@ -1,0 +1,134 @@
+Configuration File Format
+=========================
+
+The DL-NIRSP Pipeline configuration file is in the standard INI format and contains the following sections and options. Any
+options in *italics* are optional.
+
+.. note::
+   It is OK to put science and calibration data all into the same directory. The specific task (Dark, Gain, Observation,
+   etc.) is determined from the `DKIST004` header value.
+
+Main
+----
+This section controls the top-level Science reduction. All of the \*_cal options point to files that will not exist
+on the first run of the pipeline. Once these objects have been created a lot of time can be saved by reusing them for
+any other science runs that have the same setup. It is also possible to regenerate only a subset of the intermediate
+Calibration Objects by simply pointing the corresponding option to a file that doesn't exist.
+
+.. note::
+   All of the \*_cal objects can be specified with or without their file extensions
+
+:raw_sci_dir: Path to the directory containing raw ViSP frames to be reduced. Note that *all* slit positions found in
+    this directory will be reduced. If you only want to reduce a subset of slit positions then move them into a separate
+    folder or use the ``slit_pos`` option.
+
+:data_set_id: Only reduce files with this `ID_004` header value. Can be left blank to reduce all files in ``raw_sci_dir``.
+
+:output_prefix: The prefix to apply to all Level-1 science products. This string can also include a path structure.
+
+:dark_cal: The location of a processed Dark Calibration object. If this file does not exist it will be generated.
+
+:instrumen_pol_cal: The location of a processed Instrument Pol Calibration object. If this file does not exist it will be generated.
+
+:lamp_gain_cal: The location of a processed Lamp Gain Calibration object. If this file does not exist it will be generated.
+
+:solar_gain_cal: The location of a processed Solar Gain Calibration object. If this files does not exist it will be generated.
+
+:geometric_cal: The location of a processed Geometric Calibration object. If this file does not exist it will be generated.
+
+:ifu_cal: The location of a processed IFU Calibration object. If this file does not exist it will be generated.
+
+:cube_shape: **(tuple)** The (x, y) spatial pixel size of the final IFU cube.
+
+:*threads*: **(int)** The number of separate processes to spawn when reducing the raw science data.
+
+:*remove_TM*: **(bool)** If True, remove the DKIST telescope Mueller matrix (M1 - M6)
+
+:*include_M12*: **(bool)** If False, do NOT include M12 in the telescope Mueller matrix
+
+:*remove_parallactic*: **(bool)** If False, do NOT apply a correction to bring data in to common DKIST reference frame.
+
+:*telescope_db*: The location of a file containing DKIST mirror parameters as a function of wavelength and time. If not provided the PA&C default will be used (recommended).
+
+:*tmp_dir*: Directory to use for intermediate, temporary files. If not specified it will default to wherever the Level-1 Science Products are saved (see ``output_prefix``).
+
+DarkCalibration
+---------------
+This section will only be used if the file specified by ``Main.dark_cal`` does not exist.
+
+:raw_dark_dir: The location of a directory containing raw dark frames. If ``dark_cal`` does not exist then this
+    directory must contain dark frames or an error will be thrown.
+
+InstrumentPolarimetricCalibration
+---------------------------------
+These options essentially define a separate DL-NIRSP reduction; the reduction of a polarimetric Calibration Sequence (CS).
+The software will automatically decide the names for the output prefix and Calibration Objects. These will all be saved
+to ``raw_pol_dir``/proc.
+
+:raw_pol_dir: Path to a directory containing the raw DL-NIRSP files for a CS
+
+:raw_dark_dir: Path to the raw dark files associated with the CS
+
+:*threads*: **(int)** The number of separate processes to use when reducing the CS data
+
+LampGainCalibration
+-------------------
+This section will only be used if the file specified by ``Main.lamp_gain_cal`` does not exist.
+
+:raw_lamp_gain: The location of a directory containing raw dark frames. If ``lamp_gain_cal`` does not exist then this
+    directory must contain lamp gain frames or an error will be thrown.
+
+SolarGainCalibration
+--------------------
+This section will only be used if the file specified by ``Main.solar_gain_cal`` does not exist.
+
+:raw_solar_gain: The location of a directory containing raw dark frames. If ``solar_gain_cal`` does not exist then this
+    directory must contain solar gain frames or an error will be thrown.
+
+IFUCalibration
+--------------
+This section will only be used if the file specified by ``Main.ifu_cal`` does not exist.
+
+:raw_knife_dir: The location of a directory containing raw frames of 2 knife-edge scan runs; one for each detector
+    dimension.
+
+:*threads*: **(int)** The number of separate processes to use when reducing the knife data
+
+Example Config File
+-------------------
+
+.. code-block:: ini
+
+  [Main]
+  raw_sci_dir = ../raw_0.5.0_cam3
+  dataset_id =
+  output_prefix = Sci
+  dark_cal = DarkCal
+  instrument_pol_cal = InstPolCal
+  lamp_gain_cal = LampCal.fits
+  solar_gain_cal = SolarCal
+  geometric_cal = GeoCal
+  ifu_cal = IFUCal
+  cube_shape = (200, 200)
+  threads = 4
+  remove_TM = True
+  include_M12 = True
+  remove_parallactic = False
+
+  [DarkCalibration]
+  raw_dark_dir = ../raw_0.5.0_cam3
+
+  [InstrumentPolarization]
+  raw_pol_dir = ../raw_0.5.0_cam3/polcal
+  raw_pol_dark_dir = ../raw_0.5.0_cam3
+  threads = 4
+
+  [LampGainCalibration]
+  raw_lamp_gain_dir = ../raw_0.5.0_cam3
+
+  [SolarGainCalibration]
+  raw_solar_gain_dir = ../raw_0.5.0_cam3
+
+  [IFUCalibration]
+  raw_knife_dir = ../raw_0.5.0_cam2/raw_knife
+  threads = 4

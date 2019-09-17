@@ -1,0 +1,355 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Configuration File Format &#8212; DLNIRSP_Pipeline v0.6.0</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" type="text/css" />
+    <link rel="stylesheet" href="_static/dkist.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/favico.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Data Reduction Walkthrough" href="walkthrough.html" />
+    <link rel="prev" title="DL-NIRSP Pipeline Documentation" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="col-md-3 navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="http://nso.edu"><img src="_static/img/NSOlogo.gif">
+        </a>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav hidden">
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">DL-NIRSP Pipeline Documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="walkthrough.html">Data Reduction Walkthrough</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Configuration File Format</a><ul>
+<li><a class="reference internal" href="#main">Main</a></li>
+<li><a class="reference internal" href="#darkcalibration">DarkCalibration</a></li>
+<li><a class="reference internal" href="#instrumentpolarimetriccalibration">InstrumentPolarimetricCalibration</a></li>
+<li><a class="reference internal" href="#lampgaincalibration">LampGainCalibration</a></li>
+<li><a class="reference internal" href="#solargaincalibration">SolarGainCalibration</a></li>
+<li><a class="reference internal" href="#ifucalibration">IFUCalibration</a></li>
+<li><a class="reference internal" href="#example-config-file">Example Config File</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="index.html" title="Previous Chapter: DL-NIRSP Pipeline Documentation"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; DL-NIRSP Pipe...</span>
+    </a>
+  </li>
+  <li>
+    <a href="walkthrough.html" title="Next Chapter: Data Reduction Walkthrough"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Data Reductio... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+          
+            <ul class="nav navbar-nav navbar-left">
+              <li><a href="http://dkist.nso.edu/">DKIST</a></li>
+              <li><a href="http://docs.cadair.com/devdocs">DC Developer Guide</a></li>
+              <li><a href="http://docs.cadair.com/datarate">DKIST Data Rate</a></li>
+              <li><a href="http://docs.cadair.com/datamodel">DKIST Data Model</a></li>
+            </ul>
+          
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-3"><div id="side-logo" >
+            <a href="http://dkist.nso.edu">
+                <img src="_static/img/DKISTLogo-Medium.jpg">
+            </a>
+        </div><div id="sidebar" class="bs-sidenav" role="complementary">
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">DL-NIRSP Pipeline Documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration File Format</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#main">Main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#darkcalibration">DarkCalibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#instrumentpolarimetriccalibration">InstrumentPolarimetricCalibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lampgaincalibration">LampGainCalibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#solargaincalibration">SolarGainCalibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ifucalibration">IFUCalibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-config-file">Example Config File</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="walkthrough.html">Data Reduction Walkthrough</a></li>
+</ul>
+
+            
+        </div>
+    </div>
+
+    <div class="body col-md-9 content" role="main">
+      
+  <div class="section" id="configuration-file-format">
+<h1>Configuration File Format<a class="headerlink" href="#configuration-file-format" title="Permalink to this headline">¶</a></h1>
+<p>The DL-NIRSP Pipeline configuration file is in the standard INI format and contains the following sections and options. Any
+options in <em>italics</em> are optional.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is OK to put science and calibration data all into the same directory. The specific task (Dark, Gain, Observation,
+etc.) is determined from the <code class="xref py py-obj docutils literal notranslate"><span class="pre">DKIST004</span></code> header value.</p>
+</div>
+<div class="section" id="main">
+<h2>Main<a class="headerlink" href="#main" title="Permalink to this headline">¶</a></h2>
+<p>This section controls the top-level Science reduction. All of the *_cal options point to files that will not exist
+on the first run of the pipeline. Once these objects have been created a lot of time can be saved by reusing them for
+any other science runs that have the same setup. It is also possible to regenerate only a subset of the intermediate
+Calibration Objects by simply pointing the corresponding option to a file that doesn’t exist.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All of the *_cal objects can be specified with or without their file extensions</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">raw_sci_dir</dt>
+<dd class="field-odd"><p>Path to the directory containing raw ViSP frames to be reduced. Note that <em>all</em> slit positions found in
+this directory will be reduced. If you only want to reduce a subset of slit positions then move them into a separate
+folder or use the <code class="docutils literal notranslate"><span class="pre">slit_pos</span></code> option.</p>
+</dd>
+<dt class="field-even">data_set_id</dt>
+<dd class="field-even"><p>Only reduce files with this <code class="xref py py-obj docutils literal notranslate"><span class="pre">ID_004</span></code> header value. Can be left blank to reduce all files in <code class="docutils literal notranslate"><span class="pre">raw_sci_dir</span></code>.</p>
+</dd>
+<dt class="field-odd">output_prefix</dt>
+<dd class="field-odd"><p>The prefix to apply to all Level-1 science products. This string can also include a path structure.</p>
+</dd>
+<dt class="field-even">dark_cal</dt>
+<dd class="field-even"><p>The location of a processed Dark Calibration object. If this file does not exist it will be generated.</p>
+</dd>
+<dt class="field-odd">instrumen_pol_cal</dt>
+<dd class="field-odd"><p>The location of a processed Instrument Pol Calibration object. If this file does not exist it will be generated.</p>
+</dd>
+<dt class="field-even">lamp_gain_cal</dt>
+<dd class="field-even"><p>The location of a processed Lamp Gain Calibration object. If this file does not exist it will be generated.</p>
+</dd>
+<dt class="field-odd">solar_gain_cal</dt>
+<dd class="field-odd"><p>The location of a processed Solar Gain Calibration object. If this files does not exist it will be generated.</p>
+</dd>
+<dt class="field-even">geometric_cal</dt>
+<dd class="field-even"><p>The location of a processed Geometric Calibration object. If this file does not exist it will be generated.</p>
+</dd>
+<dt class="field-odd">ifu_cal</dt>
+<dd class="field-odd"><p>The location of a processed IFU Calibration object. If this file does not exist it will be generated.</p>
+</dd>
+<dt class="field-even">cube_shape</dt>
+<dd class="field-even"><p><strong>(tuple)</strong> The (x, y) spatial pixel size of the final IFU cube.</p>
+</dd>
+<dt class="field-odd"><em>threads</em></dt>
+<dd class="field-odd"><p><strong>(int)</strong> The number of separate processes to spawn when reducing the raw science data.</p>
+</dd>
+<dt class="field-even"><em>remove_TM</em></dt>
+<dd class="field-even"><p><strong>(bool)</strong> If True, remove the DKIST telescope Mueller matrix (M1 - M6)</p>
+</dd>
+<dt class="field-odd"><em>include_M12</em></dt>
+<dd class="field-odd"><p><strong>(bool)</strong> If False, do NOT include M12 in the telescope Mueller matrix</p>
+</dd>
+<dt class="field-even"><em>remove_parallactic</em></dt>
+<dd class="field-even"><p><strong>(bool)</strong> If False, do NOT apply a correction to bring data in to common DKIST reference frame.</p>
+</dd>
+<dt class="field-odd"><em>telescope_db</em></dt>
+<dd class="field-odd"><p>The location of a file containing DKIST mirror parameters as a function of wavelength and time. If not provided the PA&amp;C default will be used (recommended).</p>
+</dd>
+<dt class="field-even"><em>tmp_dir</em></dt>
+<dd class="field-even"><p>Directory to use for intermediate, temporary files. If not specified it will default to wherever the Level-1 Science Products are saved (see <code class="docutils literal notranslate"><span class="pre">output_prefix</span></code>).</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="darkcalibration">
+<h2>DarkCalibration<a class="headerlink" href="#darkcalibration" title="Permalink to this headline">¶</a></h2>
+<p>This section will only be used if the file specified by <code class="docutils literal notranslate"><span class="pre">Main.dark_cal</span></code> does not exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">raw_dark_dir</dt>
+<dd class="field-odd"><p>The location of a directory containing raw dark frames. If <code class="docutils literal notranslate"><span class="pre">dark_cal</span></code> does not exist then this
+directory must contain dark frames or an error will be thrown.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="instrumentpolarimetriccalibration">
+<h2>InstrumentPolarimetricCalibration<a class="headerlink" href="#instrumentpolarimetriccalibration" title="Permalink to this headline">¶</a></h2>
+<p>These options essentially define a separate DL-NIRSP reduction; the reduction of a polarimetric Calibration Sequence (CS).
+The software will automatically decide the names for the output prefix and Calibration Objects. These will all be saved
+to <code class="docutils literal notranslate"><span class="pre">raw_pol_dir</span></code>/proc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">raw_pol_dir</dt>
+<dd class="field-odd"><p>Path to a directory containing the raw DL-NIRSP files for a CS</p>
+</dd>
+<dt class="field-even">raw_dark_dir</dt>
+<dd class="field-even"><p>Path to the raw dark files associated with the CS</p>
+</dd>
+<dt class="field-odd"><em>threads</em></dt>
+<dd class="field-odd"><p><strong>(int)</strong> The number of separate processes to use when reducing the CS data</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="lampgaincalibration">
+<h2>LampGainCalibration<a class="headerlink" href="#lampgaincalibration" title="Permalink to this headline">¶</a></h2>
+<p>This section will only be used if the file specified by <code class="docutils literal notranslate"><span class="pre">Main.lamp_gain_cal</span></code> does not exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">raw_lamp_gain</dt>
+<dd class="field-odd"><p>The location of a directory containing raw dark frames. If <code class="docutils literal notranslate"><span class="pre">lamp_gain_cal</span></code> does not exist then this
+directory must contain lamp gain frames or an error will be thrown.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="solargaincalibration">
+<h2>SolarGainCalibration<a class="headerlink" href="#solargaincalibration" title="Permalink to this headline">¶</a></h2>
+<p>This section will only be used if the file specified by <code class="docutils literal notranslate"><span class="pre">Main.solar_gain_cal</span></code> does not exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">raw_solar_gain</dt>
+<dd class="field-odd"><p>The location of a directory containing raw dark frames. If <code class="docutils literal notranslate"><span class="pre">solar_gain_cal</span></code> does not exist then this
+directory must contain solar gain frames or an error will be thrown.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="ifucalibration">
+<h2>IFUCalibration<a class="headerlink" href="#ifucalibration" title="Permalink to this headline">¶</a></h2>
+<p>This section will only be used if the file specified by <code class="docutils literal notranslate"><span class="pre">Main.ifu_cal</span></code> does not exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">raw_knife_dir</dt>
+<dd class="field-odd"><p>The location of a directory containing raw frames of 2 knife-edge scan runs; one for each detector
+dimension.</p>
+</dd>
+<dt class="field-even"><em>threads</em></dt>
+<dd class="field-even"><p><strong>(int)</strong> The number of separate processes to use when reducing the knife data</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="example-config-file">
+<h2>Example Config File<a class="headerlink" href="#example-config-file" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Main]</span>
+<span class="na">raw_sci_dir</span> <span class="o">=</span> <span class="s">../raw_0.5.0_cam3</span>
+<span class="na">dataset_id</span> <span class="o">=</span>
+<span class="na">output_prefix</span> <span class="o">=</span> <span class="s">Sci</span>
+<span class="na">dark_cal</span> <span class="o">=</span> <span class="s">DarkCal</span>
+<span class="na">instrument_pol_cal</span> <span class="o">=</span> <span class="s">InstPolCal</span>
+<span class="na">lamp_gain_cal</span> <span class="o">=</span> <span class="s">LampCal.fits</span>
+<span class="na">solar_gain_cal</span> <span class="o">=</span> <span class="s">SolarCal</span>
+<span class="na">geometric_cal</span> <span class="o">=</span> <span class="s">GeoCal</span>
+<span class="na">ifu_cal</span> <span class="o">=</span> <span class="s">IFUCal</span>
+<span class="na">cube_shape</span> <span class="o">=</span> <span class="s">(200, 200)</span>
+<span class="na">threads</span> <span class="o">=</span> <span class="s">4</span>
+<span class="na">remove_TM</span> <span class="o">=</span> <span class="s">True</span>
+<span class="na">include_M12</span> <span class="o">=</span> <span class="s">True</span>
+<span class="na">remove_parallactic</span> <span class="o">=</span> <span class="s">False</span>
+
+<span class="k">[DarkCalibration]</span>
+<span class="na">raw_dark_dir</span> <span class="o">=</span> <span class="s">../raw_0.5.0_cam3</span>
+
+<span class="k">[InstrumentPolarization]</span>
+<span class="na">raw_pol_dir</span> <span class="o">=</span> <span class="s">../raw_0.5.0_cam3/polcal</span>
+<span class="na">raw_pol_dark_dir</span> <span class="o">=</span> <span class="s">../raw_0.5.0_cam3</span>
+<span class="na">threads</span> <span class="o">=</span> <span class="s">4</span>
+
+<span class="k">[LampGainCalibration]</span>
+<span class="na">raw_lamp_gain_dir</span> <span class="o">=</span> <span class="s">../raw_0.5.0_cam3</span>
+
+<span class="k">[SolarGainCalibration]</span>
+<span class="na">raw_solar_gain_dir</span> <span class="o">=</span> <span class="s">../raw_0.5.0_cam3</span>
+
+<span class="k">[IFUCalibration]</span>
+<span class="na">raw_knife_dir</span> <span class="o">=</span> <span class="s">../raw_0.5.0_cam2/raw_knife</span>
+<span class="na">threads</span> <span class="o">=</span> <span class="s">4</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <div class="left-footer">
+         &copy; 2019, Arthur Eigenbrot
+       <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
+    </div>
+   
+    <div class="right-footer">
+      Last updated on 17 Sep 2019.
+    </div>
+    <div class="centre-footer">
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

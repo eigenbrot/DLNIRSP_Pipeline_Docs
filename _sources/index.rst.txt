@@ -1,0 +1,41 @@
+DL-NIRSP Pipeline Documentation
+===============================
+
+This package provides a pipeline that produces Level-1.5 Science Data for the DL-NIRSP instrument on DKIST.
+
+Installation
+------------
+This package requires the presence of the `PA&C Modules <https://bitbucket.org/dkistdc/pac-pipeline/src/master/>`_
+package, which will need to be installed manually. The rest can be handled by pip:
+
+.. code-block:: console
+
+  $ pip install git+ssh://git@bitbucket.org:dkistdc/dlnirsp-science-pipeline.git
+
+Usage
+-----
+In its current
+form the pipeline is a stand-alone program that relies on a user-editable configuration file. This file can be generated
+with:
+
+.. code-block:: console
+
+  $ dl_pipeline -b config.ini
+
+The file ``config.ini`` is editable with any standard editor. Once this file has been correctly populated the data can
+be reduced with
+
+.. code-block:: console
+
+  $ dl_pipeline config.ini
+
+More information on the format/options of the configuration file can be found in the :doc:`config_file`.
+
+.. toctree::
+  :maxdepth: 2
+  :glob:
+  :hidden:
+
+  self
+  config_file
+  walkthrough
