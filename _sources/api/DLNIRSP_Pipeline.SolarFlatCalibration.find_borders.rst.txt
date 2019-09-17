@@ -1,0 +1,6 @@
+find_borders
+============
+
+.. currentmodule:: DLNIRSP_Pipeline.SolarFlatCalibration
+
+.. autofunction:: find_borders

@@ -1,0 +1,6 @@
+find_positions
+==============
+
+.. currentmodule:: DLNIRSP_Pipeline.IFUCalibration
+
+.. autofunction:: find_positions

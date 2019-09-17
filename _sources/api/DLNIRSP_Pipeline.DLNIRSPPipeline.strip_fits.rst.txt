@@ -1,0 +1,6 @@
+strip_fits
+==========
+
+.. currentmodule:: DLNIRSP_Pipeline.DLNIRSPPipeline
+
+.. autofunction:: strip_fits

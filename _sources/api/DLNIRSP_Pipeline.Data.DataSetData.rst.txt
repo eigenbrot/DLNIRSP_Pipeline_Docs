@@ -1,0 +1,31 @@
+DataSetData
+===========
+
+.. currentmodule:: DLNIRSP_Pipeline.Data
+
+.. autoclass:: DataSetData
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~DataSetData.MRN_list
+      ~DataSetData.num_MRN
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~DataSetData.get_MR_data
+      ~DataSetData.read_directory
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: MRN_list
+   .. autoattribute:: num_MRN
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: get_MR_data
+   .. automethod:: read_directory

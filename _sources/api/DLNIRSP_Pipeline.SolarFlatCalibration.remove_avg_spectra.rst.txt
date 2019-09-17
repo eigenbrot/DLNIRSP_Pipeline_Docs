@@ -1,0 +1,6 @@
+remove_avg_spectra
+==================
+
+.. currentmodule:: DLNIRSP_Pipeline.SolarFlatCalibration
+
+.. autofunction:: remove_avg_spectra

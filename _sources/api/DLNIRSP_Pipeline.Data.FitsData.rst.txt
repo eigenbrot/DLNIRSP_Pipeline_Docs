@@ -1,0 +1,43 @@
+FitsData
+========
+
+.. currentmodule:: DLNIRSP_Pipeline.Data
+
+.. autoclass:: FitsData
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~FitsData.data
+      ~FitsData.hdulist
+      ~FitsData.headers
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~FitsData.delete_data
+      ~FitsData.find_data_keyword_idx
+      ~FitsData.flush
+      ~FitsData.init_with_ndarray
+      ~FitsData.load_from_directory
+      ~FitsData.load_from_file
+      ~FitsData.write_out
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: data
+   .. autoattribute:: hdulist
+   .. autoattribute:: headers
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: delete_data
+   .. automethod:: find_data_keyword_idx
+   .. automethod:: flush
+   .. automethod:: init_with_ndarray
+   .. automethod:: load_from_directory
+   .. automethod:: load_from_file
+   .. automethod:: write_out

@@ -1,0 +1,6 @@
+quick_script
+============
+
+.. currentmodule:: DLNIRSP_Pipeline.SolarFlatCalibration
+
+.. autofunction:: quick_script

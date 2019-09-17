@@ -1,0 +1,6 @@
+correct_rotation
+================
+
+.. currentmodule:: DLNIRSP_Pipeline.SolarFlatCalibration
+
+.. autofunction:: correct_rotation

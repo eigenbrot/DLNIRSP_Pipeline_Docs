@@ -1,0 +1,6 @@
+run_PAC_CUpar
+=============
+
+.. currentmodule:: DLNIRSP_Pipeline.InstrumentPolarizationCalibration
+
+.. autofunction:: run_PAC_CUpar

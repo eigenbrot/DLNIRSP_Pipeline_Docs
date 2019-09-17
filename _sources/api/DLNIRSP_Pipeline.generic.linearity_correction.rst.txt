@@ -1,0 +1,6 @@
+linearity_correction
+====================
+
+.. currentmodule:: DLNIRSP_Pipeline.generic
+
+.. autofunction:: linearity_correction

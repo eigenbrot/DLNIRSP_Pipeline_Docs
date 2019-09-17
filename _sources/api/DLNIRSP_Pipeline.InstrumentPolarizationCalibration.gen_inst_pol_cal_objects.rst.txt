@@ -1,0 +1,6 @@
+gen_inst_pol_cal_objects
+========================
+
+.. currentmodule:: DLNIRSP_Pipeline.InstrumentPolarizationCalibration
+
+.. autofunction:: gen_inst_pol_cal_objects

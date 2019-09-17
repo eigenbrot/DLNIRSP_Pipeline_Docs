@@ -1,0 +1,6 @@
+find_beam_offset
+================
+
+.. currentmodule:: DLNIRSP_Pipeline.SolarFlatCalibration
+
+.. autofunction:: find_beam_offset

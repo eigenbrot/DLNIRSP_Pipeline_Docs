@@ -1,0 +1,6 @@
+compute_average_spectrum
+========================
+
+.. currentmodule:: DLNIRSP_Pipeline.SolarFlatCalibration
+
+.. autofunction:: compute_average_spectrum

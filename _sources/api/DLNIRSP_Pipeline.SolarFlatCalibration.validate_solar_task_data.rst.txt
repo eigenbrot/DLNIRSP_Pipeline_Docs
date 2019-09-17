@@ -1,0 +1,6 @@
+validate_solar_task_data
+========================
+
+.. currentmodule:: DLNIRSP_Pipeline.SolarFlatCalibration
+
+.. autofunction:: validate_solar_task_data

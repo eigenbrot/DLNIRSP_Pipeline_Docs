@@ -1,0 +1,1279 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>DLNIRSP_Pipeline.SolarFlatCalibration &#8212; DLNIRSP_Pipeline v0.6.0</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" type="text/css" />
+    <link rel="stylesheet" href="../../_static/dkist.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../../_static/favico.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="col-md-3 navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="http://nso.edu"><img src="../../_static/img/NSOlogo.gif">
+        </a>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav hidden">
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">DL-NIRSP Pipeline Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../config_file.html">Configuration File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../walkthrough.html">Data Reduction Walkthrough</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../API.html">Reference/API</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+          </ul>
+          
+            <ul class="nav navbar-nav navbar-left">
+              <li><a href="http://dkist.nso.edu/">DKIST</a></li>
+              <li><a href="http://docs.cadair.com/devdocs">DC Developer Guide</a></li>
+              <li><a href="http://docs.cadair.com/datarate">DKIST Data Rate</a></li>
+              <li><a href="http://docs.cadair.com/datamodel">DKIST Data Model</a></li>
+            </ul>
+          
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-3"><div id="side-logo" >
+            <a href="http://dkist.nso.edu">
+                <img src="../../_static/img/DKISTLogo-Medium.jpg">
+            </a>
+        </div><div id="sidebar" class="bs-sidenav" role="complementary">
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">DL-NIRSP Pipeline Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../config_file.html">Configuration File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../walkthrough.html">Data Reduction Walkthrough</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../API.html">Reference/API</a></li>
+</ul>
+
+            
+        </div>
+    </div>
+
+    <div class="body col-md-9 content" role="main">
+      
+  <h1>Source code for DLNIRSP_Pipeline.SolarFlatCalibration</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">asdf</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">skimage.transform</span> <span class="k">as</span> <span class="nn">skit</span>
+<span class="kn">import</span> <span class="nn">skimage.filters</span> <span class="k">as</span> <span class="nn">skif</span>
+<span class="kn">import</span> <span class="nn">scipy.ndimage</span> <span class="k">as</span> <span class="nn">spnd</span>
+<span class="kn">import</span> <span class="nn">scipy.signal</span> <span class="k">as</span> <span class="nn">ss</span>
+<span class="kn">import</span> <span class="nn">peakutils</span> <span class="k">as</span> <span class="nn">pku</span>
+<span class="kn">from</span> <span class="nn">astropy.io</span> <span class="k">import</span> <span class="n">fits</span> <span class="k">as</span> <span class="n">pyfits</span>
+<span class="kn">from</span> <span class="nn">DLNIRSP_Pipeline</span> <span class="k">import</span> <span class="n">Data</span><span class="p">,</span> <span class="n">generic</span>
+<span class="kn">from</span> <span class="nn">DLNIRSP_Pipeline.tag</span> <span class="k">import</span> <span class="n">tag</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">matplotlib</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+    <span class="n">matplotlib</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;classic&#39;</span><span class="p">)</span>
+    <span class="n">MPLT</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="n">ModuleNotFoundError</span><span class="p">:</span>
+    <span class="n">MPLT</span> <span class="o">=</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.SolarFlatCalibration.main.html#DLNIRSP_Pipeline.SolarFlatCalibration.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">solar_dir</span><span class="p">,</span> <span class="n">outpre</span><span class="p">,</span> <span class="n">geo_out</span><span class="p">,</span> <span class="n">dark_cal</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dark_cal_sig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">instrument_pol_cal</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_no_pol</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+         <span class="n">lamp_cal</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lamp_cal_sig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mask_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">telescope_db</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remove_TM</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+         <span class="n">include_M12</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">remove_parallactic</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Run a set of raw Solar gain images through the SolarFlatCalibration pipeline.</span>
+
+<span class="sd">    If the associated Calibration objects are provided then the raw data will be dark corrected and have the lamp</span>
+<span class="sd">    gain removed prior to further analysis. These steps are not strictly required but are highly recommended.</span>
+
+<span class="sd">    The result of this pipeline is a Solar Gain Calibration object suitable for flattening the response of the DLNIRSP</span>
+<span class="sd">    detector. As a side effect a Geometric Calibration object is produced. This object is used to remove the</span>
+<span class="sd">    distorting effects of the DL optics from the data.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    solar_dir : str</span>
+<span class="sd">        Location of directory holding full set of Solar flat images. There can be other images in this directory too.</span>
+
+<span class="sd">    outpre : str</span>
+<span class="sd">        Prefix of the final SolarFlat object file.</span>
+
+<span class="sd">    geo_out : str</span>
+<span class="sd">        Filename to use when saving the Geometric Calibration object</span>
+
+<span class="sd">    dark_cal : `Data.FitsData`</span>
+<span class="sd">        Dark Calibration object</span>
+
+<span class="sd">    dark_cal_sig : `Data.FitsData`</span>
+<span class="sd">        Uncertainty associated with ``dark_cal``</span>
+
+<span class="sd">    instrument_pol_cal : `Data.DemodulationData`</span>
+<span class="sd">        Object containing demodulation matrices</span>
+
+<span class="sd">    allow_no_pol : bool</span>
+<span class="sd">        If True then let the script continue without ``instrument_pol_cal``</span>
+
+<span class="sd">    lamp_cal : `Data.FitsData`</span>
+<span class="sd">        Lamp Flat Calibration object</span>
+
+<span class="sd">    lamp_cal_sig : `Data.FitsData`</span>
+<span class="sd">        Uncertainty associated with ``lamp_cal``</span>
+
+<span class="sd">    mask_value : float</span>
+<span class="sd">        Constant with which to fill the non-data regions (default is NaN)</span>
+
+<span class="sd">    debug : bool</span>
+<span class="sd">        If True then a bunch of images are saved and interactive plots made. Probably stay away from this one.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    `Data.FitsData`</span>
+<span class="sd">        The Solar Flat Calibration object</span>
+
+<span class="sd">    `Data.FitsData`</span>
+<span class="sd">        Sigma associated with the Solar Flat Calibration object</span>
+
+<span class="sd">    `Data.FitsData`</span>
+<span class="sd">        The Geometric Calibration object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">solarData</span> <span class="o">=</span> <span class="n">Data</span><span class="o">.</span><span class="n">GainData</span><span class="p">(</span><span class="n">solar_dir</span><span class="p">,</span> <span class="n">dataset_ID</span><span class="o">=</span><span class="s1">&#39;solar gain&#39;</span><span class="p">)</span>
+
+    <span class="n">validate_solar_task_data</span><span class="p">(</span><span class="n">solarData</span><span class="p">)</span>
+
+    <span class="n">generic</span><span class="o">.</span><span class="n">linearity_correction</span><span class="p">(</span><span class="n">solarData</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">dark_cal</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">dark_cal_sig</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Dark Calibration specified without associated sigma object&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: doing Dark Correction&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+
+        <span class="c1">## This is a stop-gap until I hear from SJ about how to really handle uncertainty/sigma frames</span>
+        <span class="kn">from</span> <span class="nn">DLNIRSP_Pipeline.utils</span> <span class="k">import</span> <span class="n">gen_fake_data</span>
+        <span class="n">data_sig</span> <span class="o">=</span> <span class="n">gen_fake_data</span><span class="o">.</span><span class="n">get_fake_sig</span><span class="p">(</span><span class="n">solarData</span><span class="p">)</span>
+        <span class="c1">####</span>
+
+        <span class="n">generic</span><span class="o">.</span><span class="n">dark_correction</span><span class="p">(</span><span class="n">solarData</span><span class="p">,</span> <span class="n">dark_cal</span><span class="p">,</span> <span class="n">data_sig</span><span class="p">,</span> <span class="n">dark_cal_sig</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: averaging data&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+    <span class="n">avgData</span> <span class="o">=</span> <span class="n">generic</span><span class="o">.</span><span class="n">average_modulated_FitsData</span><span class="p">(</span><span class="n">solarData</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">instrument_pol_cal</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: applying polarization calibration&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+        <span class="n">stokesData</span> <span class="o">=</span> <span class="n">generic</span><span class="o">.</span><span class="n">polarization_correction</span><span class="p">(</span><span class="n">avgData</span><span class="p">,</span> <span class="n">instrument_pol_cal</span><span class="p">,</span>
+                                                     <span class="n">remove_TM</span><span class="o">=</span><span class="n">remove_TM</span><span class="p">,</span> <span class="n">telescope_db</span><span class="o">=</span><span class="n">telescope_db</span><span class="p">,</span>
+                                                     <span class="n">include_M12</span><span class="o">=</span><span class="n">include_M12</span><span class="p">,</span> <span class="n">remove_parallactic</span><span class="o">=</span><span class="n">remove_parallactic</span><span class="p">)</span>
+
+        <span class="c1"># A true demodulation matrix should already have a binary mask applied (see</span>
+        <span class="c1"># InstrumentPolarizationCalibration.generate_instrument_pol_calibration) and those nan values can actually</span>
+        <span class="c1"># mess up make_binary().</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">stokesData</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">/</span> <span class="n">stokesData</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mf">0.05</span><span class="p">:</span>
+            <span class="c1"># Thus, if a mask is detected (via the presence of nan values) then we can just infer it directly from the</span>
+            <span class="c1"># demodulated data.</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: inferring binary mask from </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="n">instrument_pol_cal</span><span class="p">))</span>
+            <span class="n">I_binary</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">stokesData</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+            <span class="n">binary_needed</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+                <span class="n">pyfits</span><span class="o">.</span><span class="n">ImageHDU</span><span class="p">(</span><span class="n">I_binary</span><span class="p">)</span><span class="o">.</span><span class="n">writeto</span><span class="p">(</span><span class="s1">&#39;binary.fits&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># In some edge cases (mostly related to testing) the InstPolCal might not have a mask applied. In this case</span>
+            <span class="c1"># we&#39;ll need to construct one from the Solar Flat images.</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: InstPolCal </span><span class="si">{}</span><span class="s1"> does not appear to contain a binary mask&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="n">instrument_pol_cal</span><span class="p">))</span>
+            <span class="n">binary_needed</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">elif</span> <span class="n">allow_no_pol</span><span class="p">:</span>
+        <span class="n">stokesData</span> <span class="o">=</span> <span class="n">avgData</span>
+        <span class="n">binary_needed</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># And of course, if we didn&#39;t use an InstPolCal then we&#39;ll need to make a mask</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No Instrument Polarization Calibration provided! If you really want to do this use `allow_no_pol`&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+        <span class="n">stokesData</span><span class="o">.</span><span class="n">write_out</span><span class="p">(</span><span class="s1">&#39;solar_stokes.fits&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">binary_needed</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: making binary mask&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+        <span class="n">I_binary</span> <span class="o">=</span> <span class="n">make_binary</span><span class="p">(</span><span class="n">stokesData</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">numotsu</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="n">debug</span><span class="p">)</span> <span class="c1"># We make the binary image now because the</span>
+                                                                           <span class="c1">#  lamp correction can introduce values that</span>
+                                                                           <span class="c1">#  mess up Otsu</span>
+
+    <span class="k">if</span> <span class="n">lamp_cal</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">lamp_cal_sig</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;LampGain Calibration specified without associated sigma object&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: doing Lamp Gain Correction&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+
+        <span class="c1">## This is a stop-gap until I hear from SJ about how to really handle uncertainty/sigma frames</span>
+        <span class="kn">from</span> <span class="nn">DLNIRSP_Pipeline.utils</span> <span class="k">import</span> <span class="n">gen_fake_data</span>
+        <span class="n">data_sig</span> <span class="o">=</span> <span class="n">gen_fake_data</span><span class="o">.</span><span class="n">get_fake_sig</span><span class="p">(</span><span class="n">solarData</span><span class="p">)</span>
+        <span class="c1">####</span>
+        <span class="n">generic</span><span class="o">.</span><span class="n">demodulated_gain_correction</span><span class="p">(</span><span class="n">stokesData</span><span class="p">,</span> <span class="n">lamp_cal</span><span class="p">,</span> <span class="n">data_sig</span><span class="p">,</span> <span class="n">lamp_cal_sig</span><span class="p">)</span>
+
+    <span class="n">I_data</span> <span class="o">=</span> <span class="n">stokesData</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">I_data</span><span class="p">[</span><span class="n">I_binary</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="n">spatsize</span> <span class="o">=</span> <span class="n">I_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: Measuring distortions and computing average spectrum in Stokes I&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+    <span class="c1"># A &quot;slitbeam&quot; is a single beam from a single slit. There are 10 of them for DL-NIRSP</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: computing camera rotation angle&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+    <span class="n">cam_angle</span> <span class="o">=</span> <span class="n">find_camera_rotation</span><span class="p">(</span><span class="n">I_binary</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="n">debug</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: extracting all slits/beams&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+    <span class="n">slitbeam_list</span><span class="p">,</span> <span class="n">slitbeam_list_binary</span><span class="p">,</span> <span class="n">borders</span> <span class="o">=</span> <span class="n">extract_slitbeams</span><span class="p">(</span><span class="n">I_data</span><span class="p">,</span> <span class="n">I_binary</span><span class="p">,</span> <span class="n">cam_angle</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="n">debug</span><span class="p">)</span> <span class="c1"># [sb1, sb2, sb3,...]</span>
+                                                                                                  <span class="c1">#  where sbi is the ith slitbeam</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">slitbeam_list</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Extracted an odd number of slitbeams. This cannot be correct!&#39;</span><span class="p">)</span>
+    <span class="n">numslits</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">slitbeam_list</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="n">final_slit_masks</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">final_offsets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="n">numslits</span><span class="p">))</span>
+    <span class="n">final_shifts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">spatsize</span><span class="p">,</span> <span class="n">numslits</span><span class="p">))</span>
+    <span class="n">avg_slitbeam_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">binary_slitbeam_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numslits</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: working on slit </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="n">s</span><span class="p">))</span>
+        <span class="c1"># A &quot;slit&quot; is one DL slit, with both beams combined into a single array. DL has 4 slits.</span>
+        <span class="n">slitbeam</span> <span class="o">=</span> <span class="n">slitbeam_list</span><span class="p">[</span><span class="n">s</span><span class="o">*</span><span class="mi">2</span><span class="p">:</span><span class="n">s</span><span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span> <span class="c1"># [slit_s_beam1, slit_s_beam2]</span>
+        <span class="n">slitbeam_binary</span> <span class="o">=</span> <span class="n">slitbeam_list_binary</span><span class="p">[</span><span class="n">s</span><span class="o">*</span><span class="mi">2</span><span class="p">:</span><span class="n">s</span><span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: computing beam offset&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+        <span class="n">beam_offset</span><span class="p">,</span> <span class="n">mask1</span><span class="p">,</span> <span class="n">mask2</span> <span class="o">=</span> <span class="n">find_beam_offset</span><span class="p">(</span><span class="n">slitbeam</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">slitbeam</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                                                     <span class="n">slitbeam_binary</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">slitbeam_binary</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">debug</span><span class="o">=</span><span class="n">debug</span><span class="p">)</span> <span class="c1"># (2)</span>
+        <span class="n">final_slit_masks</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">mask1</span><span class="p">,</span> <span class="n">mask2</span><span class="p">])</span>
+        <span class="n">final_offsets</span><span class="p">[:,</span> <span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">beam_offset</span>
+
+        <span class="c1">#TODO: break this out into generic. We&#39;ll need it for combining science beams</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: combining beams&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+        <span class="n">slit</span> <span class="o">=</span> <span class="n">extract_perfect_slit</span><span class="p">(</span><span class="n">slitbeam</span><span class="p">,</span> <span class="n">beam_offset</span><span class="p">,</span> <span class="n">mask1</span><span class="p">,</span> <span class="n">mask2</span><span class="p">)</span> <span class="c1"># (x, y)</span>
+        <span class="n">slit_binary</span> <span class="o">=</span> <span class="n">extract_perfect_slit</span><span class="p">(</span><span class="n">slitbeam_binary</span><span class="p">,</span> <span class="n">beam_offset</span><span class="p">,</span> <span class="n">mask1</span><span class="p">,</span> <span class="n">mask2</span><span class="p">)</span>
+        <span class="n">slit_binary</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">slit_binary</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span> <span class="c1"># Needed to mask out pixels with mask in only one beam</span>
+        <span class="n">slit</span><span class="p">[</span><span class="n">slit_binary</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: measuring spectral shifts&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+        <span class="n">spec_shifts</span> <span class="o">=</span> <span class="n">find_spec_geometry</span><span class="p">(</span><span class="n">slit</span><span class="p">,</span> <span class="n">slit_binary</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="n">debug</span><span class="p">)</span> <span class="c1"># (y)</span>
+        <span class="n">final_shifts</span><span class="p">[:,</span> <span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">spec_shifts</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: removing spectral shifts&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+        <span class="c1"># We do this medianing outside the interpolating function (remove_spec...) because we need it to be general for</span>
+        <span class="c1">#  use on both the data and the binary imaget.</span>
+        <span class="c1">#TODO: Make this not true</span>
+        <span class="n">slit</span><span class="p">[</span><span class="n">slit_binary</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">slit</span><span class="p">)</span>
+        <span class="n">perfect_slit</span> <span class="o">=</span> <span class="n">remove_spec_geometry</span><span class="p">(</span><span class="n">slit</span><span class="p">,</span> <span class="n">spec_shifts</span><span class="p">)</span> <span class="c1"># (x, y)</span>
+        <span class="n">slit</span><span class="p">[</span><span class="n">slit_binary</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="n">perfect_binary</span> <span class="o">=</span> <span class="n">remove_spec_geometry</span><span class="p">(</span><span class="n">slit_binary</span><span class="p">,</span> <span class="n">spec_shifts</span><span class="p">)</span>
+        <span class="n">perfect_binary</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">perfect_binary</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: generating average spectra&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+        <span class="n">avg_spec_1d</span> <span class="o">=</span> <span class="n">compute_average_spectrum</span><span class="p">(</span><span class="n">perfect_slit</span><span class="p">,</span> <span class="n">perfect_binary</span><span class="p">)</span> <span class="c1"># (x)</span>
+        <span class="n">avg_slitbeam</span> <span class="o">=</span> <span class="n">generate_avg_slitbeam</span><span class="p">(</span><span class="n">avg_spec_1d</span><span class="p">,</span> <span class="n">spec_shifts</span><span class="p">,</span> <span class="n">beam_offset</span><span class="p">,</span> <span class="n">mask1</span><span class="p">,</span> <span class="n">mask2</span><span class="p">,</span> <span class="n">slit</span><span class="p">,</span> <span class="n">slit_binary</span><span class="p">)</span>
+                                             <span class="c1"># (~2x, y)</span>
+        <span class="n">avg_slitbeam_list</span> <span class="o">+=</span> <span class="n">avg_slitbeam</span>
+        <span class="n">binary_slitbeam_list</span> <span class="o">+=</span> <span class="n">slitbeam_binary</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: restacking slits&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+    <span class="n">avg_spectra</span> <span class="o">=</span> <span class="n">correct_rotation</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">avg_slitbeam_list</span><span class="p">),</span> <span class="o">-</span><span class="n">cam_angle</span><span class="p">)</span> <span class="c1"># (~10x, y)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: computing final bad pixel mask&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+    <span class="n">avg_binary</span> <span class="o">=</span> <span class="n">correct_rotation</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">binary_slitbeam_list</span><span class="p">),</span> <span class="o">-</span><span class="n">cam_angle</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+        <span class="n">pyfits</span><span class="o">.</span><span class="n">HDUList</span><span class="p">([</span><span class="n">pyfits</span><span class="o">.</span><span class="n">PrimaryHDU</span><span class="p">()]</span> <span class="o">+</span> <span class="p">[</span><span class="n">pyfits</span><span class="o">.</span><span class="n">ImageHDU</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">avg_slitbeam_list</span><span class="p">])</span><span class="o">.</span>\
+            <span class="n">writeto</span><span class="p">(</span><span class="s1">&#39;avg_slices.fits&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">pyfits</span><span class="o">.</span><span class="n">HDUList</span><span class="p">([</span><span class="n">pyfits</span><span class="o">.</span><span class="n">PrimaryHDU</span><span class="p">(</span><span class="n">avg_spectra</span><span class="p">),</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">ImageHDU</span><span class="p">(</span><span class="n">avg_binary</span><span class="p">)])</span><span class="o">.</span><span class="n">writeto</span><span class="p">(</span><span class="s1">&#39;avgs.fits&#39;</span><span class="p">,</span>
+                                                                                              <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: removing average solar spectrum&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+    <span class="n">remove_avg_spectra</span><span class="p">(</span><span class="n">stokesData</span><span class="p">,</span> <span class="n">avg_spectra</span><span class="p">,</span> <span class="n">avg_binary</span><span class="p">,</span> <span class="n">mask_value</span><span class="p">)</span>
+
+    <span class="c1"># Stop-gap for now</span>
+    <span class="n">sigData</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">stokesData</span><span class="p">)</span>
+    <span class="n">sigData</span><span class="o">.</span><span class="n">is_tmp</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">sigData</span><span class="o">.</span><span class="n">data_hdus</span><span class="p">:</span>
+        <span class="n">h</span><span class="o">.</span><span class="n">data</span> <span class="o">*=</span> <span class="mf">0.</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: generating Solar Gain Calibration&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+    <span class="n">solar_gain_calibration</span><span class="p">,</span> <span class="n">solar_gain_calibration_sigma</span> <span class="o">=</span> <span class="n">generate_solar_gain_calibration</span><span class="p">(</span><span class="n">stokesData</span><span class="p">,</span> <span class="n">sigData</span><span class="p">,</span> <span class="n">outpre</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: aligning spectral dimension (badly)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+    <span class="n">align_masks</span><span class="p">(</span><span class="n">final_slit_masks</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: generating Geometric Calibration&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+    <span class="n">geometric_calibration</span> <span class="o">=</span> <span class="n">generate_geometric_calibration</span><span class="p">(</span><span class="n">cam_angle</span><span class="p">,</span> <span class="n">borders</span><span class="p">,</span> <span class="n">final_slit_masks</span><span class="p">,</span> <span class="n">final_offsets</span><span class="p">,</span>
+                                                           <span class="n">final_shifts</span><span class="p">,</span> <span class="n">geo_out</span><span class="p">,</span> <span class="n">avgData</span><span class="o">.</span><span class="n">data_hdus</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">solar_gain_calibration</span><span class="p">,</span> <span class="n">solar_gain_calibration_sigma</span><span class="p">,</span> <span class="n">geometric_calibration</span></div>
+
+<div class="viewcode-block" id="validate_solar_task_data"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.SolarFlatCalibration.validate_solar_task_data.html#DLNIRSP_Pipeline.SolarFlatCalibration.validate_solar_task_data">[docs]</a><span class="k">def</span> <span class="nf">validate_solar_task_data</span><span class="p">(</span><span class="n">fitsData</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="make_binary"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.SolarFlatCalibration.make_binary.html#DLNIRSP_Pipeline.SolarFlatCalibration.make_binary">[docs]</a><span class="k">def</span> <span class="nf">make_binary</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">numotsu</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generate a binary image from an input float or int array.</span>
+
+<span class="sd">    A threshold value is chosen via Otsu&#39;s method and all values below the threshold are set to 1 while everything</span>
+<span class="sd">    else is set to 0. Thus the result is technically an _inverse_ binary image, which is useful for isolating the</span>
+<span class="sd">    target grid as a feature of interest.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : numpy.ndarray</span>
+<span class="sd">        Data to convert to binary</span>
+
+<span class="sd">    numotsu : int</span>
+<span class="sd">        The number of times to perform thresholding using Otsu&#39;s method. Numbers larger than 1 are useful if the</span>
+<span class="sd">        pixel distribution of the data has &gt; 2 modes.</span>
+
+<span class="sd">    debug : bool</span>
+<span class="sd">        If True then the resulting binary image will be saved as &quot;binary.fits&quot; in the current directory.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray</span>
+<span class="sd">        An array of 1&#39;s and 0&#39;s corresponding to the thresholded input data.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">threshold</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numotsu</span><span class="p">):</span>
+        <span class="n">threshold</span> <span class="o">=</span> <span class="n">skif</span><span class="o">.</span><span class="n">threshold_otsu</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">data</span> <span class="o">&lt;</span> <span class="n">threshold</span><span class="p">])</span>
+
+    <span class="n">binary</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span> <span class="o">&lt;</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+        <span class="n">pyfits</span><span class="o">.</span><span class="n">ImageHDU</span><span class="p">(</span><span class="n">binary</span><span class="p">)</span><span class="o">.</span><span class="n">writeto</span><span class="p">(</span><span class="s1">&#39;binary.fits&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">binary</span></div>
+
+<div class="viewcode-block" id="do_hough"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.SolarFlatCalibration.do_hough.html#DLNIRSP_Pipeline.SolarFlatCalibration.do_hough">[docs]</a><span class="k">def</span> <span class="nf">do_hough</span><span class="p">(</span><span class="n">binary</span><span class="p">,</span> <span class="n">numtheta</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Perform a Hough line transform on in the input data.</span>
+
+<span class="sd">    Resolution in the angle dimension can be increased via numtheta.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    binary : numpy.ndarray</span>
+<span class="sd">        An integer array of 1&#39;s and 0&#39;s</span>
+
+<span class="sd">    numtheta : int</span>
+<span class="sd">        The number of samples in the theta dimension of the Hough transform.</span>
+
+<span class="sd">    debug : bool</span>
+<span class="sd">        If True a FITS file of the resulting Hough space will be written as &quot;hough.fits&quot;</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray</span>
+<span class="sd">        The 2D Hough space (i.e., accumulator) of the input image</span>
+
+<span class="sd">    numpy.ndarray</span>
+<span class="sd">        A 1D array of the angle values corresponding to the Hough accumulator. Angles will range from -pi/4 to 3/4 pi</span>
+<span class="sd">        and the length will be equal to numtheta.</span>
+
+<span class="sd">    numpy.ndarray</span>
+<span class="sd">        A 1D array of the distance values corresponding to the Hough accumulator. This array is entirely determined</span>
+<span class="sd">        by skimage.transform.hough_line</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hough</span> <span class="o">=</span> <span class="n">skit</span><span class="o">.</span><span class="n">hough_line</span><span class="p">(</span><span class="n">binary</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">0.75</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">numtheta</span><span class="p">))</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="n">hough</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">hough</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">rho</span> <span class="o">=</span> <span class="n">hough</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+        <span class="n">pyfits</span><span class="o">.</span><span class="n">PrimaryHDU</span><span class="p">(</span><span class="n">H</span><span class="p">)</span><span class="o">.</span><span class="n">writeto</span><span class="p">(</span><span class="s1">&#39;hough.fits&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">H</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">rho</span></div>
+
+<div class="viewcode-block" id="find_px_angles"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.SolarFlatCalibration.find_px_angles.html#DLNIRSP_Pipeline.SolarFlatCalibration.find_px_angles">[docs]</a><span class="k">def</span> <span class="nf">find_px_angles</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Find the most significant angles in a Hough transform.</span>
+
+<span class="sd">    Peaks in the Hough transform a first found with a simple max filter and then refined via interpolation of the</span>
+<span class="sd">    surrounding peak.</span>
+
+<span class="sd">    Note, peak angles are not allowed to be within pi/10 of each other.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    H : numpy.ndarray</span>
+<span class="sd">        A 2D array representing a Hough accumulator</span>
+
+<span class="sd">    theta : numpy.ndarray</span>
+<span class="sd">        A 1D array of the angle values corresponding to H</span>
+
+<span class="sd">    debug : bool</span>
+<span class="sd">        If True a plot showing the peak angles and interpolated values will be saved as &quot;peaks.png&quot; in the current</span>
+<span class="sd">        directory.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray</span>
+<span class="sd">        The most significant angels found</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">H</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+
+    <span class="c1"># This min distance does not consider any angles within pi/10 of each other</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">pku</span><span class="o">.</span><span class="n">indexes</span><span class="p">(</span><span class="n">rss</span><span class="p">,</span> <span class="n">min_dist</span><span class="o">=</span><span class="n">theta</span><span class="o">.</span><span class="n">size</span> <span class="o">/</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">peak_theta</span> <span class="o">=</span> <span class="n">pku</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">rss</span><span class="p">,</span> <span class="n">ind</span><span class="o">=</span><span class="n">idx</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: found peaks in theta RSS at </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="n">idx</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: most prominant angles: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="n">peak_theta</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">debug</span> <span class="ow">and</span> <span class="n">MPLT</span><span class="p">:</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">rss</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">peak_theta</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;peaks.png&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">peak_theta</span></div>
+
+<div class="viewcode-block" id="find_camera_rotation"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.SolarFlatCalibration.find_camera_rotation.html#DLNIRSP_Pipeline.SolarFlatCalibration.find_camera_rotation">[docs]</a><span class="k">def</span> <span class="nf">find_camera_rotation</span><span class="p">(</span><span class="n">binary</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Measure the rotation between the slit orientation and the detector.</span>
+
+<span class="sd">    This is the simplest distortion; the spectra from all slits and beams show rotation about a single position. The</span>
+<span class="sd">    angle is measured by identifying the slit borders and measuring their pixel angle.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    binary : `numpy.ndarray`</span>
+<span class="sd">        Binary array to find rotation in</span>
+
+<span class="sd">    debug : bool</span>
+<span class="sd">        If True then save the results of the intermediate binarization and Hough transform steps</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        The angle between slit borders and the pixel axes</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">H</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">do_hough</span><span class="p">(</span><span class="n">binary</span><span class="p">)</span>
+    <span class="n">peak_thetas</span> <span class="o">=</span> <span class="n">find_px_angles</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="n">debug</span><span class="p">)</span>
+
+    <span class="n">camera_angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">2.</span> <span class="o">-</span> <span class="n">peak_thetas</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">peak_thetas</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">2.</span><span class="p">))]</span>
+
+    <span class="k">return</span> <span class="n">camera_angle</span></div>
+
+<div class="viewcode-block" id="extract_slitbeams"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.SolarFlatCalibration.extract_slitbeams.html#DLNIRSP_Pipeline.SolarFlatCalibration.extract_slitbeams">[docs]</a><span class="k">def</span> <span class="nf">extract_slitbeams</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">binary</span><span class="p">,</span> <span class="n">cam_ang</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Cut out sub-arrays that correspond to every beam image of every slit in DL-NIRSP</span>
+
+<span class="sd">    There are 4 slits and two beams, thus there will be 10 slitbeams. Extraction is done simply via slicing the original</span>
+<span class="sd">    array.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : `numpy.ndarray`</span>
+<span class="sd">        Full-frame DL-NIRSP image to extract slits from.</span>
+
+<span class="sd">    binary : `numpy.ndarray`</span>
+<span class="sd">        &quot;Bad pixel mask&quot; for data</span>
+
+<span class="sd">    cam_ang : float</span>
+<span class="sd">        The angle between slit borders and the pixel axes. This angle is removed before the extraction.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">        A list containing ndarrays for each slitbeam. It will have 10 elements</span>
+
+<span class="sd">    list</span>
+<span class="sd">        A list containing binary images corresponding to the first input. These are useful as masks.</span>
+
+<span class="sd">    `numpy.ndarray`</span>
+<span class="sd">        Pixel indices of the slitbeam borders</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">drc</span> <span class="o">=</span> <span class="n">correct_rotation</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cam_ang</span><span class="p">)</span>
+    <span class="n">brc</span> <span class="o">=</span> <span class="n">correct_rotation</span><span class="p">(</span><span class="n">binary</span><span class="p">,</span> <span class="n">cam_ang</span><span class="p">)</span>
+
+    <span class="n">drc</span><span class="p">[</span><span class="n">brc</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="n">ids</span> <span class="o">=</span> <span class="n">find_borders</span><span class="p">(</span><span class="n">brc</span><span class="p">,</span> <span class="s1">&#39;vertical&#39;</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="n">debug</span><span class="p">)</span>
+    <span class="n">dl</span> <span class="o">=</span> <span class="n">extract</span><span class="p">(</span><span class="n">drc</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="n">debug</span><span class="p">)</span>
+    <span class="n">bl</span> <span class="o">=</span> <span class="n">extract</span><span class="p">(</span><span class="n">brc</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">dl</span><span class="p">,</span> <span class="n">bl</span><span class="p">,</span> <span class="n">ids</span></div>
+
+<div class="viewcode-block" id="extract_perfect_slit"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.SolarFlatCalibration.extract_perfect_slit.html#DLNIRSP_Pipeline.SolarFlatCalibration.extract_perfect_slit">[docs]</a><span class="k">def</span> <span class="nf">extract_perfect_slit</span><span class="p">(</span><span class="n">slitbeam</span><span class="p">,</span> <span class="n">beam_offset</span><span class="p">,</span> <span class="n">mask1</span><span class="p">,</span> <span class="n">mask2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Shift beam2 to beam1 and average them together</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    slitbeam : list</span>
+<span class="sd">        List of length 2 containing ndarrays with beam1 and beam2 for a single DL slit</span>
+
+<span class="sd">    beam_offset : `numpy.ndarray`</span>
+<span class="sd">        Array of length 2 containing the x, y shift of beam2 relative to beam1</span>
+
+<span class="sd">    mask1 : `numpy.ndarray`</span>
+<span class="sd">        Boolean array that identifies &quot;bad&quot; pixels in beam1</span>
+
+<span class="sd">    mask2</span>
+<span class="sd">        Boolean array that identifies &quot;bad&quot; pixels in beam1</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    `numpy.ndarray`</span>
+<span class="sd">        The shifted and averaged combination of beam1 and beam2</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># After this step the beams will have the same shape b/c the number of &quot;True&quot; values in the masks are guaranteed</span>
+    <span class="c1">#  to be the same.</span>
+    <span class="n">beam1</span> <span class="o">=</span> <span class="n">slitbeam</span><span class="p">[</span><span class="mi">0</span><span class="p">][:,</span> <span class="n">mask1</span><span class="p">]</span>
+    <span class="n">beam2</span> <span class="o">=</span> <span class="n">slitbeam</span><span class="p">[</span><span class="mi">1</span><span class="p">][:,</span> <span class="n">mask2</span><span class="p">]</span>
+
+    <span class="n">bad_idx1</span> <span class="o">=</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">beam1</span><span class="p">)</span>
+    <span class="n">bad_idx2</span> <span class="o">=</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">beam2</span><span class="p">)</span>
+    <span class="n">beam1</span><span class="p">[</span><span class="n">bad_idx1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">beam1</span><span class="p">[</span><span class="o">~</span><span class="n">bad_idx1</span><span class="p">])</span>
+    <span class="n">beam2</span><span class="p">[</span><span class="n">bad_idx2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">beam2</span><span class="p">[</span><span class="o">~</span><span class="n">bad_idx2</span><span class="p">])</span>
+
+    <span class="n">beam2_shifted</span> <span class="o">=</span> <span class="n">spnd</span><span class="o">.</span><span class="n">interpolation</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">beam2</span><span class="p">,</span> <span class="o">-</span><span class="n">beam_offset</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;reflect&#39;</span><span class="p">)</span>
+
+    <span class="n">avg</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">beam1</span> <span class="o">+</span> <span class="n">beam2_shifted</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">avg</span></div>
+
+<div class="viewcode-block" id="correct_rotation"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.SolarFlatCalibration.correct_rotation.html#DLNIRSP_Pipeline.SolarFlatCalibration.correct_rotation">[docs]</a><span class="k">def</span> <span class="nf">correct_rotation</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">angle</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Remove the given rotation angle from the input data</span>
+
+<span class="sd">    Nasty values (Nan) that would mess up the interpolation are replaced by the median of non-nan vales prior to</span>
+<span class="sd">    rotation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : `numpy.ndarray`</span>
+<span class="sd">        The data to rotate</span>
+
+<span class="sd">    angle : float</span>
+<span class="sd">        The angle (in radians) to rotate the data by. In other words, the negative of the measured offset.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    `numpy.ndarray`</span>
+<span class="sd">        The input array rotated by the input angle</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rot_angle</span> <span class="o">=</span> <span class="n">angle</span> <span class="o">*</span> <span class="o">-</span><span class="mi">180</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+    <span class="n">badidx</span> <span class="o">=</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="n">badidx</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="o">~</span><span class="n">badidx</span><span class="p">])</span>
+    <span class="n">rot</span> <span class="o">=</span> <span class="n">spnd</span><span class="o">.</span><span class="n">interpolation</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">rot_angle</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">reshape</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="c1"># rot_binary = spnd.interpolation.rotate(badidx.astype(np.int), rot_angle, mode=&#39;nearest&#39;, reshape=False)</span>
+    <span class="c1"># badidx_rot = np.ceil(rot_binary).astype(bool)</span>
+    <span class="c1"># rot[badidx_rot] = np.nan</span>
+
+    <span class="k">return</span> <span class="n">rot</span></div>
+
+<div class="viewcode-block" id="find_spec_geometry"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.SolarFlatCalibration.find_spec_geometry.html#DLNIRSP_Pipeline.SolarFlatCalibration.find_spec_geometry">[docs]</a><span class="k">def</span> <span class="nf">find_spec_geometry</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">binary</span><span class="p">,</span> <span class="n">peak_width</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">max_shift</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Find the spectral shifts/curvature for a single slit</span>
+
+<span class="sd">    From the perspective of this software there is no difference between a shift caused by spectrograph optics</span>
+<span class="sd">    (curvature) and a shift caused by any other reason. The 1D shift for every spatial position is computed relative to</span>
+<span class="sd">    the center position of the slit.</span>
+
+<span class="sd">    Shifts are determined by correlating each spectrum with the centeral spectrum. The peak in the correlation function</span>
+<span class="sd">    is then interpolated to find the final shift.</span>
+
+<span class="sd">    Once all shifts have been found they are globally shifted such that the average shift is 0.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : `numpy.ndarray`</span>
+<span class="sd">        Data array of a single slit. Should be corrected for any rotations such that the dispersion axis is parallel</span>
+<span class="sd">        to the pixel axis.</span>
+
+<span class="sd">    binary : `numpy.ndarray`</span>
+<span class="sd">        A &quot;bad-pixel-mask&quot; corresponding to the input data. Pixels that should be ignored are 1 and all else are 0.</span>
+<span class="sd">        Spatial positions with an average mask value &gt; 0.4 will not be shifted.</span>
+
+<span class="sd">    peak_width : int</span>
+<span class="sd">        The width of the pixel window to use when interpolating the peak of the correlation function. Passed directly</span>
+<span class="sd">        to `peakutils.interpolate`&#39;s ``width`` parameter.</span>
+
+<span class="sd">    max_shift : float</span>
+<span class="sd">        The maximum allowable shift, in data pixel units. Any shifts larger than this will be ignored and that spatial</span>
+<span class="sd">        position will be given the previously found shift.</span>
+
+<span class="sd">    debug : bool</span>
+<span class="sd">        If True plot the shifts as a function of slit position. Useful for looking at slit functions or whatever.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    `numpy.ndarray`</span>
+<span class="sd">        1D array containing a pixel shift for every spatial pixel.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">spatsize</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">shifts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">spatsize</span><span class="p">)</span>
+
+    <span class="n">mask_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">binary</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ref_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">mask_idx</span><span class="p">))</span>
+    <span class="n">ref_spec</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">ref_idx</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">bad_idx</span> <span class="o">=</span> <span class="n">binary</span><span class="p">[</span><span class="n">ref_idx</span><span class="p">,</span> <span class="p">:]</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="n">ref_spec</span> <span class="o">=</span> <span class="n">ref_spec</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">ref_spec</span><span class="p">[</span><span class="o">~</span><span class="n">bad_idx</span><span class="p">])</span>
+    <span class="n">ref_spec</span><span class="p">[</span><span class="n">bad_idx</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">spatsize</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">binary</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:])</span> <span class="o">&gt;</span> <span class="mf">0.4</span><span class="p">:</span>
+            <span class="n">shifts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="k">continue</span>
+        <span class="n">bad_idx</span> <span class="o">=</span> <span class="n">binary</span><span class="p">[</span><span class="n">i</span><span class="p">,:</span> <span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="n">filt</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="o">~</span><span class="n">bad_idx</span><span class="p">])</span>
+        <span class="n">filt</span><span class="p">[</span><span class="n">bad_idx</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">correlate</span><span class="p">(</span><span class="n">filt</span><span class="p">,</span> <span class="n">ref_spec</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">pku</span><span class="o">.</span><span class="n">indexes</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">min_dist</span><span class="o">=</span><span class="n">corr</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+
+        <span class="n">shift</span> <span class="o">=</span> <span class="n">pku</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">corr</span><span class="o">.</span><span class="n">size</span><span class="p">),</span> <span class="n">corr</span><span class="p">,</span> <span class="n">ind</span><span class="o">=</span><span class="n">idx</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">peak_width</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">corr</span><span class="o">.</span><span class="n">size</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">shift</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">max_shift</span><span class="p">:</span>
+            <span class="c1"># Didn&#39;t find a good peak, probably because of a hairline</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: shift in beam 1 at spatial pixel </span><span class="si">{}</span><span class="s1"> out of range (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="n">i</span><span class="p">,</span> <span class="n">shift</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">:   using the shift from the previous pixel&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+            <span class="n">shift</span> <span class="o">=</span> <span class="n">shifts</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">shifts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">shift</span>
+
+    <span class="n">shifts</span> <span class="o">-=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">shifts</span><span class="p">)</span>
+    <span class="n">shifts</span><span class="p">[</span><span class="o">~</span><span class="p">(</span><span class="n">shifts</span> <span class="o">==</span> <span class="n">shifts</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">0.</span>
+
+    <span class="k">if</span> <span class="n">debug</span> <span class="ow">and</span> <span class="n">MPLT</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">spatsize</span><span class="p">)</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">shifts</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Spectral shift [px]&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;continue...&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">shifts</span></div>
+
+<div class="viewcode-block" id="remove_spec_geometry"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.SolarFlatCalibration.remove_spec_geometry.html#DLNIRSP_Pipeline.SolarFlatCalibration.remove_spec_geometry">[docs]</a><span class="k">def</span> <span class="nf">remove_spec_geometry</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">spec_shifts</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Undo spectral shifts</span>
+
+<span class="sd">    This is very simple, each spatial position is shifted (via interpolation) the number of pixels specified by the</span>
+<span class="sd">    corresponding shift value.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : `numpy.ndarray`</span>
+<span class="sd">        An (X, Y) array corresponding to a single DL slit</span>
+
+<span class="sd">    spec_shifts : `numpy.ndarray`</span>
+<span class="sd">        An array of length X containing the measured spectral shifts for each spatial position in data.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    `numpy.ndarray`</span>
+<span class="sd">        An (X, Y) array with all x positions shifted by the amount specified in shifts.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">spatsize</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">spatsize</span><span class="p">):</span>
+        <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">spnd</span><span class="o">.</span><span class="n">interpolation</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="o">-</span><span class="n">spec_shifts</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;reflect&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">output</span></div>
+
+<div class="viewcode-block" id="compute_average_spectrum"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.SolarFlatCalibration.compute_average_spectrum.html#DLNIRSP_Pipeline.SolarFlatCalibration.compute_average_spectrum">[docs]</a><span class="k">def</span> <span class="nf">compute_average_spectrum</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">binary</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Collapse an entire slit along the spatial dimension to compute a single, average spectrum.</span>
+
+<span class="sd">    Unusable pixels are ignored.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : `numpy.ndarray`</span>
+<span class="sd">        An (X, Y) array containing data from a single DL slit. It should have all optical and spectral distortions</span>
+<span class="sd">        removed.</span>
+
+<span class="sd">    binary : `numpy.ndarray`</span>
+<span class="sd">        Boolean &quot;bad-pixel-mask&quot; for data. True entries are ignored when computing the average spectrum.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    `numpy.ndarray`</span>
+<span class="sd">        1D array of length Y containing the averaged spectrum</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bad_idx</span> <span class="o">=</span> <span class="n">binary</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="n">data</span><span class="p">[</span><span class="n">bad_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">average</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">average</span></div>
+
+<div class="viewcode-block" id="generate_avg_slitbeam"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.SolarFlatCalibration.generate_avg_slitbeam.html#DLNIRSP_Pipeline.SolarFlatCalibration.generate_avg_slitbeam">[docs]</a><span class="k">def</span> <span class="nf">generate_avg_slitbeam</span><span class="p">(</span><span class="n">avg_spec_1d</span><span class="p">,</span> <span class="n">spec_shifts</span><span class="p">,</span> <span class="n">beam_offset</span><span class="p">,</span> <span class="n">mask1</span><span class="p">,</span> <span class="n">mask2</span><span class="p">,</span> <span class="n">slit</span><span class="p">,</span> <span class="n">slit_binary</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Shift 1D spec into full frame, apply beam offsets, and place back into original image size</span>
+
+<span class="sd">    The result is an average spectra for each of the 2 beams associated with a single slit.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    avg_spec_1d : `numpy.ndarray`</span>
+<span class="sd">        1D array of length Y containing the averaged spectrum</span>
+
+<span class="sd">    spec_shifts : `numpy.ndarray`</span>
+<span class="sd">        1D array of length X containing spectral shifts for each spatial position.</span>
+
+<span class="sd">    beam_offset : `numpy.ndarray`</span>
+<span class="sd">        Length 2 array containing the x, y shift from beam1 to beam2</span>
+
+<span class="sd">    mask1 : `numpy.ndarray`</span>
+<span class="sd">        Boolean array showing where beam1 was extracted from the larger-frame slitbeam image. Basically this shows where</span>
+<span class="sd">        how beam1 fits into the larger array that contains slit borders and the like.</span>
+
+<span class="sd">    mask2 : `numpy.ndarray`</span>
+<span class="sd">        Boolean array showing where beam1 was extracted from the larger-frame slitbeam image. Basically this shows where</span>
+<span class="sd">        how beam1 fits into the larger array that contains slit borders and the like.</span>
+
+<span class="sd">    slit : `numpy.ndarray`</span>
+<span class="sd">        The &quot;perfect&quot; slit spectra that is a combination of both beams</span>
+
+<span class="sd">    slit_binary : `numpy.ndarray`</span>
+<span class="sd">        &quot;Bad-pixel-mask&quot; associated with ``slit``</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">spec_2d</span> <span class="o">=</span> <span class="n">generate_average_spectra</span><span class="p">(</span><span class="n">avg_spec_1d</span><span class="p">,</span> <span class="n">slit</span><span class="p">,</span> <span class="n">slit_binary</span><span class="p">,</span> <span class="n">spec_shifts</span><span class="p">)</span>
+    <span class="n">nan_idx</span> <span class="o">=</span> <span class="o">~</span><span class="p">(</span><span class="n">spec_2d</span> <span class="o">==</span> <span class="n">spec_2d</span><span class="p">)</span>
+
+    <span class="n">beam1</span> <span class="o">=</span> <span class="n">spec_2d</span>
+    <span class="n">beam1</span><span class="p">[</span><span class="n">nan_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">beam1</span><span class="p">)</span>
+    <span class="n">beam2</span> <span class="o">=</span> <span class="n">spnd</span><span class="o">.</span><span class="n">interpolation</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">beam1</span><span class="p">,</span> <span class="n">beam_offset</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;reflect&#39;</span><span class="p">)</span>
+    <span class="n">spatsize</span> <span class="o">=</span> <span class="n">slit</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">slitbeam1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">spatsize</span><span class="p">,</span> <span class="n">mask1</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
+    <span class="n">slitbeam2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">spatsize</span><span class="p">,</span> <span class="n">mask2</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
+
+    <span class="n">slitbeam1</span><span class="p">[:,</span> <span class="n">mask1</span><span class="p">]</span> <span class="o">=</span> <span class="n">beam1</span>
+    <span class="n">slitbeam2</span><span class="p">[:,</span> <span class="n">mask2</span><span class="p">]</span> <span class="o">=</span> <span class="n">beam2</span>
+
+    <span class="k">return</span> <span class="p">[</span><span class="n">slitbeam1</span><span class="p">,</span> <span class="n">slitbeam2</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="generate_average_spectra"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.SolarFlatCalibration.generate_average_spectra.html#DLNIRSP_Pipeline.SolarFlatCalibration.generate_average_spectra">[docs]</a><span class="k">def</span> <span class="nf">generate_average_spectra</span><span class="p">(</span><span class="n">avg</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">binary</span><span class="p">,</span> <span class="n">shifts</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Take an average, 1D spectrum and create a 2D spectra for a single DL slit.</span>
+
+<span class="sd">    In addition to just filling out 2 dimensions, the spectral shifts/curvature are applied to each spatial position.</span>
+
+<span class="sd">    The global slit-function (throughput variations along the slit) is also applied to the final spectra.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    avg : `numpy.ndarray`</span>
+<span class="sd">        1D array of length Y containing the averaged spectrum</span>
+
+<span class="sd">    data : `numpy.ndarray`</span>
+<span class="sd">        The original, 2D slit spectra</span>
+
+<span class="sd">    binary : `numpy.ndarray`</span>
+<span class="sd">        &quot;Bad-pixel-mask&quot; for the slit spectra. 1 means bad, 0 means good.</span>
+
+<span class="sd">    shifts : `numpy.ndarray`</span>
+<span class="sd">        1D array of length X containing spectral shifts for each spatial position.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    `numpy.ndarray`</span>
+<span class="sd">        An (X, Y) array with the shifted average spectra</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">spatsize</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">bad_idx</span> <span class="o">=</span> <span class="n">binary</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="n">data</span><span class="p">[</span><span class="n">bad_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">avg</span><span class="p">[</span><span class="o">~</span><span class="p">(</span><span class="n">avg</span> <span class="o">==</span> <span class="n">avg</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">avg</span><span class="p">[</span><span class="n">avg</span> <span class="o">==</span> <span class="n">avg</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">spatsize</span><span class="p">):</span>
+        <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">spnd</span><span class="o">.</span><span class="n">interpolation</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">avg</span><span class="p">,</span> <span class="n">shifts</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;reflect&#39;</span><span class="p">)</span>
+
+    <span class="n">output</span> <span class="o">*=</span> <span class="p">(</span><span class="n">means</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))[:,</span> <span class="kc">None</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">output</span></div>
+
+<div class="viewcode-block" id="remove_avg_spectra"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.SolarFlatCalibration.remove_avg_spectra.html#DLNIRSP_Pipeline.SolarFlatCalibration.remove_avg_spectra">[docs]</a><span class="k">def</span> <span class="nf">remove_avg_spectra</span><span class="p">(</span><span class="n">stokesData</span><span class="p">,</span> <span class="n">final_gain</span><span class="p">,</span> <span class="n">final_mask</span><span class="p">,</span> <span class="n">mask_value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Divide all data by the computed average Solar spectrum</span>
+
+<span class="sd">    Masked pixels are set to 0</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    stokesData : `Data.FitsData`</span>
+<span class="sd">        The data to remove the solar spectrum from</span>
+
+<span class="sd">    final_gain : `numpy.ndarray`</span>
+<span class="sd">        (X, Y) array containing the average, distorted Solar spectra.</span>
+
+<span class="sd">    final_masks : `numpy.ndarray`</span>
+<span class="sd">        &quot;Bad-pixel-masks&quot; for the final_gain</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Nothing. The input data are corrected in place.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">stokesData</span><span class="o">.</span><span class="n">data</span><span class="p">)):</span>
+        <span class="n">stokesData</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">/=</span> <span class="n">final_gain</span><span class="p">[:,</span> <span class="p">:]</span>
+        <span class="n">stokesData</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="n">final_mask</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">mask_value</span>
+
+    <span class="k">return</span></div>
+
+<span class="c1"># TODO: don&#39;t just chop to the right end; actually do some correlation or something</span>
+<div class="viewcode-block" id="align_masks"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.SolarFlatCalibration.align_masks.html#DLNIRSP_Pipeline.SolarFlatCalibration.align_masks">[docs]</a><span class="k">def</span> <span class="nf">align_masks</span><span class="p">(</span><span class="n">mask_list</span><span class="p">):</span>
+
+    <span class="n">min_len</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">mask_list</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">sb</span> <span class="ow">in</span> <span class="n">mask_list</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sb</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">min_len</span><span class="p">:</span>
+            <span class="n">chop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sb</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="n">min_len</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">sb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">sb</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">idx</span><span class="p">[</span><span class="o">-</span><span class="n">chop</span><span class="p">:]]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">sb</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">idx</span><span class="p">[</span><span class="o">-</span><span class="n">chop</span><span class="p">:]]</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="generate_solar_gain_calibration"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.SolarFlatCalibration.generate_solar_gain_calibration.html#DLNIRSP_Pipeline.SolarFlatCalibration.generate_solar_gain_calibration">[docs]</a><span class="k">def</span> <span class="nf">generate_solar_gain_calibration</span><span class="p">(</span><span class="n">solarGain</span><span class="p">,</span> <span class="n">sigmaGain</span><span class="p">,</span> <span class="n">outpre</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Simply write the calibration to a file&quot;&quot;&quot;</span>
+
+    <span class="k">for</span> <span class="n">obj</span><span class="p">,</span> <span class="n">post</span><span class="p">,</span> <span class="n">origin</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="n">solarGain</span><span class="p">,</span> <span class="n">sigmaGain</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;.fits&#39;</span><span class="p">,</span> <span class="s1">&#39;_sig.fits&#39;</span><span class="p">],</span>
+                                 <span class="p">[</span><span class="s1">&#39;SolarGainCalibration&#39;</span><span class="p">,</span> <span class="s1">&#39;SolarGainCalibration Sigma&#39;</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">outname</span> <span class="o">=</span> <span class="n">outpre</span> <span class="o">+</span> <span class="n">post</span>
+            <span class="n">obj</span><span class="o">.</span><span class="n">origin</span> <span class="o">=</span> <span class="n">origin</span>
+            <span class="n">obj</span><span class="o">.</span><span class="n">write_out</span><span class="p">(</span><span class="n">outname</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">solarGain</span><span class="p">,</span> <span class="n">sigmaGain</span></div>
+
+<div class="viewcode-block" id="generate_geometric_calibration"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.SolarFlatCalibration.generate_geometric_calibration.html#DLNIRSP_Pipeline.SolarFlatCalibration.generate_geometric_calibration">[docs]</a><span class="k">def</span> <span class="nf">generate_geometric_calibration</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="n">borders</span><span class="p">,</span> <span class="n">slit_masks</span><span class="p">,</span> <span class="n">beam_offset</span><span class="p">,</span> <span class="n">spec_shifts</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">image_header</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Write the geometric distortion parameters to a multi-HDU FITS file and write a hopefully-useful header for each</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">angle_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Comment&#39;</span><span class="p">:</span> <span class="s1">&#39;Camera rotation angle (radians)&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">angle</span><span class="p">}</span>
+
+    <span class="n">border_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Comment&#39;</span><span class="p">:</span> <span class="s1">&#39;Pixel indices of slitbeam borders&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;AXIS1&#39;</span><span class="p">:</span> <span class="s1">&#39;border number&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">borders</span><span class="p">}</span>
+
+    <span class="n">slit_mask_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Comment&#39;</span><span class="p">:</span> <span class="s1">&#39;Boolean arrays where True identifies data portions of the detector&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;AXIS1&#39;</span><span class="p">:</span> <span class="s1">&#39;slit number&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;AXIS2&#39;</span><span class="p">:</span> <span class="s1">&#39;(beam 1, beam 2)&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;AXIS3&#39;</span><span class="p">:</span> <span class="s1">&#39;spectral pixel&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">slit_masks</span><span class="p">}</span>
+
+    <span class="n">beam_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Comment&#39;</span><span class="p">:</span> <span class="s1">&#39;Offset between beam 2 and beam 1 for each slit&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;AXIS1&#39;</span><span class="p">:</span> <span class="s1">&#39;shifts (spatial direction, spectral direction)&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;AXIS2&#39;</span><span class="p">:</span> <span class="s1">&#39;slit number&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">beam_offset</span><span class="p">}</span>
+
+    <span class="n">shift_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Comment&#39;</span><span class="p">:</span> <span class="s1">&#39;Spectral shifts at each spatial pixel&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;AXIS1&#39;</span><span class="p">:</span> <span class="s1">&#39;shift at spatial pixel&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;AXIS2&#39;</span><span class="p">:</span> <span class="s1">&#39;slit number&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">spec_shifts</span><span class="p">}</span>
+
+    <span class="n">geo_cal</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;DATE&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span><span class="o">.</span><span class="fm">__str__</span><span class="p">(),</span>
+               <span class="s1">&#39;GAXIS1&#39;</span><span class="p">:</span> <span class="n">image_header</span><span class="p">[</span><span class="s1">&#39;NAXIS1&#39;</span><span class="p">],</span>
+               <span class="s1">&#39;GAXIS2&#39;</span><span class="p">:</span> <span class="n">image_header</span><span class="p">[</span><span class="s1">&#39;NAXIS2&#39;</span><span class="p">],</span>
+               <span class="s1">&#39;ANGLES&#39;</span><span class="p">:</span> <span class="n">angle_dict</span><span class="p">,</span>
+               <span class="s1">&#39;BORDERS&#39;</span><span class="p">:</span> <span class="n">border_dict</span><span class="p">,</span>
+               <span class="s1">&#39;MASKS&#39;</span><span class="p">:</span> <span class="n">slit_mask_dict</span><span class="p">,</span>
+               <span class="s1">&#39;BEAMOFF&#39;</span><span class="p">:</span> <span class="n">beam_dict</span><span class="p">,</span>
+               <span class="s1">&#39;SPECSHIFT&#39;</span><span class="p">:</span> <span class="n">shift_dict</span><span class="p">}</span>
+
+    <span class="n">asdf</span><span class="o">.</span><span class="n">AsdfFile</span><span class="p">(</span><span class="n">geo_cal</span><span class="p">)</span><span class="o">.</span><span class="n">write_to</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">geo_cal</span></div>
+
+
+<div class="viewcode-block" id="find_beam_offset"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.SolarFlatCalibration.find_beam_offset.html#DLNIRSP_Pipeline.SolarFlatCalibration.find_beam_offset">[docs]</a><span class="k">def</span> <span class="nf">find_beam_offset</span><span class="p">(</span><span class="n">beam1</span><span class="p">,</span> <span class="n">beam2</span><span class="p">,</span> <span class="n">binary1</span><span class="p">,</span> <span class="n">binary2</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Find the (x, y) offset between beam1 and beam2 of the same slit.</span>
+
+<span class="sd">    The offset is found by correlating the two beams and interpolating the peak of correlation in 2 dimensions.</span>
+
+<span class="sd">    Prior to correlation the two beams are trimmed so that a) they have the same shape, and b) they no longer contain</span>
+<span class="sd">    the blank spaces between the slitbeams.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    beam1 : `numpy.ndarray`</span>
+<span class="sd">        Array containing beam1 spectra</span>
+
+<span class="sd">    beam2 : `numpy.ndarray`</span>
+<span class="sd">        Array containing beam2 spectra</span>
+
+<span class="sd">    binary1 : `numpy.ndarray`</span>
+<span class="sd">        Bad-pixel-mask for ``beam1``. 1 is bad, 0 is good.</span>
+
+<span class="sd">    binary2 : `numpy.ndarray`</span>
+<span class="sd">        Bad-pixel-mask for ``beam2``. 1 is bad, 0 is good.</span>
+
+<span class="sd">    width : int</span>
+<span class="sd">        The width of the pixel window to use when interpolating the peak of the correlation function. Passed directly</span>
+<span class="sd">        to `peakutils.interpolate`&#39;s ``width`` parameter.</span>
+
+<span class="sd">    debug : bool</span>
+<span class="sd">        If True then the two correlation inputs (beam1 and beam2) and the correlation result will be saved to FITS.</span>
+<span class="sd">        Additionaly, plots showing the correlation and fit peaks for both dimensions will be shown.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    `numpy.ndarray`</span>
+<span class="sd">        Length 2 array containing (x, y) shifts from beam1 to beam2</span>
+
+<span class="sd">    `numpy.ndarray`</span>
+<span class="sd">        Boolean array showing where, in the full-frame of beam1, the data-only beam1 array comes from. Basically,</span>
+<span class="sd">        False shows where the slitbeam borders are.</span>
+
+<span class="sd">    `numpy.ndarray`</span>
+<span class="sd">        Boolean array showing where, in the full-frame of beam2, the data-only beam2 array comes from. Basically,</span>
+<span class="sd">        False shows where the slitbeam borders are.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Identify the regions of border pixels by looking for places where there are bad pixels along the entire slit</span>
+    <span class="n">bad_idx</span> <span class="o">=</span> <span class="n">binary1</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="n">sig1</span> <span class="o">=</span> <span class="n">beam1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">beam1</span><span class="p">[</span><span class="o">~</span><span class="n">bad_idx</span><span class="p">])</span>
+    <span class="n">sig1</span><span class="p">[</span><span class="n">bad_idx</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">mask1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sig1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">!=</span> <span class="mf">0.0</span>
+    <span class="n">sig1</span> <span class="o">=</span> <span class="n">sig1</span><span class="p">[:,</span> <span class="n">mask1</span><span class="p">]</span>
+
+    <span class="n">bad_idx</span> <span class="o">=</span> <span class="n">binary2</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="n">sig2</span> <span class="o">=</span> <span class="n">beam2</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">beam2</span><span class="p">[</span><span class="o">~</span><span class="n">bad_idx</span><span class="p">])</span>
+    <span class="n">sig2</span><span class="p">[</span><span class="n">bad_idx</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">mask2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sig2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">!=</span> <span class="mf">0.0</span>
+    <span class="n">sig2</span> <span class="o">=</span> <span class="n">sig2</span><span class="p">[:,</span> <span class="n">mask2</span><span class="p">]</span>
+
+    <span class="c1"># Now extract/chop the desired data arrays to be the same size</span>
+    <span class="k">if</span> <span class="n">sig1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">sig2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">chop</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">sig1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">sig2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">sig1</span> <span class="o">=</span> <span class="n">sig1</span><span class="p">[:,</span> <span class="p">:</span><span class="n">chop</span><span class="p">]</span>
+        <span class="n">mask1</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask1</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="n">chop</span><span class="p">:]]</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">if</span> <span class="n">sig2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">sig1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">chop</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">sig2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">sig1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">sig2</span> <span class="o">=</span> <span class="n">sig2</span><span class="p">[:,</span> <span class="p">:</span><span class="n">chop</span><span class="p">]</span>
+        <span class="n">mask2</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask2</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="n">chop</span><span class="p">:]]</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1"># Now we actually do the correlation/peak fitting</span>
+    <span class="n">corr</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">fftconvolve</span><span class="p">(</span><span class="n">sig1</span><span class="p">,</span> <span class="n">sig2</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span>
+
+    <span class="n">xidx</span><span class="p">,</span> <span class="n">yidx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">corr</span><span class="p">),</span> <span class="n">corr</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">xpeak</span> <span class="o">=</span> <span class="n">pku</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">ind</span><span class="o">=</span><span class="p">[</span><span class="n">xidx</span><span class="p">],</span>
+                            <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="n">ypeak</span> <span class="o">=</span> <span class="n">pku</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">ind</span><span class="o">=</span><span class="p">[</span><span class="n">yidx</span><span class="p">],</span>
+                            <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span>
+
+    <span class="c1"># The correlation can sometimes alias around the full size of the array. If so, correct it.</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">xpeak</span> <span class="o">-</span> <span class="p">(</span><span class="n">xidx</span> <span class="o">-</span> <span class="n">corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">width</span><span class="p">:</span>
+        <span class="n">xpeak</span> <span class="o">=</span> <span class="n">xidx</span> <span class="o">-</span> <span class="n">corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span>
+
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">ypeak</span> <span class="o">-</span> <span class="p">(</span><span class="n">yidx</span> <span class="o">-</span> <span class="n">corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">width</span><span class="p">:</span>
+        <span class="n">ypeak</span> <span class="o">=</span> <span class="n">yidx</span> <span class="o">-</span> <span class="n">corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: peak of correlation at (</span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="n">xidx</span> <span class="o">-</span> <span class="n">corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">yidx</span> <span class="o">-</span> <span class="n">corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:}</span><span class="s1">: interpolated shift = (</span><span class="si">{:5.3f}</span><span class="s1">, </span><span class="si">{:5.3f}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="n">xpeak</span><span class="p">,</span> <span class="n">ypeak</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">debug</span> <span class="ow">and</span> <span class="n">MPLT</span><span class="p">:</span>
+        <span class="n">pyfits</span><span class="o">.</span><span class="n">PrimaryHDU</span><span class="p">(</span><span class="n">corr</span><span class="p">)</span><span class="o">.</span><span class="n">writeto</span><span class="p">(</span><span class="s1">&#39;corr.fits&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">pyfits</span><span class="o">.</span><span class="n">PrimaryHDU</span><span class="p">(</span><span class="n">sig1</span><span class="p">)</span><span class="o">.</span><span class="n">writeto</span><span class="p">(</span><span class="s1">&#39;sig1.fits&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">pyfits</span><span class="o">.</span><span class="n">PrimaryHDU</span><span class="p">(</span><span class="n">sig2</span><span class="p">)</span><span class="o">.</span><span class="n">writeto</span><span class="p">(</span><span class="s1">&#39;sig2.fits&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="n">corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="n">corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="n">pxidx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">xidx</span> <span class="o">+</span> <span class="n">corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="n">pyidx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">yidx</span> <span class="o">+</span> <span class="n">corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+        <span class="n">xax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+        <span class="n">xax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">pxidx</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="n">pxidx</span><span class="p">])</span>
+        <span class="n">xax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">xidx</span> <span class="o">-</span> <span class="n">corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="n">xidx</span><span class="p">]],</span> <span class="s1">&#39;r.&#39;</span><span class="p">)</span>
+        <span class="n">xax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xpeak</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+        <span class="n">xax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xidx</span> <span class="o">-</span> <span class="n">width</span> <span class="o">-</span> <span class="n">corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+        <span class="n">xax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xidx</span> <span class="o">+</span> <span class="n">width</span> <span class="o">-</span> <span class="n">corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+        <span class="n">yax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span>
+        <span class="n">yax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">pyidx</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="n">pyidx</span><span class="p">])</span>
+        <span class="n">yax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">yidx</span> <span class="o">-</span> <span class="n">corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="n">yidx</span><span class="p">]],</span> <span class="s1">&#39;r.&#39;</span><span class="p">)</span>
+        <span class="n">yax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">ypeak</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+        <span class="n">yax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">yidx</span> <span class="o">-</span> <span class="n">width</span> <span class="o">-</span> <span class="n">corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+        <span class="n">yax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">yidx</span> <span class="o">+</span> <span class="n">width</span> <span class="o">-</span> <span class="n">corr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="c1"># Multiply by -1 so that the output is the shift needed to move from &quot;perfect&quot; to the current state.</span>
+    <span class="c1">#  In other words, applying a shift equal to the negative of the output of this function will undo the measured</span>
+    <span class="c1">#  shift.</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">xpeak</span><span class="p">,</span> <span class="n">ypeak</span><span class="p">]),</span> <span class="n">mask1</span><span class="p">,</span> <span class="n">mask2</span></div>
+
+
+<div class="viewcode-block" id="find_borders"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.SolarFlatCalibration.find_borders.html#DLNIRSP_Pipeline.SolarFlatCalibration.find_borders">[docs]</a><span class="k">def</span> <span class="nf">find_borders</span><span class="p">(</span><span class="n">binary</span><span class="p">,</span> <span class="n">orientation</span><span class="p">,</span> <span class="n">theta_min_dist</span><span class="o">=</span><span class="mi">1500</span> <span class="o">/</span> <span class="mf">10.</span><span class="p">,</span> <span class="n">theta_window</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">60</span><span class="p">,</span> <span class="n">rho_min_dist</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                 <span class="n">rho_smooth</span><span class="o">=</span><span class="mf">5.</span><span class="p">,</span> <span class="n">rho_window</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">rho_thres</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Find the borders between slitbeams or ribbons</span>
+
+<span class="sd">    The more common usage is to find the borders between each slitbeam, but it&#39;s general enough that the ribbon</span>
+<span class="sd">    borders can also be found this way.</span>
+
+<span class="sd">    Borders are found via Hough transform that identifies lines in a binary image. This requires that input binary image</span>
+<span class="sd">    clearly distinguishes between the data and non-data regions of the detector.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    binary : `numpy.ndarray`</span>
+<span class="sd">        Binary image of the DL detector. Border (non-data) regions should be 1 and all else be 0.</span>
+
+<span class="sd">    orientation : str</span>
+<span class="sd">        Either &#39;vertical&#39; or &#39;horizontal&#39;. &#39;vertical&#39; finds the slitbeam borders and &#39;horizontal&#39; finds the ribbon</span>
+<span class="sd">        borders.</span>
+
+<span class="sd">    theta_min_dist : float</span>
+<span class="sd">        The minimum difference between two angles in Hough space for them to be considered different angles.</span>
+
+<span class="sd">    theta_window : float</span>
+<span class="sd">        The distance around the peak angle in Hough space to search when computing the corresponding peak rho</span>
+
+<span class="sd">    rho_min_dist : float</span>
+<span class="sd">        The minimum difference between two rhos in Hough space for them to be considered different rhos.</span>
+
+<span class="sd">    rho_smooth : float</span>
+<span class="sd">        The sigma of a guassian smoothing applied to the Hough rho array when computing peak rhos. This helps with dirty</span>
+<span class="sd">        detectors.</span>
+
+<span class="sd">    rho_window : float</span>
+<span class="sd">        The distance around the peak rho in Hough space to search when computing the corresponding peak theta</span>
+
+<span class="sd">    debug : bool</span>
+<span class="sd">        If True then generate plots showing the rho and theta RSS vectors along with fit peaks. Also show the binary</span>
+<span class="sd">        image with the found borders. All of these plots are saved as pdf files.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    `numpy.ndarray`</span>
+<span class="sd">        The pixel indices of the column/row (depending on `orientation`) of the borders.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Do Hough and find the most prominant angles</span>
+    <span class="n">H</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">rho</span> <span class="o">=</span> <span class="n">do_hough</span><span class="p">(</span><span class="n">binary</span><span class="p">)</span>
+    <span class="n">rss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">H</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">pku</span><span class="o">.</span><span class="n">indexes</span><span class="p">(</span><span class="n">rss</span><span class="p">,</span> <span class="n">min_dist</span><span class="o">=</span><span class="n">theta_min_dist</span><span class="p">)</span>
+    <span class="n">peak_theta</span> <span class="o">=</span> <span class="n">pku</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">rss</span><span class="p">,</span> <span class="n">ind</span><span class="o">=</span><span class="n">idx</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: found peaks in theta RSS at </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="n">idx</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: most prominent angles: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="n">peak_theta</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: difference: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">peak_theta</span><span class="p">)</span> <span class="o">*</span> <span class="mi">180</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">rss</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">idx</span><span class="p">):</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">theta</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">peak_theta</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;trss.pdf&#39;</span><span class="p">)</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+
+    <span class="c1"># There should be two modes of angles corespondent to the slit/ribbon borders</span>
+    <span class="c1">#  target_theta homes in on which set we want to consider.</span>
+    <span class="k">if</span> <span class="n">orientation</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;horizontal&#39;</span><span class="p">:</span>
+        <span class="n">target_theta</span> <span class="o">=</span> <span class="n">peak_theta</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">peak_theta</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">2.</span><span class="p">))]</span>
+    <span class="k">elif</span> <span class="n">orientation</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;vertical&#39;</span><span class="p">:</span>
+        <span class="n">target_theta</span> <span class="o">=</span> <span class="n">peak_theta</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">peak_theta</span><span class="p">))]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;&quot;orientation&quot; must either be &quot;horizontal&quot; or &quot;vertical&quot;&#39;</span><span class="p">)</span>
+    <span class="n">grid_rho</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">grid_theta</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Now only consider lines with angles that are close to the target_theta. This excludes the other set of lines.</span>
+    <span class="n">tidx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">theta</span> <span class="o">-</span> <span class="n">target_theta</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">theta_window</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">rrss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">H</span><span class="p">[:,</span> <span class="n">tidx</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">srrss</span> <span class="o">=</span> <span class="n">spnd</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">gaussian_filter</span><span class="p">(</span><span class="n">rrss</span><span class="p">,</span> <span class="n">rho_smooth</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;constant&#39;</span><span class="p">)</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">pku</span><span class="o">.</span><span class="n">indexes</span><span class="p">(</span><span class="n">srrss</span><span class="p">,</span> <span class="n">min_dist</span><span class="o">=</span><span class="n">rho_min_dist</span><span class="p">,</span> <span class="n">thres</span><span class="o">=</span><span class="n">rho_thres</span><span class="p">)</span>
+    <span class="n">peak_rho</span> <span class="o">=</span> <span class="n">pku</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">srrss</span><span class="p">,</span> <span class="n">ind</span><span class="o">=</span><span class="n">idx</span><span class="p">)</span> <span class="c1"># Find the rho coordinates of these lines</span>
+
+    <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+        <span class="n">rangeid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">rrss</span> <span class="o">&gt;</span> <span class="mf">0.05</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">rrss</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">rho</span><span class="p">[</span><span class="n">rangeid</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">rho</span><span class="p">[</span><span class="n">rangeid</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">srrss</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">rrss</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">rho_thres</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">srrss</span><span class="p">),</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">debug</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="c1"># Now, for each line found above, hone in on the actual theta value. Because of how we compute ids below</span>
+    <span class="c1">#  this is a somewhat unnecessary step, but it&#39;s useful because it might be important later and generates good</span>
+    <span class="c1">#  debug plots.</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">idx</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">rho</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">peak_rho</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
+
+        <span class="n">ridx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">rho</span> <span class="o">-</span> <span class="n">peak_rho</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">rho_window</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">trss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">H</span><span class="p">[</span><span class="n">ridx</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">ridx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tidx</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">tidx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+        <span class="n">tridx</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">trss</span><span class="p">)]</span>
+        <span class="n">final_theta</span> <span class="o">=</span> <span class="n">pku</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">theta</span><span class="p">[</span><span class="n">tidx</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">tidx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">trss</span><span class="p">,</span> <span class="n">ind</span><span class="o">=</span><span class="n">tridx</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">grid_rho</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">peak_rho</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">grid_theta</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">final_theta</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;rrss.pdf&#39;</span><span class="p">)</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s1">&#39;grey&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">binary</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">gray</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">theta</span><span class="p">,</span> <span class="n">rho</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">grid_theta</span><span class="p">,</span> <span class="n">grid_rho</span><span class="p">):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">binary</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">0.001</span><span class="p">)</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">rho</span> <span class="o">-</span> <span class="n">x</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+            <span class="n">pidx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">binary</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">pidx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">pidx</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">pidx</span><span class="p">],</span> <span class="s1">&#39;-g&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.3</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;im.pdf&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Finally, convert the rho values into pixel indices. Note that we&#39;re assuming the grid is close enough to aligned</span>
+    <span class="c1">#  with the pixel coordinates that any small angular deviation does not affect a column/row slice appreciably.</span>
+    <span class="c1">#  This might not be a good assumption.</span>
+    <span class="n">ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">grid_rho</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">orientation</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;horizontal&#39;</span><span class="p">:</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">orientation</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;vertical&#39;</span><span class="p">:</span>
+        <span class="n">ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">ids</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">binary</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">ids</span></div>
+
+<div class="viewcode-block" id="extract"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.SolarFlatCalibration.extract.html#DLNIRSP_Pipeline.SolarFlatCalibration.extract">[docs]</a><span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Break up a full frame image based on borders found by `find_borders`</span>
+
+<span class="sd">    All extraction is simply done with slicing; there&#39;s no interpolation here.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : `numpy.ndarray`</span>
+<span class="sd">        The full frame data to break up</span>
+
+<span class="sd">    ids : `numpy.ndarra`</span>
+<span class="sd">        Pixel coordinates of the slit/ribbon borders</span>
+
+<span class="sd">    orientation : str</span>
+<span class="sd">        Either &#39;vertical&#39; or &#39;horizontal&#39;. &#39;vertical&#39; finds the slitbeam borders and &#39;horizontal&#39; finds the ribbon</span>
+<span class="sd">        borders.</span>
+
+<span class="sd">    debug : bool</span>
+<span class="sd">        If True the individual slices will be saved as ImageHDUs in a file called &quot;slices.fits&quot;</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">        A list containing `numpy.ndarray`s for each slice of the full frame.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">orientation</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;horizontal&#39;</span><span class="p">:</span>
+        <span class="n">dl</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="n">ids</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="p">:]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ids</span><span class="o">.</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span>
+    <span class="k">elif</span> <span class="n">orientation</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;vertical&#39;</span><span class="p">:</span>
+        <span class="n">dl</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="p">[:,</span> <span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="n">ids</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ids</span><span class="o">.</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;&quot;orientation&quot; must either be &quot;horizontal&quot; or &quot;vertical&quot;&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+        <span class="n">hdl</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">HDUList</span><span class="p">([</span><span class="n">pyfits</span><span class="o">.</span><span class="n">PrimaryHDU</span><span class="p">()]</span> <span class="o">+</span> <span class="p">[</span><span class="n">pyfits</span><span class="o">.</span><span class="n">ImageHDU</span><span class="p">(</span><span class="n">dd</span><span class="p">)</span> <span class="k">for</span> <span class="n">dd</span> <span class="ow">in</span> <span class="n">dl</span><span class="p">])</span>
+        <span class="n">hdl</span><span class="o">.</span><span class="n">writeto</span><span class="p">(</span><span class="s1">&#39;slices.fits&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">dl</span></div>
+
+<div class="viewcode-block" id="quick_script"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.SolarFlatCalibration.quick_script.html#DLNIRSP_Pipeline.SolarFlatCalibration.quick_script">[docs]</a><span class="k">def</span> <span class="nf">quick_script</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A shittier, older version of main(). Don&#39;t come here.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">binary</span> <span class="o">=</span> <span class="n">make_binary</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">numotsu</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">cam_ang</span> <span class="o">=</span> <span class="n">find_camera_rotation</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="n">drc</span> <span class="o">=</span> <span class="n">correct_rotation</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cam_ang</span><span class="p">)</span>
+    <span class="n">brc</span> <span class="o">=</span> <span class="n">correct_rotation</span><span class="p">(</span><span class="n">binary</span><span class="p">,</span> <span class="n">cam_ang</span><span class="p">)</span>
+
+    <span class="n">gt</span><span class="p">,</span> <span class="n">gr</span> <span class="o">=</span> <span class="n">find_borders</span><span class="p">(</span><span class="n">brc</span><span class="p">,</span> <span class="s1">&#39;vertical&#39;</span><span class="p">)</span>
+    <span class="n">dl</span> <span class="o">=</span> <span class="n">extract</span><span class="p">(</span><span class="n">drc</span><span class="p">,</span> <span class="n">gt</span><span class="p">,</span> <span class="n">gr</span><span class="p">)</span>
+    <span class="n">bl</span> <span class="o">=</span> <span class="n">extract</span><span class="p">(</span><span class="n">brc</span><span class="p">,</span> <span class="n">gt</span><span class="p">,</span> <span class="n">gr</span><span class="p">)</span>
+
+    <span class="n">sl</span> <span class="o">=</span> <span class="p">[</span><span class="n">find_spec_geometry</span><span class="p">(</span><span class="n">dl</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">bl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dl</span><span class="p">))]</span>
+
+    <span class="n">dlo</span> <span class="o">=</span> <span class="p">[</span><span class="n">remove_spec_geometry</span><span class="p">(</span><span class="n">dl</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">sl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dl</span><span class="p">))]</span>
+    <span class="n">blo</span> <span class="o">=</span> <span class="p">[</span><span class="n">remove_spec_geometry</span><span class="p">(</span><span class="n">bl</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">sl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bl</span><span class="p">))]</span>
+
+    <span class="n">al</span> <span class="o">=</span> <span class="p">[</span><span class="n">compute_average_spectrum</span><span class="p">(</span><span class="n">dlo</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">blo</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dl</span><span class="p">))]</span>
+    <span class="n">avgl</span> <span class="o">=</span> <span class="p">[</span><span class="n">generate_average_spectra</span><span class="p">(</span><span class="n">al</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">dl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="mf">1.</span><span class="p">,</span> <span class="n">bl</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">sl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dl</span><span class="p">))]</span>
+
+    <span class="n">avg_spec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">avgl</span><span class="p">)</span>
+    <span class="n">avg_spec</span><span class="p">[</span><span class="o">~</span><span class="p">(</span><span class="n">avg_spec</span> <span class="o">==</span> <span class="n">avg_spec</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">0.</span>
+
+    <span class="k">return</span> <span class="n">correct_rotation</span><span class="p">(</span><span class="n">avg_spec</span><span class="p">,</span> <span class="o">-</span><span class="n">cam_ang</span><span class="p">)</span></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <div class="left-footer">
+         &copy; 2019, Arthur Eigenbrot
+       <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
+    </div>
+   
+    <div class="right-footer">
+      Last updated on 17 Sep 2019.
+    </div>
+    <div class="centre-footer">
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

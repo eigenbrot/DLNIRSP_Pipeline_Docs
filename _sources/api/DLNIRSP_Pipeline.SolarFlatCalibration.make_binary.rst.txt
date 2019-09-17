@@ -1,0 +1,6 @@
+make_binary
+===========
+
+.. currentmodule:: DLNIRSP_Pipeline.SolarFlatCalibration
+
+.. autofunction:: make_binary

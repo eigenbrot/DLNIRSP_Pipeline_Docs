@@ -1,0 +1,6 @@
+stddev_FitsData
+===============
+
+.. currentmodule:: DLNIRSP_Pipeline.generic
+
+.. autofunction:: stddev_FitsData

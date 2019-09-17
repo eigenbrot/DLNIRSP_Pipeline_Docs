@@ -1,0 +1,6 @@
+align_masks
+===========
+
+.. currentmodule:: DLNIRSP_Pipeline.SolarFlatCalibration
+
+.. autofunction:: align_masks

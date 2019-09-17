@@ -1,0 +1,6 @@
+gauss
+=====
+
+.. currentmodule:: DLNIRSP_Pipeline.IFUCalibration
+
+.. autofunction:: gauss

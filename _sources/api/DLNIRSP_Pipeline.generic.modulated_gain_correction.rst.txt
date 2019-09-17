@@ -1,0 +1,6 @@
+modulated_gain_correction
+=========================
+
+.. currentmodule:: DLNIRSP_Pipeline.generic
+
+.. autofunction:: modulated_gain_correction

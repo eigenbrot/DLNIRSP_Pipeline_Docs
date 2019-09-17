@@ -1,0 +1,6 @@
+reduce_full_CS
+==============
+
+.. currentmodule:: DLNIRSP_Pipeline.InstrumentPolarizationCalibration
+
+.. autofunction:: reduce_full_CS

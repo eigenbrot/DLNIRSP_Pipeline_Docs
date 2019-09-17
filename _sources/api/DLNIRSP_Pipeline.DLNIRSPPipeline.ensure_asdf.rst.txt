@@ -1,0 +1,6 @@
+ensure_asdf
+===========
+
+.. currentmodule:: DLNIRSP_Pipeline.DLNIRSPPipeline
+
+.. autofunction:: ensure_asdf

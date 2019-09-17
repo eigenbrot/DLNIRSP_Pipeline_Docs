@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>main &#8212; DLNIRSP_Pipeline v0.6.0</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" type="text/css" />
+    <link rel="stylesheet" href="../_static/dkist.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favico.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="validate_observe_task_data" href="DLNIRSP_Pipeline.ScienceCalibration.validate_observe_task_data.html" />
+    <link rel="prev" title="generate_science_calibration" href="DLNIRSP_Pipeline.ScienceCalibration.generate_science_calibration.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="col-md-3 navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="http://nso.edu"><img src="../_static/img/NSOlogo.gif">
+        </a>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav hidden">
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">DL-NIRSP Pipeline Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config_file.html">Configuration File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../walkthrough.html">Data Reduction Walkthrough</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../API.html">Reference/API</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">main</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="DLNIRSP_Pipeline.ScienceCalibration.generate_science_calibration.html" title="Previous Chapter: generate_science_calibration"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; generate_scie...</span>
+    </a>
+  </li>
+  <li>
+    <a href="DLNIRSP_Pipeline.ScienceCalibration.validate_observe_task_data.html" title="Next Chapter: validate_observe_task_data"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">validate_obse... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+          
+            <ul class="nav navbar-nav navbar-left">
+              <li><a href="http://dkist.nso.edu/">DKIST</a></li>
+              <li><a href="http://docs.cadair.com/devdocs">DC Developer Guide</a></li>
+              <li><a href="http://docs.cadair.com/datarate">DKIST Data Rate</a></li>
+              <li><a href="http://docs.cadair.com/datamodel">DKIST Data Model</a></li>
+            </ul>
+          
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-3"><div id="side-logo" >
+            <a href="http://dkist.nso.edu">
+                <img src="../_static/img/DKISTLogo-Medium.jpg">
+            </a>
+        </div><div id="sidebar" class="bs-sidenav" role="complementary">
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">DL-NIRSP Pipeline Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config_file.html">Configuration File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../walkthrough.html">Data Reduction Walkthrough</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../API.html">Reference/API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.DLNIRSPPipeline">DLNIRSP_Pipeline.DLNIRSPPipeline Module</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.ScienceCalibration">DLNIRSP_Pipeline.ScienceCalibration Module</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../API.html#id1">Functions</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.ScienceCalibration.generate_science_calibration.html">generate_science_calibration</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">main</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.ScienceCalibration.validate_observe_task_data.html">validate_observe_task_data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.DarkCalibration">DLNIRSP_Pipeline.DarkCalibration Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.InstrumentPolarizationCalibration">DLNIRSP_Pipeline.InstrumentPolarizationCalibration Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.LampFlatCalibration">DLNIRSP_Pipeline.LampFlatCalibration Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.SolarFlatCalibration">DLNIRSP_Pipeline.SolarFlatCalibration Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.IFUCalibration">DLNIRSP_Pipeline.IFUCalibration Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.generic">DLNIRSP_Pipeline.generic Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.Data">DLNIRSP_Pipeline.Data Module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+        </div>
+    </div>
+
+    <div class="body col-md-9 content" role="main">
+      
+  <div class="section" id="main">
+<h1>main<a class="headerlink" href="#main" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="DLNIRSP_Pipeline.ScienceCalibration.main">
+<code class="sig-prename descclassname">DLNIRSP_Pipeline.ScienceCalibration.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><em class="sig-param">datasetData</em>, <em class="sig-param">MRN</em>, <em class="sig-param">outpre</em>, <em class="sig-param">dark_cal=None</em>, <em class="sig-param">instrument_pol_cal=None</em>, <em class="sig-param">solar_flat_cal=None</em>, <em class="sig-param">geometric_cal=None</em>, <em class="sig-param">dark_cal_sig=None</em>, <em class="sig-param">solar_flat_cal_sig=None</em>, <em class="sig-param">allow_no_pol=False</em>, <em class="sig-param">ifu_cal=None</em>, <em class="sig-param">cube_shape=(100</em>, <em class="sig-param">100)</em>, <em class="sig-param">telescope_db=None</em>, <em class="sig-param">remove_TM=True</em>, <em class="sig-param">include_M12=True</em>, <em class="sig-param">remove_parallactic=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/DLNIRSP_Pipeline/ScienceCalibration.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DLNIRSP_Pipeline.ScienceCalibration.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reduce DLNIRSP Science data</p>
+<p>Any intermediate Calibration objects that are provided will be applied to the data and are technically optional.
+If no Calibration objects are provided then the data will essentially be passed through, which is pretty boring.
+An slight exception to this is the <code class="docutils literal notranslate"><span class="pre">instrument_pol_cal</span></code>; this is psuedo-required and a user must prove their
+sanity via the <code class="docutils literal notranslate"><span class="pre">allow_no_pol</span></code> keyword to turn off demodulation.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>datasetData</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Data.DataSetData</span></code></span></dt><dd><p>Object containing mapping of mosaic/repeat numbers to raw data files</p>
+</dd>
+<dt><strong>MRN</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Data.MosaicRepeatNumber</span></code></span></dt><dd><p>Identified of the mosaic/repeat step to reduce</p>
+</dd>
+<dt><strong>outpre</strong><span class="classifier">str</span></dt><dd><p>Prefix of filename to save reduced Science object</p>
+</dd>
+<dt><strong>dark_cal</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Data.FitsData</span></code></span></dt><dd><p>Dark Calibration object</p>
+</dd>
+<dt><strong>instrument_pol_cal</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Data.DemodulationData</span></code></span></dt><dd><p>Instrument Polarization Calibration object (i.e., demodulation matrices)</p>
+</dd>
+<dt><strong>solar_flat_cal</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Data.FitsData</span></code></span></dt><dd><p>Solar Flat Calibration object</p>
+</dd>
+<dt><strong>geometric_cal</strong><span class="classifier">dict</span></dt><dd><p>Geometric Calibration object</p>
+</dd>
+<dt><strong>dark_cal_sig</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Data.FitsData</span></code></span></dt><dd><p>Uncertainty associated with <code class="docutils literal notranslate"><span class="pre">dark_cal</span></code></p>
+</dd>
+<dt><strong>solar_flat_cal_sig</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Data.FitsData</span></code></span></dt><dd><p>Uncertainty associated with <code class="docutils literal notranslate"><span class="pre">solar_flat_cal</span></code></p>
+</dd>
+<dt><strong>allow_no_pol</strong><span class="classifier">bool</span></dt><dd><p>If True then let the script continue without <code class="docutils literal notranslate"><span class="pre">instrument_pol_cal</span></code></p>
+</dd>
+<dt><strong>ifu_cal</strong><span class="classifier">dict</span></dt><dd><p>Dictionary containing IFU remapping information</p>
+</dd>
+<dt><strong>cube_shape</strong><span class="classifier">tuple</span></dt><dd><p>(X, Y) tuple that defines the final spatial dimensions (in pixels) of the resampled IFU data cube</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">Data.FitsData</span></code></dt><dd><p>Reduced science data. If IFU resampling is done (i.e., Level 1.5 data) there will be four 3D data_hdus,
+corresponding to the four Stokes vectors. If no <code class="docutils literal notranslate"><span class="pre">ifu_cal</span></code> is provided then the output will be Level 1 data,
+with each of the four data_hdus containing all DL fibers stacked into a single slit.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <div class="left-footer">
+         &copy; 2019, Arthur Eigenbrot
+       <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
+    </div>
+   
+    <div class="right-footer">
+      Last updated on 17 Sep 2019.
+    </div>
+    <div class="centre-footer">
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

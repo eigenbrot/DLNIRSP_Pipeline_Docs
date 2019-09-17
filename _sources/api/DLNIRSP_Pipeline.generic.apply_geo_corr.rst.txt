@@ -1,0 +1,6 @@
+apply_geo_corr
+==============
+
+.. currentmodule:: DLNIRSP_Pipeline.generic
+
+.. autofunction:: apply_geo_corr

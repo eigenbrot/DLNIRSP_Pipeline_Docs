@@ -1,0 +1,6 @@
+extract_slitbeams
+=================
+
+.. currentmodule:: DLNIRSP_Pipeline.SolarFlatCalibration
+
+.. autofunction:: extract_slitbeams

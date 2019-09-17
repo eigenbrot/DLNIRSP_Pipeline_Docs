@@ -1,0 +1,6 @@
+write_reduced_CS_step
+=====================
+
+.. currentmodule:: DLNIRSP_Pipeline.InstrumentPolarizationCalibration
+
+.. autofunction:: write_reduced_CS_step

@@ -1,0 +1,6 @@
+instrument_polarization_correction
+==================================
+
+.. currentmodule:: DLNIRSP_Pipeline.generic
+
+.. autofunction:: instrument_polarization_correction

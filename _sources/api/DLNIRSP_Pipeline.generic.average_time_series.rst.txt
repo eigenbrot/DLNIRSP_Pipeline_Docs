@@ -1,0 +1,6 @@
+average_time_series
+===================
+
+.. currentmodule:: DLNIRSP_Pipeline.generic
+
+.. autofunction:: average_time_series

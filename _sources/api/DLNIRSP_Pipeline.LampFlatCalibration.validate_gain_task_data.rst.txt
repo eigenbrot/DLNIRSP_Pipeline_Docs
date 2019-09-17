@@ -1,0 +1,6 @@
+validate_gain_task_data
+=======================
+
+.. currentmodule:: DLNIRSP_Pipeline.LampFlatCalibration
+
+.. autofunction:: validate_gain_task_data

@@ -1,0 +1,6 @@
+demodulated_gain_correction
+===========================
+
+.. currentmodule:: DLNIRSP_Pipeline.generic
+
+.. autofunction:: demodulated_gain_correction

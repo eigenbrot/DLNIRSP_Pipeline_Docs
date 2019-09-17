@@ -1,0 +1,1055 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>DLNIRSP_Pipeline.Data &#8212; DLNIRSP_Pipeline v0.6.0</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" type="text/css" />
+    <link rel="stylesheet" href="../../_static/dkist.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../../_static/favico.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="col-md-3 navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="http://nso.edu"><img src="../../_static/img/NSOlogo.gif">
+        </a>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav hidden">
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">DL-NIRSP Pipeline Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../config_file.html">Configuration File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../walkthrough.html">Data Reduction Walkthrough</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../API.html">Reference/API</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+          </ul>
+          
+            <ul class="nav navbar-nav navbar-left">
+              <li><a href="http://dkist.nso.edu/">DKIST</a></li>
+              <li><a href="http://docs.cadair.com/devdocs">DC Developer Guide</a></li>
+              <li><a href="http://docs.cadair.com/datarate">DKIST Data Rate</a></li>
+              <li><a href="http://docs.cadair.com/datamodel">DKIST Data Model</a></li>
+            </ul>
+          
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-3"><div id="side-logo" >
+            <a href="http://dkist.nso.edu">
+                <img src="../../_static/img/DKISTLogo-Medium.jpg">
+            </a>
+        </div><div id="sidebar" class="bs-sidenav" role="complementary">
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">DL-NIRSP Pipeline Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../config_file.html">Configuration File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../walkthrough.html">Data Reduction Walkthrough</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../API.html">Reference/API</a></li>
+</ul>
+
+            
+        </div>
+    </div>
+
+    <div class="body col-md-9 content" role="main">
+      
+  <h1>Source code for DLNIRSP_Pipeline.Data</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pkg_resources</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="k">import</span> <span class="n">glob</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">configparser</span> <span class="k">import</span> <span class="n">ConfigParser</span>
+<span class="kn">from</span> <span class="nn">astropy.time</span> <span class="k">import</span> <span class="n">Time</span>
+<span class="kn">from</span> <span class="nn">astropy.io</span> <span class="k">import</span> <span class="n">fits</span> <span class="k">as</span> <span class="n">pyfits</span>
+<span class="kn">from</span> <span class="nn">DLNIRSP_Pipeline.tag</span> <span class="k">import</span> <span class="n">tag</span>
+
+<span class="n">defaults</span> <span class="o">=</span> <span class="n">ConfigParser</span><span class="p">()</span>
+<span class="n">defaults</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="s1">&#39;data/defaults.ini&#39;</span><span class="p">))</span>
+<span class="n">TMPDIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+
+<div class="viewcode-block" id="FitsData"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.Data.FitsData.html#DLNIRSP_Pipeline.Data.FitsData">[docs]</a><span class="k">class</span> <span class="nc">FitsData</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;FitsData is a basically a wrapper for astropy.io.fits, with some extra methods and properties to aid the</span>
+<span class="sd">    reduction of DKIST data.</span>
+
+<span class="sd">    At its heart, this class is just a list of astropy.io.fits HDU objects.</span>
+
+<span class="sd">    astropy.io.fits is used to store data and metadata because of its use of memmap to reduce the load on RAM when</span>
+<span class="sd">    accessing data arrays.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">load_obj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">memmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow3D</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize an empty object and maybe load files from a directory.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        load_obj : str</span>
+<span class="sd">            If supplied, the path to a directory of FITS files that will be loaded into this object.</span>
+
+<span class="sd">        memmap : bool or None</span>
+<span class="sd">            Whether to use astropy.io.fits&#39; memmap functionality. Set to None to let astropy figure it out for you.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Set some default properties that other methods expect to exist</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">origin</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_tmp</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ref_file</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_hdulist</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">HDUList</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_hdus</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">HDUList</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data_list</span> <span class="o">=</span> <span class="n">_DataList</span><span class="p">(</span><span class="n">allow3D</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">load_obj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">load_obj</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">load_from_directory</span><span class="p">(</span><span class="n">load_obj</span><span class="p">,</span> <span class="n">memmap</span><span class="o">=</span><span class="n">memmap</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">load_obj</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="n">load_obj</span><span class="p">,</span> <span class="n">memmap</span><span class="o">=</span><span class="n">memmap</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;WARNING: </span><span class="si">{}</span><span class="s1"> does not appear to be a file or directory. Nothing loaded.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">load_obj</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Only overloaded so that any temp FITS files can be deleted.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_tmp</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Closing </span><span class="si">{}</span><span class="s1"> and deleting associated tmp file.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_file</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">origin</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;FitsData created by </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;FitsData loaded from </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_file</span><span class="p">)</span>
+
+<div class="viewcode-block" id="FitsData.load_from_directory"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.Data.FitsData.html#DLNIRSP_Pipeline.Data.FitsData.load_from_directory">[docs]</a>    <span class="k">def</span> <span class="nf">load_from_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">searchstr</span><span class="o">=</span><span class="s1">&#39;*.fits&#39;</span><span class="p">,</span> <span class="n">max_open</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">memmap</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Load a series of FITS files from a directory.</span>
+
+<span class="sd">        Each separate file will become a single HDU in this object&#39;s data_hdus. A blank PrimaryHDU is provided.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        directory : str</span>
+<span class="sd">            The path to the directory to look in</span>
+
+<span class="sd">        searchstr : str</span>
+<span class="sd">            A string used to narrow down the files loaded. For example, to search for all .fits files starting with</span>
+<span class="sd">            &quot;image_1&quot;, the search string would be &quot;image_1*.fits&quot;.</span>
+
+<span class="sd">        max_open : int</span>
+<span class="sd">            The maximum number of open files to keep. Some systems will cause massive errors if too many files are</span>
+<span class="sd">            open at a time. If loading from a directory with a lot of files, this method will flush() after max_open</span>
+<span class="sd">            have been loaded.</span>
+
+<span class="sd">        memmap : boolean or None</span>
+<span class="sd">            Use astropy.io.fits&#39; memmap functionality? If None then astropy will make this choice for you.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: Loading files from </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="n">directory</span><span class="p">))</span>
+        <span class="n">hdulist</span> <span class="o">=</span> <span class="p">[</span><span class="n">pyfits</span><span class="o">.</span><span class="n">PrimaryHDU</span><span class="p">()]</span>
+        <span class="n">file_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">searchstr</span><span class="p">)))</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">file_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s1">&#39;Did not find any files to load in </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">directory</span><span class="p">))</span>
+
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">memmap</span><span class="o">=</span><span class="n">memmap</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">max_open</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">hdulist</span> <span class="o">=</span> <span class="n">hdulist</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: Loading file </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="n">f</span><span class="p">))</span>
+            <span class="n">hdulist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">hdulist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span> <span class="o">=</span> <span class="n">hdulist</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hdulist</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">HDUList</span><span class="p">(</span><span class="n">hdulist</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">origin</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">searchstr</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FitsData.load_from_file"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.Data.FitsData.html#DLNIRSP_Pipeline.Data.FitsData.load_from_file">[docs]</a>    <span class="k">def</span> <span class="nf">load_from_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fitsfile</span><span class="p">,</span> <span class="n">memmap</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Load data/metadata from a FITS file and make the resulting HDU list accessable to the rest of the class</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        fitsfile : str</span>
+<span class="sd">            Path to the FITS file to load. Should probably exist.</span>
+
+<span class="sd">        memmap : bool or None</span>
+<span class="sd">            Whether to use astropy.io.fits&#39; memmap functionality. Set to None to let astropy figure it out for you.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: Loading from file </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="n">fitsfile</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hdulist</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fitsfile</span><span class="p">,</span> <span class="n">memmap</span><span class="o">=</span><span class="n">memmap</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ref_file</span> <span class="o">=</span> <span class="n">fitsfile</span></div>
+
+<div class="viewcode-block" id="FitsData.init_with_ndarray"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.Data.FitsData.html#DLNIRSP_Pipeline.Data.FitsData.init_with_ndarray">[docs]</a>    <span class="k">def</span> <span class="nf">init_with_ndarray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">outputfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Load data from a numpy.ndarray and construct an astropy.io.fits HDU list</span>
+
+<span class="sd">        To provide a uniform data type for all DKIST instruments the follow conventions are enforced:</span>
+
+<span class="sd">        1. The PrimaryHDU can (and should) have relevant header information</span>
+<span class="sd">        2. The PrimaryHDU will have no data</span>
+<span class="sd">        3. ImageHDU&#39;s must have data with 2 dimensions</span>
+
+<span class="sd">        A consequence of point 3 is that an extra, third dimension in the input array will be distributed across</span>
+<span class="sd">        multiple ImageHDU&#39;s. Input arrays of dimensionality &gt; 3 are not currently supported.</span>
+
+<span class="sd">        If an output file is not specified then a temporary FITS file will be created to take advantage of</span>
+<span class="sd">        astropy.io.fits&#39; memmap ability. In this case the FitsData object will be completely lost when it is no</span>
+<span class="sd">        longer needed. To save the object use the .write_out() method prior to deletion.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        array : numpy.ndarray</span>
+<span class="sd">            Array to be loaded into the FitsData object. Must have 2 or 3 dimensions</span>
+<span class="sd">        outputfile : str</span>
+<span class="sd">            If specified, a FITS file will be saved to this path and then reloaded. If None then a temporary file</span>
+<span class="sd">            will be created.</span>
+<span class="sd">        overwrite : bool</span>
+<span class="sd">            If True the outputfile specified will be overwritten.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">hdulist</span> <span class="o">=</span> <span class="p">[</span><span class="n">pyfits</span><span class="o">.</span><span class="n">PrimaryHDU</span><span class="p">()]</span>
+        <span class="n">hdulist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;FRMARR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span>
+                <span class="n">hdulist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pyfits</span><span class="o">.</span><span class="n">ImageHDU</span><span class="p">(</span><span class="n">array</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">i</span><span class="p">]))</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;FitsData currently only supports initialization with ndarrays of shape 2 or 3&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">hdulist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pyfits</span><span class="o">.</span><span class="n">ImageHDU</span><span class="p">(</span><span class="n">array</span><span class="p">))</span>
+
+        <span class="c1"># Now write to a file so we don&#39;t keep everything in memory</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">outputfile</span><span class="p">:</span>
+            <span class="n">outputfile</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/tmp</span><span class="si">{}</span><span class="s1">.fits&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">TMPDIR</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">is_tmp</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="n">pyfits</span><span class="o">.</span><span class="n">HDUList</span><span class="p">(</span><span class="n">hdulist</span><span class="p">)</span><span class="o">.</span><span class="n">writeto</span><span class="p">(</span><span class="n">outputfile</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">)</span>
+
+        <span class="c1"># And then simply load the resulting file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="n">outputfile</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FitsData.flush"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.Data.FitsData.html#DLNIRSP_Pipeline.Data.FitsData.flush">[docs]</a>    <span class="k">def</span> <span class="nf">flush</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Flush the current data from memory and reload memmap from the disk</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_tmp</span><span class="p">:</span>
+            <span class="n">outputfile</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tmp_file</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">outputfile</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/tmp</span><span class="si">{}</span><span class="s1">.fits&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">TMPDIR</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)))</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: Flushing </span><span class="si">{}</span><span class="s1"> to </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="bp">self</span><span class="p">,</span> <span class="n">outputfile</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_out</span><span class="p">(</span><span class="n">outputfile</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_hdus</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">d</span><span class="o">.</span><span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="n">outputfile</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_tmp</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tmp_file</span> <span class="o">=</span> <span class="n">outputfile</span></div>
+
+<div class="viewcode-block" id="FitsData.write_out"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.Data.FitsData.html#DLNIRSP_Pipeline.Data.FitsData.write_out">[docs]</a>    <span class="k">def</span> <span class="nf">write_out</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Save the current object to a FITS file</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            The location of the resulting FITS file</span>
+
+<span class="sd">        overwrite :</span>
+<span class="sd">            If True, overwrite the filename if it exists. Otherwise complain about a pre-existing file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">out_hdu_list</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">HDUList</span><span class="p">()</span>
+        <span class="n">loaded_hdus</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span> <span class="ow">in</span> <span class="n">h</span><span class="o">.</span><span class="vm">__dict__</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hdulist</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hdulist</span><span class="p">):</span>
+            <span class="n">h</span><span class="o">.</span><span class="n">_do_not_scale_image_data</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="n">h</span><span class="o">.</span><span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">h</span><span class="o">.</span><span class="n">_do_not_scale_image_data</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">out_hdu_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">ih</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">ImageHDU</span><span class="p">()</span>
+            <span class="n">out_hdu_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ih</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_3d</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">out_hdu_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+            <span class="n">out_hdu_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">header</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">header</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">loaded_hdus</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="k">del</span> <span class="n">h</span><span class="o">.</span><span class="n">data</span>
+            <span class="n">h</span><span class="o">.</span><span class="n">_do_not_scale_image_data</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="n">out_hdu_list</span><span class="o">.</span><span class="n">writeto</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">,</span> <span class="n">output_verify</span><span class="o">=</span><span class="s1">&#39;silentfix&#39;</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_update_data_hdus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fill data_hdu list with only those HDUs that have data.</span>
+
+<span class="sd">        To avoid actually loading the data we look at the required NAXIS header value. It will be 0 (False) for HDUs</span>
+<span class="sd">        with no data. There are other (maybe better?) ways to do this.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_hdus</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">HDUList</span><span class="p">([</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hdulist</span> <span class="k">if</span> <span class="n">h</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;NAXIS&#39;</span><span class="p">]])</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">hdulist</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Just return the internal property&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hdulist</span>
+
+    <span class="nd">@hdulist</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">hdulist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Simply update the internal value and then make sure data_hdus gets updated too&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_hdulist</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_data_hdus</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Make sure the _DataList object is up to date and return it&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data_list</span><span class="o">.</span><span class="n">data_hdus</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_hdus</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_list</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">headers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A very nice convenience property to quickly access a list of the header objects&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">h</span><span class="o">.</span><span class="n">header</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hdulist</span><span class="p">]</span>
+
+<div class="viewcode-block" id="FitsData.delete_data"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.Data.FitsData.html#DLNIRSP_Pipeline.Data.FitsData.delete_data">[docs]</a>    <span class="k">def</span> <span class="nf">delete_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Unload data arrays from memory. The data will still be accessible from disk.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_hdus</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">h</span><span class="o">.</span><span class="n">data</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_stacked_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a ndarray stack containing data from all data HDU&#39;s. Probably don&#39;t use this.</span>
+
+<span class="sd">        If there are a lot of data HDU&#39;s the resulting array might be very large. Watch out!</span>
+
+<span class="sd">        If the dimensionality of the data in the individual data HDU&#39;s is not the same bad things will happen.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">            A 3D array where the last dimension corresponds to the number of data HUD&#39;s in the current object.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dstack</span><span class="p">([</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">])</span>
+
+<div class="viewcode-block" id="FitsData.find_data_keyword_idx"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.Data.FitsData.html#DLNIRSP_Pipeline.Data.FitsData.find_data_keyword_idx">[docs]</a>    <span class="k">def</span> <span class="nf">find_data_keyword_idx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the index of just the ImageHDUs that have a specific header keyword value</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        keyword : str</span>
+<span class="sd">            The header keyword to search for</span>
+
+<span class="sd">        value : str, int, float</span>
+<span class="sd">            The value of the keyword to match</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">            A 1d list of the indices that where data_hdus[idx].header[KEYWORD] == value</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">idxs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_hdus</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">h</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="n">keyword</span><span class="p">]</span> <span class="o">==</span> <span class="n">value</span><span class="p">:</span>
+                    <span class="n">idxs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">idxs</span><span class="p">)</span></div></div>
+
+<span class="k">class</span> <span class="nc">_DataList</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;This class exists so that the actual data arrays in FitsData can be accessed without necessarily loading all</span>
+<span class="sd">    arrays into memory. It also uses np.squeeze to ignore the dummy 3rd dimension in a numpy view sense. Thus, the</span>
+<span class="sd">    benefits of memmaping are preserved as long as possible.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">allow3D</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Thre&#39;s only one property here, a list that will eventually contain pyfits HDU objects&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_hdus</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">HDUList</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">allow3D</span> <span class="o">=</span> <span class="n">allow3D</span>
+
+    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Keep any loaded arrays out of memory when we&#39;re gone&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_hdus</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">h</span><span class="o">.</span><span class="n">data</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check that the shape of the actual data is expected and then return the squeezed view of the requested data</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_hdus</span><span class="p">[</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">allow3D</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">data</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Data shape (</span><span class="si">{}</span><span class="s1">) is wrong&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Just direct access to underlying array&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_hdus</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Needed so that we can stop using len(FitsData.data_hdus)&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_hdus</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MRNData"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.Data.MRNData.html#DLNIRSP_Pipeline.Data.MRNData">[docs]</a><span class="k">class</span> <span class="nc">MRNData</span><span class="p">(</span><span class="n">FitsData</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;MRNData is an extension of FitsData that loads a single DL-NIRSP mosaic/repeat number from a directory containing</span>
+<span class="sd">    a full DL-NIRSP DataSet. Loading of the data happens with help from DataSetData, and after loading this object</span>
+<span class="sd">    behaves exactly like FitsData.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">MRN</span><span class="p">,</span> <span class="n">memmap</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the object and maybe load some data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        MRN : int</span>
+<span class="sd">            Only files/data pertaining to this spatial step will be loaded</span>
+
+<span class="sd">        memmap : bool</span>
+<span class="sd">            The decision on whether or not to use astropy.io.fits&#39; memmap feature. If set to &#39;None&#39; then astropy will</span>
+<span class="sd">            figure it out for you (recommended).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">FitsData</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">load_obj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">memmap</span><span class="o">=</span><span class="n">memmap</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">MRN</span><span class="p">,</span> <span class="n">MosiacRepeatNumber</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Supplied MRN (</span><span class="si">{}</span><span class="s1">) is not a valid _MosaicRepeatNumber&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">MRN</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">MRN</span> <span class="o">=</span> <span class="n">MRN</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ref_dir</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;MRNData for </span><span class="si">{}</span><span class="s1"> loaded from </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MRN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_dir</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MRNData.load_from_filelist"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.Data.MRNData.html#DLNIRSP_Pipeline.Data.MRNData.load_from_filelist">[docs]</a>    <span class="k">def</span> <span class="nf">load_from_filelist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_list</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Load files from a list of file names</span>
+
+<span class="sd">        Each file is checked to make sure it is from the correct MRN (the one that this class was initialized with),</span>
+<span class="sd">        but no checks are made against program task or dataset ID.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        file_list : lst</span>
+<span class="sd">            A list of paths to files to load</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">hdulist</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+            <span class="c1"># Let&#39;s just do a double-check that the slit position is correct</span>
+            <span class="k">if</span> <span class="n">MosiacRepeatNumber</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MRN</span><span class="p">:</span>
+                <span class="n">h</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="k">del</span> <span class="n">h</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;File </span><span class="si">{}</span><span class="s1"> is not from the correct MRN (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MRN</span><span class="p">))</span>
+
+            <span class="n">hdulist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">hdulist</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">HDUList</span><span class="p">([</span><span class="n">pyfits</span><span class="o">.</span><span class="n">PrimaryHDU</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">hdulist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">copy</span><span class="p">())]</span> <span class="o">+</span> <span class="n">hdulist</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="DataSetData"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.Data.DataSetData.html#DLNIRSP_Pipeline.Data.DataSetData">[docs]</a><span class="k">class</span> <span class="nc">DataSetData</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;DataSetData performs 2 functions: First, it separates DL mosaic/repeat numbers (MRN) found among raw data in a</span>
+<span class="sd">     directory. Secondly, it can initialize and produce an `MRNData` object at a requested MRN.</span>
+<span class="sd">     &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dataset_ID</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;*.fits&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize properties and maybe scan a directory for mosaic/repeat steps.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data_dir : str</span>
+<span class="sd">            Path to a directory that will be searched for MRNs</span>
+
+<span class="sd">        suffix : str</span>
+<span class="sd">            File mask. The full mask will be data_dir/*SUFFIX</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MRN_file_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_dir</span> <span class="o">=</span> <span class="n">data_dir</span>
+
+        <span class="k">if</span> <span class="n">data_dir</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">read_directory</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">,</span> <span class="n">dataset_ID</span><span class="o">=</span><span class="n">dataset_ID</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;DL-NIRSP Data Set loaded from directory </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_dir</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DataSetData.read_directory"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.Data.DataSetData.html#DLNIRSP_Pipeline.Data.DataSetData.read_directory">[docs]</a>    <span class="k">def</span> <span class="nf">read_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;*.fits&#39;</span><span class="p">,</span> <span class="n">dataset_ID</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Read all files in a directory and assign all files a MRN identifier. Then populate a dictionary that maps</span>
+<span class="sd">        mosaic/repeat number to a list of files corresponding to that MRN.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data_dir : str</span>
+<span class="sd">            Path to a directory that will be searched for CS steps</span>
+
+<span class="sd">        suffix : str</span>
+<span class="sd">            File mask. The full mask will be data_dir/*SUFFIX</span>
+
+<span class="sd">        dataset_ID : str</span>
+<span class="sd">            Only check data from this data set. A check is made against each file&#39;s ID_004 header value. Can be a blank</span>
+<span class="sd">            string to just load all data sets.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">file_list</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/*</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">suffix</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MRN_file_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">h</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;DKIST004&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Observation&#39;</span> <span class="ow">and</span> <span class="p">(</span><span class="n">dataset_ID</span> <span class="ow">is</span> <span class="s1">&#39;&#39;</span> <span class="ow">or</span> <span class="n">h</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;ID___004&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">dataset_ID</span><span class="p">):</span>
+                <span class="n">MRN</span> <span class="o">=</span> <span class="n">MosiacRepeatNumber</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">MRN_file_dict</span><span class="p">[</span><span class="n">MRN</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">MRN_file_dict</span><span class="p">[</span><span class="n">MRN</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="p">]</span>
+
+            <span class="n">h</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">del</span> <span class="n">h</span></div>
+
+<div class="viewcode-block" id="DataSetData.get_MR_data"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.Data.DataSetData.html#DLNIRSP_Pipeline.Data.DataSetData.get_MR_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_MR_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">MRN</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize a `MRNData` object for the requested mosaic/repeat number</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        MRN : tuple</span>
+<span class="sd">            The desired mosaic/repeat number</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        `CalibrationCurveData`</span>
+<span class="sd">            Object containing data/metadata for the requested CS step</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">MRN</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">MRN_file_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> cannot find </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">MRN</span><span class="p">))</span>
+
+        <span class="n">MRND</span> <span class="o">=</span> <span class="n">MRNData</span><span class="p">(</span><span class="n">MRN</span><span class="p">)</span>
+        <span class="n">MRND</span><span class="o">.</span><span class="n">load_from_filelist</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MRN_file_dict</span><span class="p">[</span><span class="n">MRN</span><span class="p">])</span>
+        <span class="n">MRND</span><span class="o">.</span><span class="n">ref_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_dir</span>
+
+        <span class="k">return</span> <span class="n">MRND</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">num_MRN</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The total number of mosaic/repeat steps found&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MRN_file_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">MRN_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MRN_file_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="MosiacRepeatNumber"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.Data.MosiacRepeatNumber.html#DLNIRSP_Pipeline.Data.MosiacRepeatNumber">[docs]</a><span class="k">class</span> <span class="nc">MosiacRepeatNumber</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;This class allows for an easy way to quickly compare SPEC-0122 style headers to determine if they come from the</span>
+<span class="sd">    same DL-NIRSP mosaic/repeat number (MRN). The smallest possible DL data unit is defined uniquely by a) its mosaic</span>
+<span class="sd">    location in the FOV, and b) its repeat number. For example, if the Instrument Program requires a 2x2 mosaic of the</span>
+<span class="sd">    FOV to be repeated 3 times then there will be 12 unique data units. Each data unit is defined by the vector:</span>
+
+<span class="sd">    (DSPSRepeatNumber, CurrentSpatialStepX, CurrentSpatialStepY)</span>
+
+<span class="sd">    This class is that vector.</span>
+
+<span class="sd">    This class can be sorted and is hashable for use in dictionaries.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">header</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize and read the MRN from a SPEC-0122 FITS header.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        header : `astropy.io.fits.header.Header`</span>
+<span class="sd">            Object containing a SPEC-0122 compliant header</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_repeat</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s1">&#39;DKIST009&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_step_x</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s1">&#39;DLN__031&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_step_y</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s1">&#39;DLN__035&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;DL-NIRSP repeat </span><span class="si">{}</span><span class="s1"> of spatial step (</span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_repeat</span><span class="p">,</span>
+                                                                    <span class="bp">self</span><span class="o">.</span><span class="n">current_step_x</span><span class="p">,</span>
+                                                                    <span class="bp">self</span><span class="o">.</span><span class="n">current_step_y</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">MosiacRepeatNumber</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;current_repeat&#39;</span><span class="p">,</span> <span class="s1">&#39;current_step_x&#39;</span><span class="p">,</span> <span class="s1">&#39;current_step_y&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_repeat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_step_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_step_y</span><span class="p">)</span> <span class="o">&lt;</span> \
+               <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">current_repeat</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">current_step_x</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">current_step_y</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">current_repeat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_step_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_step_y</span><span class="p">))</span>
+
+<div class="viewcode-block" id="MosiacRepeatNumber.get_str"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.Data.MosiacRepeatNumber.html#DLNIRSP_Pipeline.Data.MosiacRepeatNumber.get_str">[docs]</a>    <span class="k">def</span> <span class="nf">get_str</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Condense the MRN vector into a string that can be used for file names and such&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{:04}</span><span class="s1">-</span><span class="si">{:04}</span><span class="s1">-</span><span class="si">{:04}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_repeat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_step_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_step_y</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="CalibrationCurveData"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.Data.CalibrationCurveData.html#DLNIRSP_Pipeline.Data.CalibrationCurveData">[docs]</a><span class="k">class</span> <span class="nc">CalibrationCurveData</span><span class="p">(</span><span class="n">FitsData</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;CalibrationCurveData is an extension of FitsData that loads a single Calibration Curve from a directory</span>
+<span class="sd">    containing a full Set of Calibration Curves (SoCC). The user is able to specify which step of the Calibration</span>
+<span class="sd">    Sequence (CS) will be loaded and after loading this object behaves exactly like FitsData.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CS_step</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">memmap</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the object and maybe load some data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data_dir : str</span>
+<span class="sd">            Path to directory in which to look for data</span>
+
+<span class="sd">        CS_step : int</span>
+<span class="sd">            Only files/data pertaining to this Calibration Sequence step will be loaded</span>
+
+<span class="sd">        suffix : str</span>
+<span class="sd">            Optional file mask. The full mask is DATA_DIR/\*SUFFIX. Defaults to &quot;.fits&quot;</span>
+
+<span class="sd">        memmap : bool</span>
+<span class="sd">            The decision on whether or not to use astropy.io.fits&#39; memmap feature. If set to &#39;None&#39; then astropy will</span>
+<span class="sd">            figure it out for you (recommended).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">FitsData</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">load_obj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">memmap</span><span class="o">=</span><span class="n">memmap</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ref_dir</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">CS_step</span> <span class="o">=</span> <span class="n">CS_step</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;CalibrationCurveData from CS step </span><span class="si">{}</span><span class="s1"> loaded from </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CS_step</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_dir</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CalibrationCurveData.load_from_filelist"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.Data.CalibrationCurveData.html#DLNIRSP_Pipeline.Data.CalibrationCurveData.load_from_filelist">[docs]</a>    <span class="k">def</span> <span class="nf">load_from_filelist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_list</span><span class="p">,</span> <span class="n">check_obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Load files from a list of file names</span>
+
+<span class="sd">        Each file is checked to make sure it is from the correct CS step.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        file_list : lst</span>
+<span class="sd">            A list of paths to files to load</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">hdulist</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+            <span class="c1"># Let&#39;s just do a double-check that the CS step is correct</span>
+            <span class="k">if</span> <span class="n">CSStep</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">)</span> <span class="o">!=</span> <span class="n">check_obj</span><span class="p">:</span>
+                <span class="n">h</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="k">del</span> <span class="n">h</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;File </span><span class="si">{}</span><span class="s1"> is not from the correct CS step (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">CS_step</span><span class="p">))</span>
+
+            <span class="n">hdulist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">hdulist</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">HDUList</span><span class="p">([</span><span class="n">pyfits</span><span class="o">.</span><span class="n">PrimaryHDU</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">hdulist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">)]</span> <span class="o">+</span> <span class="n">hdulist</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="SoCCData"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.Data.SoCCData.html#DLNIRSP_Pipeline.Data.SoCCData">[docs]</a><span class="k">class</span> <span class="nc">SoCCData</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;SoCCData performs 2 functions: First, it separates and sorts Calibration Sequence (CS) steps found among raw</span>
+<span class="sd">     data in a directory. Secondly, it can initialize and produce a `CalibrationCurveData` object at a requested CS</span>
+<span class="sd">     step.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;*.fits&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize properties and maybe scan a directory for CS steps.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data_dir : str</span>
+<span class="sd">            Path to a directory that will be searched for CS steps</span>
+
+<span class="sd">        suffix : str</span>
+<span class="sd">            File mask. The full mask will be data_dir/*SUFFIX</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">CS_step_file_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">CS_step_obj_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_dir</span> <span class="o">=</span> <span class="n">data_dir</span>
+
+        <span class="k">if</span> <span class="n">data_dir</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">read_directory</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;SoCCData loaded from directory </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_dir</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SoCCData.read_directory"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.Data.SoCCData.html#DLNIRSP_Pipeline.Data.SoCCData.read_directory">[docs]</a>    <span class="k">def</span> <span class="nf">read_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;*.fits&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Read all files in a directory and assign all files a CS step identifier. Then sort the unique CS steps and</span>
+<span class="sd">        populate a dictionary that maps step number to a list of files corresponding to that step.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data_dir : str</span>
+<span class="sd">            Path to a directory that will be searched for CS steps</span>
+
+<span class="sd">        suffix : str</span>
+<span class="sd">            File mask. The full mask will be data_dir/*SUFFIX</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">file_list</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/*</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">suffix</span><span class="p">))</span>
+        <span class="n">tmp_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">h</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;DKIST004&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;PolCal&#39;</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">CSs</span> <span class="o">=</span> <span class="n">CSStep</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">tmp_dict</span><span class="p">[</span><span class="n">CSs</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="n">tmp_dict</span><span class="p">[</span><span class="n">CSs</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="p">]</span>
+
+            <span class="n">h</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">del</span> <span class="n">h</span>
+
+        <span class="n">sorted_steps</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">tmp_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sorted_steps</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">CS_step_file_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp_dict</span><span class="p">[</span><span class="n">sorted_steps</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">CS_step_obj_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sorted_steps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="SoCCData.get_CC_data"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.Data.SoCCData.html#DLNIRSP_Pipeline.Data.SoCCData.get_CC_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_CC_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CS_step</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize a `CalibrationCurveData` object for the requested CS step</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        CS_step : int</span>
+<span class="sd">            The desired CS step</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        `CalibrationCurveData`</span>
+<span class="sd">            Object containing data/metadata for the requested CS step</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">CS_step</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">CS_step_file_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> cannot find CS step </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CS_step</span><span class="p">))</span>
+        <span class="n">CCD</span> <span class="o">=</span> <span class="n">CalibrationCurveData</span><span class="p">(</span><span class="n">CS_step</span><span class="o">=</span><span class="n">CS_step</span><span class="p">)</span>
+        <span class="n">CCD</span><span class="o">.</span><span class="n">load_from_filelist</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CS_step_file_dict</span><span class="p">[</span><span class="n">CS_step</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">CS_step_obj_dict</span><span class="p">[</span><span class="n">CS_step</span><span class="p">])</span>
+        <span class="n">CCD</span><span class="o">.</span><span class="n">ref_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_dir</span>
+
+        <span class="k">return</span> <span class="n">CCD</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">num_CS_steps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The total number of CS steps found&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CS_step_obj_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="CSStep"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.Data.CSStep.html#DLNIRSP_Pipeline.Data.CSStep">[docs]</a><span class="k">class</span> <span class="nc">CSStep</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;This class allows for an easy way to quickly compare SPEC-0122 style headers to determine if they come from the</span>
+<span class="sd">    same Calibration Sequence (CS) step. Each step in a CS is defined by the configuration of the GOS, namely the</span>
+<span class="sd">    status of the polarizer and retarder (in or out) and the angle of each. Because some CS schemes call for some</span>
+<span class="sd">    GOS configurations to repeat a check is also made against the observation time for each object; the defaults for</span>
+<span class="sd">    the ViSP Pipeline define a maximum difference in time where two exposures are considered different CS steps</span>
+<span class="sd">    regardless of GOS configuration.</span>
+
+<span class="sd">    This class can also be sorted. In this case, only the observation time is taken into account.</span>
+
+<span class="sd">    Finally, this class is hashable for use in dictionaries. The hash is only based on the GOS configuration so that</span>
+<span class="sd">    all objects from the same CS step result in the same hash. Python also checks that dictionary keys are equal so any</span>
+<span class="sd">    conflicts with repeated CS steps are avoided.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">header</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize and read the GOS configuration and time from a SPEC-0122 FITS header.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        header : `astropy.io.fits.header.Header`</span>
+<span class="sd">            Object containing a SPEC-0122 compliant header</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pol_in</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s1">&#39;PAC__001&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pol_theta</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s1">&#39;PAC__002&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ret_in</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s1">&#39;PAC__003&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ret_theta</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s1">&#39;PAC__004&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">obs_time</span> <span class="o">=</span> <span class="n">Time</span><span class="p">(</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;DATE-OBS&#39;</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;CC with Pol = </span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">, Ret = </span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">. Taken at </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pol_in</span><span class="p">,</span>
+                                                                      <span class="bp">self</span><span class="o">.</span><span class="n">pol_theta</span><span class="p">,</span>
+                                                                      <span class="bp">self</span><span class="o">.</span><span class="n">ret_in</span><span class="p">,</span>
+                                                                      <span class="bp">self</span><span class="o">.</span><span class="n">ret_theta</span><span class="p">,</span>
+                                                                      <span class="bp">self</span><span class="o">.</span><span class="n">obs_time</span><span class="o">.</span><span class="n">fits</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Two steps are equal if they have the same GOS configuration and are taken within some package-defined time</span>
+<span class="sd">        of each other.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">CSStep</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;pol_in&#39;</span><span class="p">,</span> <span class="s1">&#39;pol_theta&#39;</span><span class="p">,</span> <span class="s1">&#39;ret_in&#39;</span><span class="p">,</span> <span class="s1">&#39;ret_theta&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">tdelt</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obs_time</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="n">obs_time</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tdelt</span><span class="o">.</span><span class="n">sec</span> <span class="o">&gt;</span> <span class="nb">float</span><span class="p">(</span><span class="n">defaults</span><span class="p">[</span><span class="s1">&#39;Main&#39;</span><span class="p">][</span><span class="s1">&#39;max_CS_step_time_sec&#39;</span><span class="p">]):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Only based on time&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_time</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">obs_time</span>
+
+    <span class="k">def</span> <span class="nf">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Only based on GSO configuration so that all objects from the same CS step hash the same&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">pol_in</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pol_theta</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ret_in</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ret_theta</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="DemodulationData"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.Data.DemodulationData.html#DLNIRSP_Pipeline.Data.DemodulationData">[docs]</a><span class="k">class</span> <span class="nc">DemodulationData</span><span class="p">(</span><span class="n">FitsData</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    DemodulationData is a small modification of the `FitsData` class. It keeps track of demodulation matrices for each</span>
+<span class="sd">    beam and allows the beams to either have shape (X, Y, L, 4, M) or (4, M).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the object and generate an HDU list with the input array</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">FitsData</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">allow3D</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hdulist</span> <span class="o">=</span> <span class="p">[</span><span class="n">pyfits</span><span class="o">.</span><span class="n">PrimaryHDU</span><span class="p">(),</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">ImageHDU</span><span class="p">(),</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">ImageHDU</span><span class="p">()]</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;DemodulationData from </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DemodulationData.init_beam_with_ndarray"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.Data.DemodulationData.html#DLNIRSP_Pipeline.Data.DemodulationData.init_beam_with_ndarray">[docs]</a>    <span class="k">def</span> <span class="nf">init_beam_with_ndarray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">beam</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load data from a demodulation-style numpy.ndarray and construct an astropy.io.fits HDU list</span>
+
+<span class="sd">        Because all demodulation matrices should have shape (X, Y, L, 4, M), (X, Y, 4, M) or (4, M), a check is made to</span>
+<span class="sd">        ensure this is true.</span>
+
+<span class="sd">        A temporary FITS file will be created to take advantage of astropy.io.fits&#39; memmap ability. Thie means this</span>
+<span class="sd">        object will be completely lost when it is no longer needed. To save the object use the .write_out() method</span>
+<span class="sd">        prior to deletion.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        array : numpy.ndarray</span>
+<span class="sd">            Array to be loaded into the FitsData object. Must have either 5, 4, or 2 dimensions.</span>
+
+<span class="sd">        beam : int</span>
+<span class="sd">            The DL-NIRSP beam that the specified demodulation matrix belongs to</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">beam</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s1">&#39;DL-NIRSP only has beams 1 and 2!&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">hdulist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;FRMARR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">5</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;DemodulationData must have 2, 4, or 5 dimensions&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The Stokes dimension of DemodulationData must have length 4&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hdulist</span><span class="p">[</span><span class="n">beam</span><span class="p">]</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">ImageHDU</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="DemodulationData.load_beam_from_file"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.Data.DemodulationData.html#DLNIRSP_Pipeline.Data.DemodulationData.load_beam_from_file">[docs]</a>    <span class="k">def</span> <span class="nf">load_beam_from_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fitsfile</span><span class="p">,</span> <span class="n">beam</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load a demodulation-style FITS file from disk and assign it two the HDU corresponding to the specified beam.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        fitsfile : str</span>
+<span class="sd">            The path the to FITS file to load. Should exist.</span>
+
+<span class="sd">        beam : int</span>
+<span class="sd">            The beam slot into which to load the provided data</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">hdus</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fitsfile</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">hdulist</span><span class="p">[</span><span class="n">beam</span><span class="p">]</span> <span class="o">=</span> <span class="n">hdus</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_data_hdus</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">origin</span> <span class="o">=</span> <span class="n">fitsfile</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">beam1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The HDU associated with beam 1&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hdulist</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">beam2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The HDU associated with beam 2&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hdulist</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span></div>
+
+
+<span class="k">class</span> <span class="nc">_TaskData</span><span class="p">(</span><span class="n">FitsData</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;_TaskData is a class template that is used to define specific *Data classes that are designed to only hold data</span>
+<span class="sd">    from a specific Instrument Program Task (DKIST004). It inherits all of the functionality of `FitsData` and defines</span>
+<span class="sd">    an extra method that loads data from a directory, provided it matches the class&#39;s task. After loading, this class</span>
+<span class="sd">    behaves exactly like `FitsData`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dataset_ID</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">memmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the empty object and maybe load some data.&quot;&quot;&quot;</span>
+
+        <span class="n">FitsData</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">load_obj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">memmap</span><span class="o">=</span><span class="n">memmap</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ref_dir</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataset_ID</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">data_dir</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load_from_dir</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">dataset_ID</span><span class="o">=</span><span class="n">dataset_ID</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">repstr</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> loaded from </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_dir</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset_ID</span><span class="p">:</span>
+            <span class="n">repstr</span> <span class="o">+=</span> <span class="s1">&#39; with dataset ID = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset_ID</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">repstr</span>
+
+    <span class="k">def</span> <span class="nf">load_from_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.fits&#39;</span><span class="p">,</span> <span class="n">dataset_ID</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">maxopen</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Load DHS-style data from a directory.</span>
+
+<span class="sd">        It is assumed that all relevant files in the directory have SPEC-0122 headers and a single HDU. In other words,</span>
+<span class="sd">        each file is exactly one SysOutput. Only files whose InstrumentProgramTask (DKIST004) is equal to this class&#39;s</span>
+<span class="sd">        task attribute will be loaded.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data_dir : str</span>
+<span class="sd">            Path to the directory containing data to load</span>
+
+<span class="sd">        suffix : str</span>
+<span class="sd">            Optional file mask. The full mask is DATA_DIR/*SUFFIX. Defaults to &quot;.fits&quot;</span>
+
+<span class="sd">        dataset_ID : str</span>
+<span class="sd">            Only files whose ID_004 header value matches this parameter will be loaded. Can be a blank string to load</span>
+<span class="sd">            all data sets.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">file_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/*</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">suffix</span><span class="p">)))</span>
+        <span class="n">hdulist</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">h</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;DKIST004&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span> <span class="ow">and</span> <span class="p">(</span><span class="n">dataset_ID</span> <span class="ow">is</span> <span class="s1">&#39;&#39;</span> <span class="ow">or</span> <span class="n">h</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;ID___004&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">dataset_ID</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">maxopen</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">hdulist</span> <span class="o">=</span> <span class="n">hdulist</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+                    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+
+                <span class="n">hdulist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">file_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">hdulist</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">hdulist</span> <span class="o">=</span> <span class="p">[</span><span class="n">pyfits</span><span class="o">.</span><span class="n">PrimaryHDU</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">hdulist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">)]</span> <span class="o">+</span> <span class="n">hdulist</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hdulist</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">HDUList</span><span class="p">(</span><span class="n">hdulist</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ref_dir</span> <span class="o">=</span> <span class="n">data_dir</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: Did not find any </span><span class="si">{}</span><span class="s1"> images with </span><span class="si">{}</span><span class="s1">/*</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">task</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">,</span> <span class="n">suffix</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataset_ID</span> <span class="o">=</span> <span class="n">dataset_ID</span>
+
+<span class="c1">############################</span>
+<span class="c1"># Here we define a separate _TaskData class for each type of InstrumentProgramTask (DKIST004) we&#39;ll need. Any additions</span>
+<span class="c1"># can simply be added to this list.</span>
+<span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Dark&#39;</span><span class="p">,</span><span class="s1">&#39;Gain&#39;</span><span class="p">,</span><span class="s1">&#39;Alignment&#39;</span><span class="p">,</span><span class="s1">&#39;Observation&#39;</span><span class="p">]:</span>
+    <span class="n">new_class_name</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">Data&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+    <span class="n">docstring</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="si">{}</span><span class="s2"> is an extension of `FitData` designed to only hold data from the </span><span class="si">{}</span><span class="s2"> InstrumentProgramTask</span>
+<span class="s2">                (DKIST004). It inherits all of the functionality of `FitsData` and defines an extra method that loads</span>
+<span class="s2">                data from a directory, provided it&#39;s DKIST004 value is &#39;</span><span class="si">{}</span><span class="s2">&#39;.&quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_class_name</span><span class="p">,</span> <span class="n">task</span><span class="p">,</span> <span class="n">task</span><span class="p">)</span>
+
+    <span class="c1"># This is some deep python-fu. type() is a metaclass that creates classes based on a BaseClass and dictionary of</span>
+    <span class="c1"># attributes</span>
+    <span class="n">new_class</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">new_class_name</span><span class="p">,</span> <span class="p">(</span><span class="n">_TaskData</span><span class="p">,),</span> <span class="p">{</span><span class="s1">&#39;task&#39;</span><span class="p">:</span> <span class="n">task</span><span class="p">,</span> <span class="s1">&#39;__doc__&#39;</span><span class="p">:</span> <span class="n">docstring</span><span class="p">})</span>
+
+    <span class="c1"># Then we set the new class as one of this module&#39;s attributes</span>
+    <span class="nb">setattr</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">],</span> <span class="n">new_class_name</span><span class="p">,</span> <span class="n">new_class</span><span class="p">)</span>
+
+<span class="c1"># And finally, clean up our mess</span>
+<span class="k">del</span> <span class="n">new_class</span><span class="p">,</span> <span class="n">new_class_name</span><span class="p">,</span> <span class="n">docstring</span>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <div class="left-footer">
+         &copy; 2019, Arthur Eigenbrot
+       <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
+    </div>
+   
+    <div class="right-footer">
+      Last updated on 17 Sep 2019.
+    </div>
+    <div class="centre-footer">
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

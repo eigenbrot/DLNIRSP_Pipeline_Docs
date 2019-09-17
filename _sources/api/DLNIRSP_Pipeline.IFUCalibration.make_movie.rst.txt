@@ -1,0 +1,6 @@
+make_movie
+==========
+
+.. currentmodule:: DLNIRSP_Pipeline.IFUCalibration
+
+.. autofunction:: make_movie

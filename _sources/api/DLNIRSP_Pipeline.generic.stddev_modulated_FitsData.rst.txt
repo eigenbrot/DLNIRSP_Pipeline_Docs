@@ -1,0 +1,6 @@
+stddev_modulated_FitsData
+=========================
+
+.. currentmodule:: DLNIRSP_Pipeline.generic
+
+.. autofunction:: stddev_modulated_FitsData

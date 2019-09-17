@@ -1,0 +1,6 @@
+IFU_correction
+==============
+
+.. currentmodule:: DLNIRSP_Pipeline.generic
+
+.. autofunction:: IFU_correction

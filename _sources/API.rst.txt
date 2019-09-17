@@ -1,0 +1,57 @@
+Reference/API
+=============
+
+.. automodapi:: DLNIRSP_Pipeline.DLNIRSPPipeline
+   :headings: #^
+   :skip: tag
+   :skip: glob
+   :skip: command_line
+
+.. automodapi:: DLNIRSP_Pipeline.ScienceCalibration
+   :headings: #^
+   :skip: tag
+   :skip: glob
+   :skip: command_line
+
+.. automodapi:: DLNIRSP_Pipeline.DarkCalibration
+   :headings: #^
+   :skip: tag
+   :skip: glob
+   :skip: command_line
+
+.. automodapi:: DLNIRSP_Pipeline.InstrumentPolarizationCalibration
+   :headings: #^
+   :skip: tag
+   :skip: glob
+   :skip: command_line
+
+.. automodapi:: DLNIRSP_Pipeline.LampFlatCalibration
+   :headings: #^
+   :skip: tag
+   :skip: glob
+   :skip: command_line
+
+.. automodapi:: DLNIRSP_Pipeline.SolarFlatCalibration
+   :headings: #^
+   :skip: tag
+   :skip: glob
+   :skip: command_line
+
+.. automodapi:: DLNIRSP_Pipeline.IFUCalibration
+   :headings: #^
+   :skip: tag
+   :skip: glob
+   :skip: command_line
+
+.. automodapi:: DLNIRSP_Pipeline.generic
+   :headings: #^
+   :skip: tag
+   :skip: glob
+   :skip: command_line
+
+.. automodapi:: DLNIRSP_Pipeline.Data
+   :headings: #^
+   :skip: tag
+   :skip: glob
+   :skip: command_line
+

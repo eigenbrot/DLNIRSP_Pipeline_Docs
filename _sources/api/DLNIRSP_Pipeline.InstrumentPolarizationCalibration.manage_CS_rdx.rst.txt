@@ -1,0 +1,6 @@
+manage_CS_rdx
+=============
+
+.. currentmodule:: DLNIRSP_Pipeline.InstrumentPolarizationCalibration
+
+.. autofunction:: manage_CS_rdx

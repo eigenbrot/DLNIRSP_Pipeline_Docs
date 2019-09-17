@@ -1,0 +1,6 @@
+generate_average_spectra
+========================
+
+.. currentmodule:: DLNIRSP_Pipeline.SolarFlatCalibration
+
+.. autofunction:: generate_average_spectra

@@ -1,0 +1,6 @@
+find_camera_rotation
+====================
+
+.. currentmodule:: DLNIRSP_Pipeline.SolarFlatCalibration
+
+.. autofunction:: find_camera_rotation

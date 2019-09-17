@@ -1,0 +1,6 @@
+do_all
+======
+
+.. currentmodule:: DLNIRSP_Pipeline.IFUCalibration
+
+.. autofunction:: do_all

@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>DLNIRSP_Pipeline.ScienceCalibration &#8212; DLNIRSP_Pipeline v0.6.0</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" type="text/css" />
+    <link rel="stylesheet" href="../../_static/dkist.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../../_static/favico.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="col-md-3 navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="http://nso.edu"><img src="../../_static/img/NSOlogo.gif">
+        </a>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav hidden">
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">DL-NIRSP Pipeline Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../config_file.html">Configuration File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../walkthrough.html">Data Reduction Walkthrough</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../API.html">Reference/API</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+          </ul>
+          
+            <ul class="nav navbar-nav navbar-left">
+              <li><a href="http://dkist.nso.edu/">DKIST</a></li>
+              <li><a href="http://docs.cadair.com/devdocs">DC Developer Guide</a></li>
+              <li><a href="http://docs.cadair.com/datarate">DKIST Data Rate</a></li>
+              <li><a href="http://docs.cadair.com/datamodel">DKIST Data Model</a></li>
+            </ul>
+          
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-3"><div id="side-logo" >
+            <a href="http://dkist.nso.edu">
+                <img src="../../_static/img/DKISTLogo-Medium.jpg">
+            </a>
+        </div><div id="sidebar" class="bs-sidenav" role="complementary">
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">DL-NIRSP Pipeline Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../config_file.html">Configuration File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../walkthrough.html">Data Reduction Walkthrough</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../API.html">Reference/API</a></li>
+</ul>
+
+            
+        </div>
+    </div>
+
+    <div class="body col-md-9 content" role="main">
+      
+  <h1>Source code for DLNIRSP_Pipeline.ScienceCalibration</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">DLNIRSP_Pipeline</span> <span class="k">import</span> <span class="n">Data</span><span class="p">,</span> <span class="n">generic</span>
+<span class="kn">from</span> <span class="nn">DLNIRSP_Pipeline.tag</span> <span class="k">import</span> <span class="n">tag</span>
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.ScienceCalibration.main.html#DLNIRSP_Pipeline.ScienceCalibration.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">datasetData</span><span class="p">,</span> <span class="n">MRN</span><span class="p">,</span> <span class="n">outpre</span><span class="p">,</span> <span class="n">dark_cal</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">instrument_pol_cal</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">solar_flat_cal</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+         <span class="n">geometric_cal</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dark_cal_sig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">solar_flat_cal_sig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_no_pol</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+         <span class="n">ifu_cal</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cube_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">telescope_db</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remove_TM</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">include_M12</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+         <span class="n">remove_parallactic</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Reduce DLNIRSP Science data</span>
+
+<span class="sd">    Any intermediate Calibration objects that are provided will be applied to the data and are technically optional.</span>
+<span class="sd">    If no Calibration objects are provided then the data will essentially be passed through, which is pretty boring.</span>
+<span class="sd">    An slight exception to this is the ``instrument_pol_cal``; this is psuedo-required and a user must prove their</span>
+<span class="sd">    sanity via the ``allow_no_pol`` keyword to turn off demodulation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    datasetData : `Data.DataSetData`</span>
+<span class="sd">        Object containing mapping of mosaic/repeat numbers to raw data files</span>
+
+<span class="sd">    MRN : `Data.MosaicRepeatNumber`</span>
+<span class="sd">        Identified of the mosaic/repeat step to reduce</span>
+
+<span class="sd">    outpre : str</span>
+<span class="sd">        Prefix of filename to save reduced Science object</span>
+
+<span class="sd">    dark_cal : `Data.FitsData`</span>
+<span class="sd">        Dark Calibration object</span>
+
+<span class="sd">    instrument_pol_cal : `Data.DemodulationData`</span>
+<span class="sd">        Instrument Polarization Calibration object (i.e., demodulation matrices)</span>
+
+<span class="sd">    solar_flat_cal : `Data.FitsData`</span>
+<span class="sd">        Solar Flat Calibration object</span>
+
+<span class="sd">    geometric_cal : dict</span>
+<span class="sd">        Geometric Calibration object</span>
+
+<span class="sd">    dark_cal_sig : `Data.FitsData`</span>
+<span class="sd">        Uncertainty associated with ``dark_cal``</span>
+
+<span class="sd">    solar_flat_cal_sig : `Data.FitsData`</span>
+<span class="sd">        Uncertainty associated with ``solar_flat_cal``</span>
+
+<span class="sd">    allow_no_pol : bool</span>
+<span class="sd">        If True then let the script continue without ``instrument_pol_cal``</span>
+
+<span class="sd">    ifu_cal : dict</span>
+<span class="sd">        Dictionary containing IFU remapping information</span>
+
+<span class="sd">    cube_shape : tuple</span>
+<span class="sd">        (X, Y) tuple that defines the final spatial dimensions (in pixels) of the resampled IFU data cube</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    `Data.FitsData`</span>
+<span class="sd">        Reduced science data. If IFU resampling is done (i.e., Level 1.5 data) there will be four 3D data_hdus,</span>
+<span class="sd">        corresponding to the four Stokes vectors. If no ``ifu_cal`` is provided then the output will be Level 1 data,</span>
+<span class="sd">        with each of the four data_hdus containing all DL fibers stacked into a single slit.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: Loading DL-NIRSP data for </span><span class="si">{}</span><span class="s1"> from </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="n">MRN</span><span class="p">,</span> <span class="n">datasetData</span><span class="p">))</span>
+    <span class="n">sciData</span> <span class="o">=</span> <span class="n">datasetData</span><span class="o">.</span><span class="n">get_MR_data</span><span class="p">(</span><span class="n">MRN</span><span class="p">)</span>
+
+    <span class="n">validate_observe_task_data</span><span class="p">(</span><span class="n">sciData</span><span class="p">)</span>
+
+    <span class="n">generic</span><span class="o">.</span><span class="n">linearity_correction</span><span class="p">(</span><span class="n">sciData</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">dark_cal</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">dark_cal_sig</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Dark Calibration specified without associated sigma object&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: doing Dark Correction&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+
+        <span class="c1">## This is a stop-gap until I hear from SJ about how to really handle uncertainty/sigma frames</span>
+        <span class="kn">from</span> <span class="nn">DLNIRSP_Pipeline.utils</span> <span class="k">import</span> <span class="n">gen_fake_data</span>
+        <span class="n">data_sig</span> <span class="o">=</span> <span class="n">gen_fake_data</span><span class="o">.</span><span class="n">get_fake_sig</span><span class="p">(</span><span class="n">sciData</span><span class="p">)</span>
+        <span class="c1">####</span>
+
+        <span class="n">generic</span><span class="o">.</span><span class="n">dark_correction</span><span class="p">(</span><span class="n">sciData</span><span class="p">,</span> <span class="n">dark_cal</span><span class="p">,</span> <span class="n">data_sig</span><span class="p">,</span> <span class="n">dark_cal_sig</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">instrument_pol_cal</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">avgData</span> <span class="o">=</span> <span class="n">generic</span><span class="o">.</span><span class="n">average_modulated_FitsData</span><span class="p">(</span><span class="n">sciData</span><span class="p">)</span> <span class="c1"># Will this ever do anything??</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: applying polarization calibration&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+        <span class="n">stokesData</span> <span class="o">=</span> <span class="n">generic</span><span class="o">.</span><span class="n">polarization_correction</span><span class="p">(</span><span class="n">avgData</span><span class="p">,</span> <span class="n">instrument_pol_cal</span><span class="p">,</span>
+                                                     <span class="n">remove_TM</span><span class="o">=</span><span class="n">remove_TM</span><span class="p">,</span> <span class="n">telescope_db</span><span class="o">=</span><span class="n">telescope_db</span><span class="p">,</span>
+                                                     <span class="n">include_M12</span><span class="o">=</span><span class="n">include_M12</span><span class="p">,</span> <span class="n">remove_parallactic</span><span class="o">=</span><span class="n">remove_parallactic</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">allow_no_pol</span><span class="p">:</span>
+        <span class="n">stokesData</span> <span class="o">=</span> <span class="n">sciData</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No Instrument Polarization Calibration provided! If you really want to do this use `allow_no_pol`&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">solar_flat_cal</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">solar_flat_cal_sig</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;SolarGain Calibration specified without associated sigma object&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: doing Solar Gain Correction&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+
+        <span class="c1">## This is a stop-gap until I hear from SJ about how to really handle uncertainty/sigma frames</span>
+        <span class="kn">from</span> <span class="nn">DLNIRSP_Pipeline.utils</span> <span class="k">import</span> <span class="n">gen_fake_data</span>
+        <span class="n">data_sig</span> <span class="o">=</span> <span class="n">gen_fake_data</span><span class="o">.</span><span class="n">get_fake_sig</span><span class="p">(</span><span class="n">sciData</span><span class="p">)</span>
+        <span class="c1">####</span>
+
+        <span class="n">generic</span><span class="o">.</span><span class="n">demodulated_gain_correction</span><span class="p">(</span><span class="n">stokesData</span><span class="p">,</span> <span class="n">solar_flat_cal</span><span class="p">,</span> <span class="n">data_sig</span><span class="p">,</span> <span class="n">solar_flat_cal_sig</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">geometric_cal</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: doing geometric correction&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+        <span class="n">stokesData</span> <span class="o">=</span> <span class="n">generic</span><span class="o">.</span><span class="n">geometric_correction</span><span class="p">(</span><span class="n">stokesData</span><span class="p">,</span> <span class="n">geometric_cal</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">ifu_cal</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">geometric_cal</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Cannot perform IFU resampling without Geometric Calibration&#39;</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: Applying IFU resampling&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
+        <span class="n">cubeData</span> <span class="o">=</span> <span class="n">generic</span><span class="o">.</span><span class="n">IFU_correction</span><span class="p">(</span><span class="n">stokesData</span><span class="p">,</span> <span class="n">ifu_cal</span><span class="p">,</span> <span class="n">cube_shape</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cubeData</span> <span class="o">=</span> <span class="n">stokesData</span>
+
+    <span class="n">sci_cal</span> <span class="o">=</span> <span class="n">generate_science_calibration</span><span class="p">(</span><span class="n">cubeData</span><span class="p">,</span> <span class="n">outpre</span><span class="p">,</span> <span class="n">MRN</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">sci_cal</span></div>
+
+<div class="viewcode-block" id="validate_observe_task_data"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.ScienceCalibration.validate_observe_task_data.html#DLNIRSP_Pipeline.ScienceCalibration.validate_observe_task_data">[docs]</a><span class="k">def</span> <span class="nf">validate_observe_task_data</span><span class="p">(</span><span class="n">fitsData</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="generate_science_calibration"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.ScienceCalibration.generate_science_calibration.html#DLNIRSP_Pipeline.ScienceCalibration.generate_science_calibration">[docs]</a><span class="k">def</span> <span class="nf">generate_science_calibration</span><span class="p">(</span><span class="n">fitsData</span><span class="p">,</span> <span class="n">outpre</span><span class="p">,</span> <span class="n">MRN</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generate a sensible file name and save to FITS.</span>
+
+<span class="sd">    The filename will be based on the mosiac/repeat number of the object in question and will be:</span>
+
+<span class="sd">               &quot;outpre_MRN.fits&quot;</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    fitsData : `Data.FitsData`</span>
+<span class="sd">        The object to be saved</span>
+
+<span class="sd">    outpre : str</span>
+<span class="sd">        A string to prefix on the mosaic/repeat number designation</span>
+
+<span class="sd">    MRN : `Data.MosaicRepeatNumber`</span>
+<span class="sd">        The mosaic/repeat number object for the given data</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    `Data.FitsData`</span>
+<span class="sd">        Passthrough of ``fitsData``</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">outname</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_</span><span class="si">{}</span><span class="s1">.fits&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">outpre</span><span class="p">,</span> <span class="n">MRN</span><span class="o">.</span><span class="n">get_str</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: Saving data to </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="n">outname</span><span class="p">))</span>
+    <span class="n">fitsData</span><span class="o">.</span><span class="n">write_out</span><span class="p">(</span><span class="n">outname</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">fitsData</span></div>
+
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <div class="left-footer">
+         &copy; 2019, Arthur Eigenbrot
+       <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
+    </div>
+   
+    <div class="right-footer">
+      Last updated on 17 Sep 2019.
+    </div>
+    <div class="centre-footer">
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

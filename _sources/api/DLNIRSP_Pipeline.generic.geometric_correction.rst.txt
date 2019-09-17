@@ -1,0 +1,6 @@
+geometric_correction
+====================
+
+.. currentmodule:: DLNIRSP_Pipeline.generic
+
+.. autofunction:: geometric_correction

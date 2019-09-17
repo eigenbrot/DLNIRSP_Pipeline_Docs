@@ -1,0 +1,6 @@
+check_resource_limits
+=====================
+
+.. currentmodule:: DLNIRSP_Pipeline.DLNIRSPPipeline
+
+.. autofunction:: check_resource_limits

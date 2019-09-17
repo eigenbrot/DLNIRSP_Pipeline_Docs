@@ -1,0 +1,6 @@
+gen_blank_config
+================
+
+.. currentmodule:: DLNIRSP_Pipeline.DLNIRSPPipeline
+
+.. autofunction:: gen_blank_config

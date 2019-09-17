@@ -1,0 +1,6 @@
+do_hough
+========
+
+.. currentmodule:: DLNIRSP_Pipeline.SolarFlatCalibration
+
+.. autofunction:: do_hough

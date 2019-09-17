@@ -1,0 +1,6 @@
+main
+====
+
+.. currentmodule:: DLNIRSP_Pipeline.InstrumentPolarizationCalibration
+
+.. autofunction:: main

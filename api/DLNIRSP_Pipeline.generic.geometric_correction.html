@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>geometric_correction &#8212; DLNIRSP_Pipeline v0.6.0</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" type="text/css" />
+    <link rel="stylesheet" href="../_static/dkist.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favico.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="instrument_polarization_correction" href="DLNIRSP_Pipeline.generic.instrument_polarization_correction.html" />
+    <link rel="prev" title="demodulated_gain_correction" href="DLNIRSP_Pipeline.generic.demodulated_gain_correction.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="col-md-3 navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="http://nso.edu"><img src="../_static/img/NSOlogo.gif">
+        </a>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav hidden">
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">DL-NIRSP Pipeline Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config_file.html">Configuration File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../walkthrough.html">Data Reduction Walkthrough</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../API.html">Reference/API</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">geometric_correction</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="DLNIRSP_Pipeline.generic.demodulated_gain_correction.html" title="Previous Chapter: demodulated_gain_correction"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; demodulated_g...</span>
+    </a>
+  </li>
+  <li>
+    <a href="DLNIRSP_Pipeline.generic.instrument_polarization_correction.html" title="Next Chapter: instrument_polarization_correction"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">instrument_po... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+          
+            <ul class="nav navbar-nav navbar-left">
+              <li><a href="http://dkist.nso.edu/">DKIST</a></li>
+              <li><a href="http://docs.cadair.com/devdocs">DC Developer Guide</a></li>
+              <li><a href="http://docs.cadair.com/datarate">DKIST Data Rate</a></li>
+              <li><a href="http://docs.cadair.com/datamodel">DKIST Data Model</a></li>
+            </ul>
+          
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-3"><div id="side-logo" >
+            <a href="http://dkist.nso.edu">
+                <img src="../_static/img/DKISTLogo-Medium.jpg">
+            </a>
+        </div><div id="sidebar" class="bs-sidenav" role="complementary">
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">DL-NIRSP Pipeline Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config_file.html">Configuration File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../walkthrough.html">Data Reduction Walkthrough</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../API.html">Reference/API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.DLNIRSPPipeline">DLNIRSP_Pipeline.DLNIRSPPipeline Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.ScienceCalibration">DLNIRSP_Pipeline.ScienceCalibration Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.DarkCalibration">DLNIRSP_Pipeline.DarkCalibration Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.InstrumentPolarizationCalibration">DLNIRSP_Pipeline.InstrumentPolarizationCalibration Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.LampFlatCalibration">DLNIRSP_Pipeline.LampFlatCalibration Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.SolarFlatCalibration">DLNIRSP_Pipeline.SolarFlatCalibration Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.IFUCalibration">DLNIRSP_Pipeline.IFUCalibration Module</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.generic">DLNIRSP_Pipeline.generic Module</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../API.html#id7">Functions</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.generic.IFU_correction.html">IFU_correction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.generic.apply_geo_corr.html">apply_geo_corr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.generic.average_FitsData.html">average_FitsData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.generic.average_modulated_FitsData.html">average_modulated_FitsData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.generic.average_time_series.html">average_time_series</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.generic.dark_correction.html">dark_correction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.generic.demodulated_gain_correction.html">demodulated_gain_correction</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">geometric_correction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.generic.instrument_polarization_correction.html">instrument_polarization_correction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.generic.linearity_correction.html">linearity_correction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.generic.modulated_gain_correction.html">modulated_gain_correction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.generic.polarimetric_multiplication.html">polarimetric_multiplication</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.generic.polarization_correction.html">polarization_correction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.generic.stddev_FitsData.html">stddev_FitsData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.generic.stddev_modulated_FitsData.html">stddev_modulated_FitsData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.generic.telescope_pol_correction.html">telescope_pol_correction</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.Data">DLNIRSP_Pipeline.Data Module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+        </div>
+    </div>
+
+    <div class="body col-md-9 content" role="main">
+      
+  <div class="section" id="geometric-correction">
+<h1>geometric_correction<a class="headerlink" href="#geometric-correction" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="DLNIRSP_Pipeline.generic.geometric_correction">
+<code class="sig-prename descclassname">DLNIRSP_Pipeline.generic.</code><code class="sig-name descname">geometric_correction</code><span class="sig-paren">(</span><em class="sig-param">fitsData</em>, <em class="sig-param">geometric_calibration</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/DLNIRSP_Pipeline/generic.html#geometric_correction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DLNIRSP_Pipeline.generic.geometric_correction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove camera/spectrograph distortions and split into individual slits</p>
+<p>The algorithm works in this order:</p>
+<ol class="arabic simple">
+<li><p>Correct camera rotation</p></li>
+<li><p>Correct for offsets between the two beams</p></li>
+<li><p>Combine beam 1 and beam 2</p></li>
+<li><p>Correct spectral geometry (i.e., curvature)</p></li>
+</ol>
+<p>As a consequence of the beam combination the non-data slit borders are removed in the final output.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>fitsData</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Data.FitsData</span></code></span></dt><dd><p>Demodulated data to correct</p>
+</dd>
+<dt><strong>geometric_calibration</strong><span class="classifier">dict</span></dt><dd><p>Geometric Calibration object produced by the <code class="xref py py-obj docutils literal notranslate"><span class="pre">SolarFlatCalibration</span></code> module</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">Data.FitsData</span></code></dt><dd><p>This object had four data_hdus, corresponding to the four Stokes vectors. Each data_hdu contains all DL fibers
+represented in a single slit.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <div class="left-footer">
+         &copy; 2019, Arthur Eigenbrot
+       <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
+    </div>
+   
+    <div class="right-footer">
+      Last updated on 17 Sep 2019.
+    </div>
+    <div class="centre-footer">
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+gen_signame
+===========
+
+.. currentmodule:: DLNIRSP_Pipeline.DLNIRSPPipeline
+
+.. autofunction:: gen_signame

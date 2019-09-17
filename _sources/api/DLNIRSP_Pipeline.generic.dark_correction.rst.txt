@@ -1,0 +1,6 @@
+dark_correction
+===============
+
+.. currentmodule:: DLNIRSP_Pipeline.generic
+
+.. autofunction:: dark_correction

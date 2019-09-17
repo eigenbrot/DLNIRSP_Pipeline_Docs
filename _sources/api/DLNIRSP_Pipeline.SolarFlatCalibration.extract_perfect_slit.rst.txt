@@ -1,0 +1,6 @@
+extract_perfect_slit
+====================
+
+.. currentmodule:: DLNIRSP_Pipeline.SolarFlatCalibration
+
+.. autofunction:: extract_perfect_slit

@@ -1,0 +1,6 @@
+correct_knife_basic
+===================
+
+.. currentmodule:: DLNIRSP_Pipeline.IFUCalibration
+
+.. autofunction:: correct_knife_basic

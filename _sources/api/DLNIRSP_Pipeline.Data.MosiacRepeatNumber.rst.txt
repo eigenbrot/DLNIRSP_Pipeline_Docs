@@ -1,0 +1,17 @@
+MosiacRepeatNumber
+==================
+
+.. currentmodule:: DLNIRSP_Pipeline.Data
+
+.. autoclass:: MosiacRepeatNumber
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~MosiacRepeatNumber.get_str
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: get_str

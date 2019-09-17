@@ -1,0 +1,775 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Reference/API &#8212; DLNIRSP_Pipeline v0.6.0</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" type="text/css" />
+    <link rel="stylesheet" href="_static/dkist.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/favico.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="check_resource_limits" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.check_resource_limits.html" />
+    <link rel="prev" title="Data Reduction Walkthrough" href="walkthrough.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="col-md-3 navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="http://nso.edu"><img src="_static/img/NSOlogo.gif">
+        </a>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav hidden">
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">DL-NIRSP Pipeline Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config_file.html">Configuration File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="walkthrough.html">Data Reduction Walkthrough</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Reference/API</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Reference/API</a><ul>
+<li><a class="reference internal" href="#module-DLNIRSP_Pipeline.DLNIRSPPipeline">DLNIRSP_Pipeline.DLNIRSPPipeline Module</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-DLNIRSP_Pipeline.ScienceCalibration">DLNIRSP_Pipeline.ScienceCalibration Module</a><ul>
+<li><a class="reference internal" href="#id1">Functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-DLNIRSP_Pipeline.DarkCalibration">DLNIRSP_Pipeline.DarkCalibration Module</a><ul>
+<li><a class="reference internal" href="#id2">Functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-DLNIRSP_Pipeline.InstrumentPolarizationCalibration">DLNIRSP_Pipeline.InstrumentPolarizationCalibration Module</a><ul>
+<li><a class="reference internal" href="#id3">Functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-DLNIRSP_Pipeline.LampFlatCalibration">DLNIRSP_Pipeline.LampFlatCalibration Module</a><ul>
+<li><a class="reference internal" href="#id4">Functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-DLNIRSP_Pipeline.SolarFlatCalibration">DLNIRSP_Pipeline.SolarFlatCalibration Module</a><ul>
+<li><a class="reference internal" href="#id5">Functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-DLNIRSP_Pipeline.IFUCalibration">DLNIRSP_Pipeline.IFUCalibration Module</a><ul>
+<li><a class="reference internal" href="#id6">Functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-DLNIRSP_Pipeline.generic">DLNIRSP_Pipeline.generic Module</a><ul>
+<li><a class="reference internal" href="#id7">Functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-DLNIRSP_Pipeline.Data">DLNIRSP_Pipeline.Data Module</a><ul>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+<li><a class="reference internal" href="#class-inheritance-diagram">Class Inheritance Diagram</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="walkthrough.html" title="Previous Chapter: Data Reduction Walkthrough"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Data Reductio...</span>
+    </a>
+  </li>
+  <li>
+    <a href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.check_resource_limits.html" title="Next Chapter: check_resource_limits"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">check_resource_limits &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+          
+            <ul class="nav navbar-nav navbar-left">
+              <li><a href="http://dkist.nso.edu/">DKIST</a></li>
+              <li><a href="http://docs.cadair.com/devdocs">DC Developer Guide</a></li>
+              <li><a href="http://docs.cadair.com/datarate">DKIST Data Rate</a></li>
+              <li><a href="http://docs.cadair.com/datamodel">DKIST Data Model</a></li>
+            </ul>
+          
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-3"><div id="side-logo" >
+            <a href="http://dkist.nso.edu">
+                <img src="_static/img/DKISTLogo-Medium.jpg">
+            </a>
+        </div><div id="sidebar" class="bs-sidenav" role="complementary">
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">DL-NIRSP Pipeline Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config_file.html">Configuration File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="walkthrough.html">Data Reduction Walkthrough</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Reference/API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-DLNIRSP_Pipeline.DLNIRSPPipeline">DLNIRSP_Pipeline.DLNIRSPPipeline Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.check_resource_limits.html">check_resource_limits</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.ensure_asdf.html">ensure_asdf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.ensure_fits.html">ensure_fits</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.gen_blank_config.html">gen_blank_config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.gen_signame.html">gen_signame</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.generate_intermediate_objects.html">generate_intermediate_objects</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.get_pol_kwargs.html">get_pol_kwargs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.main.html">main</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.start_science_multiproc.html">start_science_multiproc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.strip_fits.html">strip_fits</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-DLNIRSP_Pipeline.ScienceCalibration">DLNIRSP_Pipeline.ScienceCalibration Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.ScienceCalibration.generate_science_calibration.html">generate_science_calibration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.ScienceCalibration.main.html">main</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.ScienceCalibration.validate_observe_task_data.html">validate_observe_task_data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-DLNIRSP_Pipeline.DarkCalibration">DLNIRSP_Pipeline.DarkCalibration Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DarkCalibration.generate_dark_calibration.html">generate_dark_calibration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DarkCalibration.main.html">main</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DarkCalibration.validate_dark_calibration.html">validate_dark_calibration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DarkCalibration.validate_dark_task_data.html">validate_dark_task_data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-DLNIRSP_Pipeline.InstrumentPolarizationCalibration">DLNIRSP_Pipeline.InstrumentPolarizationCalibration Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.InstrumentPolarizationCalibration.extract_macropixels.html">extract_macropixels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.InstrumentPolarizationCalibration.gen_inst_pol_cal_objects.html">gen_inst_pol_cal_objects</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.InstrumentPolarizationCalibration.gen_inst_pol_geo_cal.html">gen_inst_pol_geo_cal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.InstrumentPolarizationCalibration.generate_instrument_pol_calibration.html">generate_instrument_pol_calibration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.InstrumentPolarizationCalibration.main.html">main</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.InstrumentPolarizationCalibration.manage_CS_rdx.html">manage_CS_rdx</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.InstrumentPolarizationCalibration.reduce_full_CS.html">reduce_full_CS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.InstrumentPolarizationCalibration.reduce_single_step.html">reduce_single_step</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.InstrumentPolarizationCalibration.run_PAC_CUpar.html">run_PAC_CUpar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.InstrumentPolarizationCalibration.run_PAC_demod.html">run_PAC_demod</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.InstrumentPolarizationCalibration.write_reduced_CS_step.html">write_reduced_CS_step</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-DLNIRSP_Pipeline.LampFlatCalibration">DLNIRSP_Pipeline.LampFlatCalibration Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.LampFlatCalibration.generate_gain_calibration.html">generate_gain_calibration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.LampFlatCalibration.main.html">main</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.LampFlatCalibration.validate_gain_calibration.html">validate_gain_calibration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.LampFlatCalibration.validate_gain_task_data.html">validate_gain_task_data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-DLNIRSP_Pipeline.SolarFlatCalibration">DLNIRSP_Pipeline.SolarFlatCalibration Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.align_masks.html">align_masks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.compute_average_spectrum.html">compute_average_spectrum</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.correct_rotation.html">correct_rotation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.do_hough.html">do_hough</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.extract.html">extract</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.extract_perfect_slit.html">extract_perfect_slit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.extract_slitbeams.html">extract_slitbeams</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.find_beam_offset.html">find_beam_offset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.find_borders.html">find_borders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.find_camera_rotation.html">find_camera_rotation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.find_px_angles.html">find_px_angles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.find_spec_geometry.html">find_spec_geometry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.generate_average_spectra.html">generate_average_spectra</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.generate_avg_slitbeam.html">generate_avg_slitbeam</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.generate_geometric_calibration.html">generate_geometric_calibration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.generate_solar_gain_calibration.html">generate_solar_gain_calibration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.main.html">main</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.make_binary.html">make_binary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.quick_script.html">quick_script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.remove_avg_spectra.html">remove_avg_spectra</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.remove_spec_geometry.html">remove_spec_geometry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.validate_solar_task_data.html">validate_solar_task_data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-DLNIRSP_Pipeline.IFUCalibration">DLNIRSP_Pipeline.IFUCalibration Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.IFUCalibration.basic_helper.html">basic_helper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.IFUCalibration.correct_knife_basic.html">correct_knife_basic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.IFUCalibration.correct_knife_geo.html">correct_knife_geo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.IFUCalibration.do_all.html">do_all</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.IFUCalibration.find_positions.html">find_positions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.IFUCalibration.gauss.html">gauss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.IFUCalibration.generate_ifu_calibration.html">generate_ifu_calibration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.IFUCalibration.geo_helper.html">geo_helper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.IFUCalibration.main.html">main</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.IFUCalibration.make_movie.html">make_movie</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-DLNIRSP_Pipeline.generic">DLNIRSP_Pipeline.generic Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.IFU_correction.html">IFU_correction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.apply_geo_corr.html">apply_geo_corr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.average_FitsData.html">average_FitsData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.average_modulated_FitsData.html">average_modulated_FitsData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.average_time_series.html">average_time_series</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.dark_correction.html">dark_correction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.demodulated_gain_correction.html">demodulated_gain_correction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.geometric_correction.html">geometric_correction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.instrument_polarization_correction.html">instrument_polarization_correction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.linearity_correction.html">linearity_correction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.modulated_gain_correction.html">modulated_gain_correction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.polarimetric_multiplication.html">polarimetric_multiplication</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.polarization_correction.html">polarization_correction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.stddev_FitsData.html">stddev_FitsData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.stddev_modulated_FitsData.html">stddev_modulated_FitsData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.telescope_pol_correction.html">telescope_pol_correction</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-DLNIRSP_Pipeline.Data">DLNIRSP_Pipeline.Data Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.AlignmentData.html">AlignmentData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.CSStep.html">CSStep</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.CalibrationCurveData.html">CalibrationCurveData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.DarkData.html">DarkData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.DataSetData.html">DataSetData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.DemodulationData.html">DemodulationData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.FitsData.html">FitsData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.GainData.html">GainData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.MRNData.html">MRNData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.MosiacRepeatNumber.html">MosiacRepeatNumber</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.ObservationData.html">ObservationData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.SoCCData.html">SoCCData</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#class-inheritance-diagram">Class Inheritance Diagram</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+        </div>
+    </div>
+
+    <div class="body col-md-9 content" role="main">
+      
+  <div class="section" id="reference-api">
+<h1>Reference/API<a class="headerlink" href="#reference-api" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-DLNIRSP_Pipeline.DLNIRSPPipeline">
+<span id="dlnirsp-pipeline-dlnirsppipeline-module"></span><h2>DLNIRSP_Pipeline.DLNIRSPPipeline Module<a class="headerlink" href="#module-DLNIRSP_Pipeline.DLNIRSPPipeline" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.check_resource_limits.html#DLNIRSP_Pipeline.DLNIRSPPipeline.check_resource_limits" title="DLNIRSP_Pipeline.DLNIRSPPipeline.check_resource_limits"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_resource_limits</span></code></a>(config)</p></td>
+<td><p>Checks that the process resource limits are large enough for the reduction run</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.ensure_asdf.html#DLNIRSP_Pipeline.DLNIRSPPipeline.ensure_asdf" title="DLNIRSP_Pipeline.DLNIRSPPipeline.ensure_asdf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensure_asdf</span></code></a>(filename)</p></td>
+<td><p>Make sure that a string has only one ‘.fits’ on the end of it</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.ensure_fits.html#DLNIRSP_Pipeline.DLNIRSPPipeline.ensure_fits" title="DLNIRSP_Pipeline.DLNIRSPPipeline.ensure_fits"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensure_fits</span></code></a>(filename)</p></td>
+<td><p>Make sure that a string has only one ‘.fits’ on the end of it</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.gen_blank_config.html#DLNIRSP_Pipeline.DLNIRSPPipeline.gen_blank_config" title="DLNIRSP_Pipeline.DLNIRSPPipeline.gen_blank_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_blank_config</span></code></a>(filename)</p></td>
+<td><p>Create a blank configuration file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.gen_signame.html#DLNIRSP_Pipeline.DLNIRSPPipeline.gen_signame" title="DLNIRSP_Pipeline.DLNIRSPPipeline.gen_signame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_signame</span></code></a>(filename)</p></td>
+<td><p>Add a ‘_sig’ suffix to a filename, before the fits extension</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.generate_intermediate_objects.html#DLNIRSP_Pipeline.DLNIRSPPipeline.generate_intermediate_objects" title="DLNIRSP_Pipeline.DLNIRSPPipeline.generate_intermediate_objects"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_intermediate_objects</span></code></a>(config)</p></td>
+<td><p>Generate/collect the intermediate Calibration Objects needed by the Science Calibration module.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.get_pol_kwargs.html#DLNIRSP_Pipeline.DLNIRSPPipeline.get_pol_kwargs" title="DLNIRSP_Pipeline.DLNIRSPPipeline.get_pol_kwargs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pol_kwargs</span></code></a>(config)</p></td>
+<td><p>Get the somewhat hidden polarization correction keywords, using defaults if necessary</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.main.html#DLNIRSP_Pipeline.DLNIRSPPipeline.main" title="DLNIRSP_Pipeline.DLNIRSPPipeline.main"><code class="xref py py-obj docutils literal notranslate"><span class="pre">main</span></code></a>(config_file)</p></td>
+<td><p>The main, runner script for the entire DL-NIRSP Pipeline.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.start_science_multiproc.html#DLNIRSP_Pipeline.DLNIRSPPipeline.start_science_multiproc" title="DLNIRSP_Pipeline.DLNIRSPPipeline.start_science_multiproc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_science_multiproc</span></code></a>(config, sci_kwargs, …)</p></td>
+<td><p>Manage a set of Science Calibration processes using multiprocessing.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.strip_fits.html#DLNIRSP_Pipeline.DLNIRSPPipeline.strip_fits" title="DLNIRSP_Pipeline.DLNIRSPPipeline.strip_fits"><code class="xref py py-obj docutils literal notranslate"><span class="pre">strip_fits</span></code></a>(filename)</p></td>
+<td><p>Strip the ‘.fits’ extension from a filename</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-DLNIRSP_Pipeline.ScienceCalibration">
+<span id="dlnirsp-pipeline-sciencecalibration-module"></span><h2>DLNIRSP_Pipeline.ScienceCalibration Module<a class="headerlink" href="#module-DLNIRSP_Pipeline.ScienceCalibration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>Functions<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.ScienceCalibration.generate_science_calibration.html#DLNIRSP_Pipeline.ScienceCalibration.generate_science_calibration" title="DLNIRSP_Pipeline.ScienceCalibration.generate_science_calibration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_science_calibration</span></code></a>(fitsData, …)</p></td>
+<td><p>Generate a sensible file name and save to FITS.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.ScienceCalibration.main.html#DLNIRSP_Pipeline.ScienceCalibration.main" title="DLNIRSP_Pipeline.ScienceCalibration.main"><code class="xref py py-obj docutils literal notranslate"><span class="pre">main</span></code></a>(datasetData, MRN, outpre[, dark_cal, …])</p></td>
+<td><p>Reduce DLNIRSP Science data</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.ScienceCalibration.validate_observe_task_data.html#DLNIRSP_Pipeline.ScienceCalibration.validate_observe_task_data" title="DLNIRSP_Pipeline.ScienceCalibration.validate_observe_task_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_observe_task_data</span></code></a>(fitsData)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-DLNIRSP_Pipeline.DarkCalibration">
+<span id="dlnirsp-pipeline-darkcalibration-module"></span><h2>DLNIRSP_Pipeline.DarkCalibration Module<a class="headerlink" href="#module-DLNIRSP_Pipeline.DarkCalibration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>Functions<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DarkCalibration.generate_dark_calibration.html#DLNIRSP_Pipeline.DarkCalibration.generate_dark_calibration" title="DLNIRSP_Pipeline.DarkCalibration.generate_dark_calibration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_dark_calibration</span></code></a>(avgData, sigData, …)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DarkCalibration.main.html#DLNIRSP_Pipeline.DarkCalibration.main" title="DLNIRSP_Pipeline.DarkCalibration.main"><code class="xref py py-obj docutils literal notranslate"><span class="pre">main</span></code></a>(dark_dir, outpre)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DarkCalibration.validate_dark_calibration.html#DLNIRSP_Pipeline.DarkCalibration.validate_dark_calibration" title="DLNIRSP_Pipeline.DarkCalibration.validate_dark_calibration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_dark_calibration</span></code></a>(dark_calibration)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DarkCalibration.validate_dark_task_data.html#DLNIRSP_Pipeline.DarkCalibration.validate_dark_task_data" title="DLNIRSP_Pipeline.DarkCalibration.validate_dark_task_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_dark_task_data</span></code></a>(darkData)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-DLNIRSP_Pipeline.InstrumentPolarizationCalibration">
+<span id="dlnirsp-pipeline-instrumentpolarizationcalibration-module"></span><h2>DLNIRSP_Pipeline.InstrumentPolarizationCalibration Module<a class="headerlink" href="#module-DLNIRSP_Pipeline.InstrumentPolarizationCalibration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>Functions<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.InstrumentPolarizationCalibration.extract_macropixels.html#DLNIRSP_Pipeline.InstrumentPolarizationCalibration.extract_macropixels" title="DLNIRSP_Pipeline.InstrumentPolarizationCalibration.extract_macropixels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extract_macropixels</span></code></a>(fitsData, borders)</p></td>
+<td><p>Extract macropixels and conform data for use by the PAC Modules</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.InstrumentPolarizationCalibration.gen_inst_pol_cal_objects.html#DLNIRSP_Pipeline.InstrumentPolarizationCalibration.gen_inst_pol_cal_objects" title="DLNIRSP_Pipeline.InstrumentPolarizationCalibration.gen_inst_pol_cal_objects"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_inst_pol_cal_objects</span></code></a>(raw_dark_dir, …)</p></td>
+<td><p>Generate the Dark and Geometric Calibration objects used to reduce a PolCal Calibration Sequence.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.InstrumentPolarizationCalibration.gen_inst_pol_geo_cal.html#DLNIRSP_Pipeline.InstrumentPolarizationCalibration.gen_inst_pol_geo_cal" title="DLNIRSP_Pipeline.InstrumentPolarizationCalibration.gen_inst_pol_geo_cal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_inst_pol_geo_cal</span></code></a>(fitsData, output[, debug])</p></td>
+<td><p>Compute a “Geometric Calibration” for use in reducing PolCal data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.InstrumentPolarizationCalibration.generate_instrument_pol_calibration.html#DLNIRSP_Pipeline.InstrumentPolarizationCalibration.generate_instrument_pol_calibration" title="DLNIRSP_Pipeline.InstrumentPolarizationCalibration.generate_instrument_pol_calibration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_instrument_pol_calibration</span></code></a>(…)</p></td>
+<td><p>Read raw demodulation matrices and prep them for use in Science data reduction</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.InstrumentPolarizationCalibration.main.html#DLNIRSP_Pipeline.InstrumentPolarizationCalibration.main" title="DLNIRSP_Pipeline.InstrumentPolarizationCalibration.main"><code class="xref py py-obj docutils literal notranslate"><span class="pre">main</span></code></a>(raw_pol_dir, output, raw_dark_dir[, …])</p></td>
+<td><p>Run raw data (i.e., a PolCal CS observation) through the Instrument Polarization Calibration pipeline</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.InstrumentPolarizationCalibration.manage_CS_rdx.html#DLNIRSP_Pipeline.InstrumentPolarizationCalibration.manage_CS_rdx" title="DLNIRSP_Pipeline.InstrumentPolarizationCalibration.manage_CS_rdx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">manage_CS_rdx</span></code></a>(manage_kwargs, pol_kwargs)</p></td>
+<td><p>Manage the parallel reduction of an entire Calibration Sequence.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.InstrumentPolarizationCalibration.reduce_full_CS.html#DLNIRSP_Pipeline.InstrumentPolarizationCalibration.reduce_full_CS" title="DLNIRSP_Pipeline.InstrumentPolarizationCalibration.reduce_full_CS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reduce_full_CS</span></code></a>(raw_pol_dir, raw_dark_dir[, …])</p></td>
+<td><p>Spawn the parallel reduction of an entire Calibration Sequence.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.InstrumentPolarizationCalibration.reduce_single_step.html#DLNIRSP_Pipeline.InstrumentPolarizationCalibration.reduce_single_step" title="DLNIRSP_Pipeline.InstrumentPolarizationCalibration.reduce_single_step"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reduce_single_step</span></code></a>(SoCCData, CS_step, …[, …])</p></td>
+<td><p>Reduce a single CS step</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.InstrumentPolarizationCalibration.run_PAC_CUpar.html#DLNIRSP_Pipeline.InstrumentPolarizationCalibration.run_PAC_CUpar" title="DLNIRSP_Pipeline.InstrumentPolarizationCalibration.run_PAC_CUpar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_PAC_CUpar</span></code></a>(run_dir[, threads, overwrite])</p></td>
+<td><p>Take a DL-NIRSP reduced set of Calibration Sequence data and compute a fit to the CU parameters</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.InstrumentPolarizationCalibration.run_PAC_demod.html#DLNIRSP_Pipeline.InstrumentPolarizationCalibration.run_PAC_demod" title="DLNIRSP_Pipeline.InstrumentPolarizationCalibration.run_PAC_demod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_PAC_demod</span></code></a>(run_dir[, threads, overwrite])</p></td>
+<td><p>Take a DL-NIRSP reduced set of Calibration Sequence data and compute a set of demodulation matrices.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.InstrumentPolarizationCalibration.write_reduced_CS_step.html#DLNIRSP_Pipeline.InstrumentPolarizationCalibration.write_reduced_CS_step" title="DLNIRSP_Pipeline.InstrumentPolarizationCalibration.write_reduced_CS_step"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_reduced_CS_step</span></code></a>(binData1, binData2, …)</p></td>
+<td><p>Simply handles the default directory/file naming for saving a single CS step</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-DLNIRSP_Pipeline.LampFlatCalibration">
+<span id="dlnirsp-pipeline-lampflatcalibration-module"></span><h2>DLNIRSP_Pipeline.LampFlatCalibration Module<a class="headerlink" href="#module-DLNIRSP_Pipeline.LampFlatCalibration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h3>Functions<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.LampFlatCalibration.generate_gain_calibration.html#DLNIRSP_Pipeline.LampFlatCalibration.generate_gain_calibration" title="DLNIRSP_Pipeline.LampFlatCalibration.generate_gain_calibration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_gain_calibration</span></code></a>(avgData, sigData, …)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.LampFlatCalibration.main.html#DLNIRSP_Pipeline.LampFlatCalibration.main" title="DLNIRSP_Pipeline.LampFlatCalibration.main"><code class="xref py py-obj docutils literal notranslate"><span class="pre">main</span></code></a>(flat_dir, outpre[, dark_cal, …])</p></td>
+<td><p>Run a set of lamp flat images through the LampCalibration pipeline</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.LampFlatCalibration.validate_gain_calibration.html#DLNIRSP_Pipeline.LampFlatCalibration.validate_gain_calibration" title="DLNIRSP_Pipeline.LampFlatCalibration.validate_gain_calibration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_gain_calibration</span></code></a>(gain_calibration)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.LampFlatCalibration.validate_gain_task_data.html#DLNIRSP_Pipeline.LampFlatCalibration.validate_gain_task_data" title="DLNIRSP_Pipeline.LampFlatCalibration.validate_gain_task_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_gain_task_data</span></code></a>(gainData)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-DLNIRSP_Pipeline.SolarFlatCalibration">
+<span id="dlnirsp-pipeline-solarflatcalibration-module"></span><h2>DLNIRSP_Pipeline.SolarFlatCalibration Module<a class="headerlink" href="#module-DLNIRSP_Pipeline.SolarFlatCalibration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h3>Functions<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.align_masks.html#DLNIRSP_Pipeline.SolarFlatCalibration.align_masks" title="DLNIRSP_Pipeline.SolarFlatCalibration.align_masks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">align_masks</span></code></a>(mask_list)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.compute_average_spectrum.html#DLNIRSP_Pipeline.SolarFlatCalibration.compute_average_spectrum" title="DLNIRSP_Pipeline.SolarFlatCalibration.compute_average_spectrum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_average_spectrum</span></code></a>(data, binary)</p></td>
+<td><p>Collapse an entire slit along the spatial dimension to compute a single, average spectrum.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.correct_rotation.html#DLNIRSP_Pipeline.SolarFlatCalibration.correct_rotation" title="DLNIRSP_Pipeline.SolarFlatCalibration.correct_rotation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">correct_rotation</span></code></a>(data, angle)</p></td>
+<td><p>Remove the given rotation angle from the input data</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.do_hough.html#DLNIRSP_Pipeline.SolarFlatCalibration.do_hough" title="DLNIRSP_Pipeline.SolarFlatCalibration.do_hough"><code class="xref py py-obj docutils literal notranslate"><span class="pre">do_hough</span></code></a>(binary[, numtheta, debug])</p></td>
+<td><p>Perform a Hough line transform on in the input data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.extract.html#DLNIRSP_Pipeline.SolarFlatCalibration.extract" title="DLNIRSP_Pipeline.SolarFlatCalibration.extract"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extract</span></code></a>(data, ids[, orientation, debug])</p></td>
+<td><p>Break up a full frame image based on borders found by <a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.find_borders.html#DLNIRSP_Pipeline.SolarFlatCalibration.find_borders" title="DLNIRSP_Pipeline.SolarFlatCalibration.find_borders"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_borders</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.extract_perfect_slit.html#DLNIRSP_Pipeline.SolarFlatCalibration.extract_perfect_slit" title="DLNIRSP_Pipeline.SolarFlatCalibration.extract_perfect_slit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extract_perfect_slit</span></code></a>(slitbeam, beam_offset, …)</p></td>
+<td><p>Shift beam2 to beam1 and average them together</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.extract_slitbeams.html#DLNIRSP_Pipeline.SolarFlatCalibration.extract_slitbeams" title="DLNIRSP_Pipeline.SolarFlatCalibration.extract_slitbeams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extract_slitbeams</span></code></a>(data, binary, cam_ang[, debug])</p></td>
+<td><p>Cut out sub-arrays that correspond to every beam image of every slit in DL-NIRSP</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.find_beam_offset.html#DLNIRSP_Pipeline.SolarFlatCalibration.find_beam_offset" title="DLNIRSP_Pipeline.SolarFlatCalibration.find_beam_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_beam_offset</span></code></a>(beam1, beam2, binary1, binary2)</p></td>
+<td><p>Find the (x, y) offset between beam1 and beam2 of the same slit.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.find_borders.html#DLNIRSP_Pipeline.SolarFlatCalibration.find_borders" title="DLNIRSP_Pipeline.SolarFlatCalibration.find_borders"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_borders</span></code></a>(binary, orientation[, …])</p></td>
+<td><p>Find the borders between slitbeams or ribbons</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.find_camera_rotation.html#DLNIRSP_Pipeline.SolarFlatCalibration.find_camera_rotation" title="DLNIRSP_Pipeline.SolarFlatCalibration.find_camera_rotation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_camera_rotation</span></code></a>(binary[, debug])</p></td>
+<td><p>Measure the rotation between the slit orientation and the detector.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.find_px_angles.html#DLNIRSP_Pipeline.SolarFlatCalibration.find_px_angles" title="DLNIRSP_Pipeline.SolarFlatCalibration.find_px_angles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_px_angles</span></code></a>(H, theta[, debug])</p></td>
+<td><p>Find the most significant angles in a Hough transform.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.find_spec_geometry.html#DLNIRSP_Pipeline.SolarFlatCalibration.find_spec_geometry" title="DLNIRSP_Pipeline.SolarFlatCalibration.find_spec_geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_spec_geometry</span></code></a>(data, binary[, …])</p></td>
+<td><p>Find the spectral shifts/curvature for a single slit</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.generate_average_spectra.html#DLNIRSP_Pipeline.SolarFlatCalibration.generate_average_spectra" title="DLNIRSP_Pipeline.SolarFlatCalibration.generate_average_spectra"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_average_spectra</span></code></a>(avg, data, binary, …)</p></td>
+<td><p>Take an average, 1D spectrum and create a 2D spectra for a single DL slit.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.generate_avg_slitbeam.html#DLNIRSP_Pipeline.SolarFlatCalibration.generate_avg_slitbeam" title="DLNIRSP_Pipeline.SolarFlatCalibration.generate_avg_slitbeam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_avg_slitbeam</span></code></a>(avg_spec_1d, …)</p></td>
+<td><p>Shift 1D spec into full frame, apply beam offsets, and place back into original image size</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.generate_geometric_calibration.html#DLNIRSP_Pipeline.SolarFlatCalibration.generate_geometric_calibration" title="DLNIRSP_Pipeline.SolarFlatCalibration.generate_geometric_calibration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_geometric_calibration</span></code></a>(angle, …)</p></td>
+<td><p>Write the geometric distortion parameters to a multi-HDU FITS file and write a hopefully-useful header for each</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.generate_solar_gain_calibration.html#DLNIRSP_Pipeline.SolarFlatCalibration.generate_solar_gain_calibration" title="DLNIRSP_Pipeline.SolarFlatCalibration.generate_solar_gain_calibration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_solar_gain_calibration</span></code></a>(solarGain, …)</p></td>
+<td><p>Simply write the calibration to a file</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.main.html#DLNIRSP_Pipeline.SolarFlatCalibration.main" title="DLNIRSP_Pipeline.SolarFlatCalibration.main"><code class="xref py py-obj docutils literal notranslate"><span class="pre">main</span></code></a>(solar_dir, outpre, geo_out[, dark_cal, …])</p></td>
+<td><p>Run a set of raw Solar gain images through the SolarFlatCalibration pipeline.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.make_binary.html#DLNIRSP_Pipeline.SolarFlatCalibration.make_binary" title="DLNIRSP_Pipeline.SolarFlatCalibration.make_binary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_binary</span></code></a>(data[, numotsu, debug])</p></td>
+<td><p>Generate a binary image from an input float or int array.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.quick_script.html#DLNIRSP_Pipeline.SolarFlatCalibration.quick_script" title="DLNIRSP_Pipeline.SolarFlatCalibration.quick_script"><code class="xref py py-obj docutils literal notranslate"><span class="pre">quick_script</span></code></a>(data)</p></td>
+<td><p>A shittier, older version of main().</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.remove_avg_spectra.html#DLNIRSP_Pipeline.SolarFlatCalibration.remove_avg_spectra" title="DLNIRSP_Pipeline.SolarFlatCalibration.remove_avg_spectra"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_avg_spectra</span></code></a>(stokesData, final_gain, …)</p></td>
+<td><p>Divide all data by the computed average Solar spectrum</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.remove_spec_geometry.html#DLNIRSP_Pipeline.SolarFlatCalibration.remove_spec_geometry" title="DLNIRSP_Pipeline.SolarFlatCalibration.remove_spec_geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_spec_geometry</span></code></a>(data, spec_shifts)</p></td>
+<td><p>Undo spectral shifts</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.SolarFlatCalibration.validate_solar_task_data.html#DLNIRSP_Pipeline.SolarFlatCalibration.validate_solar_task_data" title="DLNIRSP_Pipeline.SolarFlatCalibration.validate_solar_task_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_solar_task_data</span></code></a>(fitsData)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-DLNIRSP_Pipeline.IFUCalibration">
+<span id="dlnirsp-pipeline-ifucalibration-module"></span><h2>DLNIRSP_Pipeline.IFUCalibration Module<a class="headerlink" href="#module-DLNIRSP_Pipeline.IFUCalibration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h3>Functions<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.IFUCalibration.basic_helper.html#DLNIRSP_Pipeline.IFUCalibration.basic_helper" title="DLNIRSP_Pipeline.IFUCalibration.basic_helper"><code class="xref py py-obj docutils literal notranslate"><span class="pre">basic_helper</span></code></a>(f, d, g, save_dir)</p></td>
+<td><p>Subtract the dark then divide by the gain.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.IFUCalibration.correct_knife_basic.html#DLNIRSP_Pipeline.IFUCalibration.correct_knife_basic" title="DLNIRSP_Pipeline.IFUCalibration.correct_knife_basic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">correct_knife_basic</span></code></a>(fitsData, dark_cal, …)</p></td>
+<td><p>Do “basic” reductions (dark and flat) on a set of knife-edge scan images</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.IFUCalibration.correct_knife_geo.html#DLNIRSP_Pipeline.IFUCalibration.correct_knife_geo" title="DLNIRSP_Pipeline.IFUCalibration.correct_knife_geo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">correct_knife_geo</span></code></a>(fitsData, …[, threads])</p></td>
+<td><p>Apply geometric corrections to a set of knife-edge scan data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.IFUCalibration.do_all.html#DLNIRSP_Pipeline.IFUCalibration.do_all" title="DLNIRSP_Pipeline.IFUCalibration.do_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">do_all</span></code></a>(knife_dir)</p></td>
+<td><p>Super old version of main().</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.IFUCalibration.find_positions.html#DLNIRSP_Pipeline.IFUCalibration.find_positions" title="DLNIRSP_Pipeline.IFUCalibration.find_positions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_positions</span></code></a>(fitsData[, thresh])</p></td>
+<td><p>Find a single axis (x|y) of the IFU FOV position of each spatial pixel in the input data</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.IFUCalibration.gauss.html#DLNIRSP_Pipeline.IFUCalibration.gauss" title="DLNIRSP_Pipeline.IFUCalibration.gauss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauss</span></code></a>(x, A, mu, sigma, off)</p></td>
+<td><p>Gaussian function for use in fitting peaks in the light curves</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.IFUCalibration.generate_ifu_calibration.html#DLNIRSP_Pipeline.IFUCalibration.generate_ifu_calibration" title="DLNIRSP_Pipeline.IFUCalibration.generate_ifu_calibration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_ifu_calibration</span></code></a>(cal_dict, output)</p></td>
+<td><p>Just write the dictionary to an ASDF file</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.IFUCalibration.geo_helper.html#DLNIRSP_Pipeline.IFUCalibration.geo_helper" title="DLNIRSP_Pipeline.IFUCalibration.geo_helper"><code class="xref py py-obj docutils literal notranslate"><span class="pre">geo_helper</span></code></a>(f, geometric_calibration, …)</p></td>
+<td><p>Actually apply the geometric correction and save the corrected file</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.IFUCalibration.main.html#DLNIRSP_Pipeline.IFUCalibration.main" title="DLNIRSP_Pipeline.IFUCalibration.main"><code class="xref py py-obj docutils literal notranslate"><span class="pre">main</span></code></a>(knifedir, output[, dark_cal, gain_cal, …])</p></td>
+<td><p>Reduce and analyze a set of knife-edge scan images to determine the mapping from slit position to IFU position</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.IFUCalibration.make_movie.html#DLNIRSP_Pipeline.IFUCalibration.make_movie" title="DLNIRSP_Pipeline.IFUCalibration.make_movie"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_movie</span></code></a>(fitsData, xpos, ypos)</p></td>
+<td><p>Quick little script I made for showing the knife edge move across the IFU</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-DLNIRSP_Pipeline.generic">
+<span id="dlnirsp-pipeline-generic-module"></span><h2>DLNIRSP_Pipeline.generic Module<a class="headerlink" href="#module-DLNIRSP_Pipeline.generic" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h3>Functions<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.IFU_correction.html#DLNIRSP_Pipeline.generic.IFU_correction" title="DLNIRSP_Pipeline.generic.IFU_correction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IFU_correction</span></code></a>(fitsData, ifu_cal, shape[, …])</p></td>
+<td><p>Resample the full DL-NIRSP slit onto a 2D spatial grid, resulting in a 3D data cube.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.apply_geo_corr.html#DLNIRSP_Pipeline.generic.apply_geo_corr" title="DLNIRSP_Pipeline.generic.apply_geo_corr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_geo_corr</span></code></a>(data, geometric_calibration)</p></td>
+<td><p>Actually apply the geometric correction.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.average_FitsData.html#DLNIRSP_Pipeline.generic.average_FitsData" title="DLNIRSP_Pipeline.generic.average_FitsData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">average_FitsData</span></code></a>(fitsData)</p></td>
+<td><p>Average ALL hdus into a single frame</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.average_modulated_FitsData.html#DLNIRSP_Pipeline.generic.average_modulated_FitsData" title="DLNIRSP_Pipeline.generic.average_modulated_FitsData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">average_modulated_FitsData</span></code></a>(fitsData)</p></td>
+<td><p>Average all data from the same modulator state together</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.average_time_series.html#DLNIRSP_Pipeline.generic.average_time_series" title="DLNIRSP_Pipeline.generic.average_time_series"><code class="xref py py-obj docutils literal notranslate"><span class="pre">average_time_series</span></code></a>(fitsData)</p></td>
+<td><p>Compute the full-frame average for each data_hdu present in the input data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.dark_correction.html#DLNIRSP_Pipeline.generic.dark_correction" title="DLNIRSP_Pipeline.generic.dark_correction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dark_correction</span></code></a>(fitsData, dark_calibration, …)</p></td>
+<td><p>Subtract a dark frame from all data_hdus in the input data</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.demodulated_gain_correction.html#DLNIRSP_Pipeline.generic.demodulated_gain_correction" title="DLNIRSP_Pipeline.generic.demodulated_gain_correction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">demodulated_gain_correction</span></code></a>(fitsData, …)</p></td>
+<td><p>Divide each input Stokes state by Stokes I of the gain data</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.geometric_correction.html#DLNIRSP_Pipeline.generic.geometric_correction" title="DLNIRSP_Pipeline.generic.geometric_correction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">geometric_correction</span></code></a>(fitsData, …)</p></td>
+<td><p>Remove camera/spectrograph distortions and split into individual slits</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.instrument_polarization_correction.html#DLNIRSP_Pipeline.generic.instrument_polarization_correction" title="DLNIRSP_Pipeline.generic.instrument_polarization_correction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instrument_polarization_correction</span></code></a>(fitsData, …)</p></td>
+<td><p>Multiply input data by the provided demodulation matrix</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_mp</span></code>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.linearity_correction.html#DLNIRSP_Pipeline.generic.linearity_correction" title="DLNIRSP_Pipeline.generic.linearity_correction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linearity_correction</span></code></a>(fitsData)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.modulated_gain_correction.html#DLNIRSP_Pipeline.generic.modulated_gain_correction" title="DLNIRSP_Pipeline.generic.modulated_gain_correction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">modulated_gain_correction</span></code></a>(fitsData, …)</p></td>
+<td><p>Perform gain correction on modulated data</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.polarimetric_multiplication.html#DLNIRSP_Pipeline.generic.polarimetric_multiplication" title="DLNIRSP_Pipeline.generic.polarimetric_multiplication"><code class="xref py py-obj docutils literal notranslate"><span class="pre">polarimetric_multiplication</span></code></a>(data, demod)</p></td>
+<td><p>Matrix multiply the input data by a polarization demodulation matrix.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.polarization_correction.html#DLNIRSP_Pipeline.generic.polarization_correction" title="DLNIRSP_Pipeline.generic.polarization_correction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">polarization_correction</span></code></a>(fitsData, …[, …])</p></td>
+<td><p>Remove some or all polarimetric effects from data</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.stddev_FitsData.html#DLNIRSP_Pipeline.generic.stddev_FitsData" title="DLNIRSP_Pipeline.generic.stddev_FitsData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stddev_FitsData</span></code></a>(fitsData[, average])</p></td>
+<td><p>Compute the per-pixel standard deviation across ALL HDUs present in the input data</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.stddev_modulated_FitsData.html#DLNIRSP_Pipeline.generic.stddev_modulated_FitsData" title="DLNIRSP_Pipeline.generic.stddev_modulated_FitsData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stddev_modulated_FitsData</span></code></a>(fitsData[, average])</p></td>
+<td><p>Compute the per-pixel standard deviation for each modulator state present in the input data</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.generic.telescope_pol_correction.html#DLNIRSP_Pipeline.generic.telescope_pol_correction" title="DLNIRSP_Pipeline.generic.telescope_pol_correction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">telescope_pol_correction</span></code></a>(fitsData, teleCal)</p></td>
+<td><p>Apply an inverse Telescope Mueller matrix and update header values</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-DLNIRSP_Pipeline.Data">
+<span id="dlnirsp-pipeline-data-module"></span><h2>DLNIRSP_Pipeline.Data Module<a class="headerlink" href="#module-DLNIRSP_Pipeline.Data" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.AlignmentData.html#DLNIRSP_Pipeline.Data.AlignmentData" title="DLNIRSP_Pipeline.Data.AlignmentData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlignmentData</span></code></a>([data_dir, dataset_ID, memmap])</p></td>
+<td><p>AlignmentData is an extension of <code class="xref py py-obj docutils literal notranslate"><span class="pre">FitData</span></code> designed to only hold data from the Alignment InstrumentProgramTask (DKIST004).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.CSStep.html#DLNIRSP_Pipeline.Data.CSStep" title="DLNIRSP_Pipeline.Data.CSStep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CSStep</span></code></a>(header)</p></td>
+<td><p>This class allows for an easy way to quickly compare SPEC-0122 style headers to determine if they come from the same Calibration Sequence (CS) step.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.CalibrationCurveData.html#DLNIRSP_Pipeline.Data.CalibrationCurveData" title="DLNIRSP_Pipeline.Data.CalibrationCurveData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalibrationCurveData</span></code></a>([CS_step, memmap])</p></td>
+<td><p>CalibrationCurveData is an extension of FitsData that loads a single Calibration Curve from a directory containing a full Set of Calibration Curves (SoCC).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConfigParser</span></code>([defaults, dict_type, …])</p></td>
+<td><p>ConfigParser implementing interpolation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.DarkData.html#DLNIRSP_Pipeline.Data.DarkData" title="DLNIRSP_Pipeline.Data.DarkData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DarkData</span></code></a>([data_dir, dataset_ID, memmap])</p></td>
+<td><p>DarkData is an extension of <code class="xref py py-obj docutils literal notranslate"><span class="pre">FitData</span></code> designed to only hold data from the Dark InstrumentProgramTask (DKIST004).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.DataSetData.html#DLNIRSP_Pipeline.Data.DataSetData" title="DLNIRSP_Pipeline.Data.DataSetData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataSetData</span></code></a>([data_dir, dataset_ID, suffix])</p></td>
+<td><p>DataSetData performs 2 functions: First, it separates DL mosaic/repeat numbers (MRN) found among raw data in a directory.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.DemodulationData.html#DLNIRSP_Pipeline.Data.DemodulationData" title="DLNIRSP_Pipeline.Data.DemodulationData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DemodulationData</span></code></a>()</p></td>
+<td><p>DemodulationData is a small modification of the <a class="reference internal" href="api/DLNIRSP_Pipeline.Data.FitsData.html#DLNIRSP_Pipeline.Data.FitsData" title="DLNIRSP_Pipeline.Data.FitsData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FitsData</span></code></a> class.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.FitsData.html#DLNIRSP_Pipeline.Data.FitsData" title="DLNIRSP_Pipeline.Data.FitsData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FitsData</span></code></a>([load_obj, memmap, allow3D])</p></td>
+<td><p>FitsData is a basically a wrapper for astropy.io.fits, with some extra methods and properties to aid the reduction of DKIST data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.GainData.html#DLNIRSP_Pipeline.Data.GainData" title="DLNIRSP_Pipeline.Data.GainData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GainData</span></code></a>([data_dir, dataset_ID, memmap])</p></td>
+<td><p>GainData is an extension of <code class="xref py py-obj docutils literal notranslate"><span class="pre">FitData</span></code> designed to only hold data from the Gain InstrumentProgramTask (DKIST004).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.MRNData.html#DLNIRSP_Pipeline.Data.MRNData" title="DLNIRSP_Pipeline.Data.MRNData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MRNData</span></code></a>(MRN[, memmap])</p></td>
+<td><p>MRNData is an extension of FitsData that loads a single DL-NIRSP mosaic/repeat number from a directory containing a full DL-NIRSP DataSet.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.MosiacRepeatNumber.html#DLNIRSP_Pipeline.Data.MosiacRepeatNumber" title="DLNIRSP_Pipeline.Data.MosiacRepeatNumber"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MosiacRepeatNumber</span></code></a>(header)</p></td>
+<td><p>This class allows for an easy way to quickly compare SPEC-0122 style headers to determine if they come from the same DL-NIRSP mosaic/repeat number (MRN).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.ObservationData.html#DLNIRSP_Pipeline.Data.ObservationData" title="DLNIRSP_Pipeline.Data.ObservationData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ObservationData</span></code></a>([data_dir, dataset_ID, memmap])</p></td>
+<td><p>ObservationData is an extension of <code class="xref py py-obj docutils literal notranslate"><span class="pre">FitData</span></code> designed to only hold data from the Observation InstrumentProgramTask (DKIST004).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.SoCCData.html#DLNIRSP_Pipeline.Data.SoCCData" title="DLNIRSP_Pipeline.Data.SoCCData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SoCCData</span></code></a>([data_dir, suffix])</p></td>
+<td><p>SoCCData performs 2 functions: First, it separates and sorts Calibration Sequence (CS) steps found among raw data in a directory.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Time</span></code>(val[, val2, format, scale, precision, …])</p></td>
+<td><p>Represent and manipulate times and dates for astronomy.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="class-inheritance-diagram">
+<h3>Class Inheritance Diagram<a class="headerlink" href="#class-inheritance-diagram" title="Permalink to this headline">¶</a></h3>
+<div class="graphviz"><object data="_images/inheritance-c7a8825e2f5d489f52f277642ec3ab7c7a188150.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">Inheritance diagram of DLNIRSP_Pipeline.Data.AlignmentData, DLNIRSP_Pipeline.Data.CSStep, DLNIRSP_Pipeline.Data.CalibrationCurveData, DLNIRSP_Pipeline.Data.DarkData, DLNIRSP_Pipeline.Data.DataSetData, DLNIRSP_Pipeline.Data.DemodulationData, DLNIRSP_Pipeline.Data.FitsData, DLNIRSP_Pipeline.Data.GainData, DLNIRSP_Pipeline.Data.MRNData, DLNIRSP_Pipeline.Data.MosiacRepeatNumber, DLNIRSP_Pipeline.Data.ObservationData, DLNIRSP_Pipeline.Data.SoCCData</p></object></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <div class="left-footer">
+         &copy; 2019, Arthur Eigenbrot
+       <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
+    </div>
+   
+    <div class="right-footer">
+      Last updated on 17 Sep 2019.
+    </div>
+    <div class="centre-footer">
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

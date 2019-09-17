@@ -1,0 +1,6 @@
+start_science_multiproc
+=======================
+
+.. currentmodule:: DLNIRSP_Pipeline.DLNIRSPPipeline
+
+.. autofunction:: start_science_multiproc

@@ -1,0 +1,6 @@
+average_modulated_FitsData
+==========================
+
+.. currentmodule:: DLNIRSP_Pipeline.generic
+
+.. autofunction:: average_modulated_FitsData

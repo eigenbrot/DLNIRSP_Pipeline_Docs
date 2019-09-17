@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>find_borders &#8212; DLNIRSP_Pipeline v0.6.0</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" type="text/css" />
+    <link rel="stylesheet" href="../_static/dkist.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favico.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="find_camera_rotation" href="DLNIRSP_Pipeline.SolarFlatCalibration.find_camera_rotation.html" />
+    <link rel="prev" title="find_beam_offset" href="DLNIRSP_Pipeline.SolarFlatCalibration.find_beam_offset.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="col-md-3 navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="http://nso.edu"><img src="../_static/img/NSOlogo.gif">
+        </a>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav hidden">
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">DL-NIRSP Pipeline Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config_file.html">Configuration File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../walkthrough.html">Data Reduction Walkthrough</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../API.html">Reference/API</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">find_borders</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="DLNIRSP_Pipeline.SolarFlatCalibration.find_beam_offset.html" title="Previous Chapter: find_beam_offset"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; find_beam_offset</span>
+    </a>
+  </li>
+  <li>
+    <a href="DLNIRSP_Pipeline.SolarFlatCalibration.find_camera_rotation.html" title="Next Chapter: find_camera_rotation"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">find_camera_rotation &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+          
+            <ul class="nav navbar-nav navbar-left">
+              <li><a href="http://dkist.nso.edu/">DKIST</a></li>
+              <li><a href="http://docs.cadair.com/devdocs">DC Developer Guide</a></li>
+              <li><a href="http://docs.cadair.com/datarate">DKIST Data Rate</a></li>
+              <li><a href="http://docs.cadair.com/datamodel">DKIST Data Model</a></li>
+            </ul>
+          
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-3"><div id="side-logo" >
+            <a href="http://dkist.nso.edu">
+                <img src="../_static/img/DKISTLogo-Medium.jpg">
+            </a>
+        </div><div id="sidebar" class="bs-sidenav" role="complementary">
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">DL-NIRSP Pipeline Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config_file.html">Configuration File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../walkthrough.html">Data Reduction Walkthrough</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../API.html">Reference/API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.DLNIRSPPipeline">DLNIRSP_Pipeline.DLNIRSPPipeline Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.ScienceCalibration">DLNIRSP_Pipeline.ScienceCalibration Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.DarkCalibration">DLNIRSP_Pipeline.DarkCalibration Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.InstrumentPolarizationCalibration">DLNIRSP_Pipeline.InstrumentPolarizationCalibration Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.LampFlatCalibration">DLNIRSP_Pipeline.LampFlatCalibration Module</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.SolarFlatCalibration">DLNIRSP_Pipeline.SolarFlatCalibration Module</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../API.html#id5">Functions</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.SolarFlatCalibration.align_masks.html">align_masks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.SolarFlatCalibration.compute_average_spectrum.html">compute_average_spectrum</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.SolarFlatCalibration.correct_rotation.html">correct_rotation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.SolarFlatCalibration.do_hough.html">do_hough</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.SolarFlatCalibration.extract.html">extract</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.SolarFlatCalibration.extract_perfect_slit.html">extract_perfect_slit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.SolarFlatCalibration.extract_slitbeams.html">extract_slitbeams</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.SolarFlatCalibration.find_beam_offset.html">find_beam_offset</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">find_borders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.SolarFlatCalibration.find_camera_rotation.html">find_camera_rotation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.SolarFlatCalibration.find_px_angles.html">find_px_angles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.SolarFlatCalibration.find_spec_geometry.html">find_spec_geometry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.SolarFlatCalibration.generate_average_spectra.html">generate_average_spectra</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.SolarFlatCalibration.generate_avg_slitbeam.html">generate_avg_slitbeam</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.SolarFlatCalibration.generate_geometric_calibration.html">generate_geometric_calibration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.SolarFlatCalibration.generate_solar_gain_calibration.html">generate_solar_gain_calibration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.SolarFlatCalibration.main.html">main</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.SolarFlatCalibration.make_binary.html">make_binary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.SolarFlatCalibration.quick_script.html">quick_script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.SolarFlatCalibration.remove_avg_spectra.html">remove_avg_spectra</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.SolarFlatCalibration.remove_spec_geometry.html">remove_spec_geometry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.SolarFlatCalibration.validate_solar_task_data.html">validate_solar_task_data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.IFUCalibration">DLNIRSP_Pipeline.IFUCalibration Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.generic">DLNIRSP_Pipeline.generic Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html#module-DLNIRSP_Pipeline.Data">DLNIRSP_Pipeline.Data Module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+        </div>
+    </div>
+
+    <div class="body col-md-9 content" role="main">
+      
+  <div class="section" id="find-borders">
+<h1>find_borders<a class="headerlink" href="#find-borders" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="DLNIRSP_Pipeline.SolarFlatCalibration.find_borders">
+<code class="sig-prename descclassname">DLNIRSP_Pipeline.SolarFlatCalibration.</code><code class="sig-name descname">find_borders</code><span class="sig-paren">(</span><em class="sig-param">binary</em>, <em class="sig-param">orientation</em>, <em class="sig-param">theta_min_dist=150.0</em>, <em class="sig-param">theta_window=0.05235987755982988</em>, <em class="sig-param">rho_min_dist=50</em>, <em class="sig-param">rho_smooth=5.0</em>, <em class="sig-param">rho_window=10</em>, <em class="sig-param">rho_thres=0.3</em>, <em class="sig-param">debug=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/DLNIRSP_Pipeline/SolarFlatCalibration.html#find_borders"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DLNIRSP_Pipeline.SolarFlatCalibration.find_borders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the borders between slitbeams or ribbons</p>
+<p>The more common usage is to find the borders between each slitbeam, but it’s general enough that the ribbon
+borders can also be found this way.</p>
+<p>Borders are found via Hough transform that identifies lines in a binary image. This requires that input binary image
+clearly distinguishes between the data and non-data regions of the detector.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>binary</strong><span class="classifier"><a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></span></dt><dd><p>Binary image of the DL detector. Border (non-data) regions should be 1 and all else be 0.</p>
+</dd>
+<dt><strong>orientation</strong><span class="classifier">str</span></dt><dd><p>Either ‘vertical’ or ‘horizontal’. ‘vertical’ finds the slitbeam borders and ‘horizontal’ finds the ribbon
+borders.</p>
+</dd>
+<dt><strong>theta_min_dist</strong><span class="classifier">float</span></dt><dd><p>The minimum difference between two angles in Hough space for them to be considered different angles.</p>
+</dd>
+<dt><strong>theta_window</strong><span class="classifier">float</span></dt><dd><p>The distance around the peak angle in Hough space to search when computing the corresponding peak rho</p>
+</dd>
+<dt><strong>rho_min_dist</strong><span class="classifier">float</span></dt><dd><p>The minimum difference between two rhos in Hough space for them to be considered different rhos.</p>
+</dd>
+<dt><strong>rho_smooth</strong><span class="classifier">float</span></dt><dd><p>The sigma of a guassian smoothing applied to the Hough rho array when computing peak rhos. This helps with dirty
+detectors.</p>
+</dd>
+<dt><strong>rho_window</strong><span class="classifier">float</span></dt><dd><p>The distance around the peak rho in Hough space to search when computing the corresponding peak theta</p>
+</dd>
+<dt><strong>debug</strong><span class="classifier">bool</span></dt><dd><p>If True then generate plots showing the rho and theta RSS vectors along with fit peaks. Also show the binary
+image with the found borders. All of these plots are saved as pdf files.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></dt><dd><p>The pixel indices of the column/row (depending on <code class="xref py py-obj docutils literal notranslate"><span class="pre">orientation</span></code>) of the borders.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <div class="left-footer">
+         &copy; 2019, Arthur Eigenbrot
+       <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
+    </div>
+   
+    <div class="right-footer">
+      Last updated on 17 Sep 2019.
+    </div>
+    <div class="centre-footer">
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0
+    </div>
+  </div>
+</footer>
+  </body>
+</html>

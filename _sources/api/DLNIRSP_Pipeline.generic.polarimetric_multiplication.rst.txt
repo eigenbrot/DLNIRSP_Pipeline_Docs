@@ -1,0 +1,6 @@
+polarimetric_multiplication
+===========================
+
+.. currentmodule:: DLNIRSP_Pipeline.generic
+
+.. autofunction:: polarimetric_multiplication

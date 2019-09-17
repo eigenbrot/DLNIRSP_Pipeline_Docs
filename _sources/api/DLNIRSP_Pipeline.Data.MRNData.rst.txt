@@ -1,0 +1,17 @@
+MRNData
+=======
+
+.. currentmodule:: DLNIRSP_Pipeline.Data
+
+.. autoclass:: MRNData
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~MRNData.load_from_filelist
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: load_from_filelist

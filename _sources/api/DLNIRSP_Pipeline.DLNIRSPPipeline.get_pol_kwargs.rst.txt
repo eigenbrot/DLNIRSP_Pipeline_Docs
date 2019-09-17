@@ -1,0 +1,6 @@
+get_pol_kwargs
+==============
+
+.. currentmodule:: DLNIRSP_Pipeline.DLNIRSPPipeline
+
+.. autofunction:: get_pol_kwargs

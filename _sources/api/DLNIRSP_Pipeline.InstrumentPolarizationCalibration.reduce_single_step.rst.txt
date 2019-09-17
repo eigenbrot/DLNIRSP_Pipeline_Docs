@@ -1,0 +1,6 @@
+reduce_single_step
+==================
+
+.. currentmodule:: DLNIRSP_Pipeline.InstrumentPolarizationCalibration
+
+.. autofunction:: reduce_single_step

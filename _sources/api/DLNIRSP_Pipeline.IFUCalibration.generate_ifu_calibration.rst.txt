@@ -1,0 +1,6 @@
+generate_ifu_calibration
+========================
+
+.. currentmodule:: DLNIRSP_Pipeline.IFUCalibration
+
+.. autofunction:: generate_ifu_calibration

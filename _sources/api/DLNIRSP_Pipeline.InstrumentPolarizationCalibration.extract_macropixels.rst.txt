@@ -1,0 +1,6 @@
+extract_macropixels
+===================
+
+.. currentmodule:: DLNIRSP_Pipeline.InstrumentPolarizationCalibration
+
+.. autofunction:: extract_macropixels

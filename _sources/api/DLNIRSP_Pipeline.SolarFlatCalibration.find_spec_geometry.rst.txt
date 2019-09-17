@@ -1,0 +1,6 @@
+find_spec_geometry
+==================
+
+.. currentmodule:: DLNIRSP_Pipeline.SolarFlatCalibration
+
+.. autofunction:: find_spec_geometry

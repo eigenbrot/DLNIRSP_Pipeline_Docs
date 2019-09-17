@@ -1,0 +1,6 @@
+remove_spec_geometry
+====================
+
+.. currentmodule:: DLNIRSP_Pipeline.SolarFlatCalibration
+
+.. autofunction:: remove_spec_geometry

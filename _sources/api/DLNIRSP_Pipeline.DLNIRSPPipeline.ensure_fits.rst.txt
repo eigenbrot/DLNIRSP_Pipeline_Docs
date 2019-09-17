@@ -1,0 +1,6 @@
+ensure_fits
+===========
+
+.. currentmodule:: DLNIRSP_Pipeline.DLNIRSPPipeline
+
+.. autofunction:: ensure_fits
