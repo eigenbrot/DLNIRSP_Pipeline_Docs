@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>DLNIRSP_Pipeline.DLNIRSPPipeline &#8212; DLNIRSP_Pipeline v0.6.0</title>
+    <title>DLNIRSP_Pipeline.DLNIRSPPipeline &#8212; DLNIRSP_Pipeline v0.6.1</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
@@ -381,7 +381,7 @@
 <span class="sd">    limit. Thus, we only check/change this limit if IFU calibration will be needed.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">ifu_cal</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;Main&#39;</span><span class="p">][</span><span class="s1">&#39;ifu_cal&#39;</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">ifu_cal</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">ensure_asdf</span><span class="p">(</span><span class="n">ifu_cal</span><span class="p">)):</span>
         <span class="c1"># It&#39;s already been generated, so we don&#39;t need to check or change anything</span>
         <span class="k">return</span>
 
@@ -471,6 +471,44 @@
 
     <span class="k">return</span></div>
 
+<div class="viewcode-block" id="gen_sensible_config"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.DLNIRSPPipeline.gen_sensible_config.html#DLNIRSP_Pipeline.DLNIRSPPipeline.gen_sensible_config">[docs]</a><span class="k">def</span> <span class="nf">gen_sensible_config</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">raw_dir</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create a configuration file with most fields populated in a sane way.</span>
+
+<span class="sd">    This is useful as a way to see all of the available options.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        The location to save the blank file. Existing files will be overwritten.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigParser</span><span class="p">(</span><span class="n">allow_no_value</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;Main&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;raw_sci_dir&#39;</span><span class="p">:</span> <span class="n">raw_dir</span><span class="p">,</span>
+                      <span class="s1">&#39;dataset_ID&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;output_prefix&#39;</span><span class="p">:</span> <span class="s1">&#39;Sci&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;dark_cal&#39;</span><span class="p">:</span> <span class="s1">&#39;DarkCal&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;instrument_pol_cal&#39;</span><span class="p">:</span> <span class="s1">&#39;InstPolCal&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;lamp_gain_cal&#39;</span><span class="p">:</span> <span class="s1">&#39;LampCal&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;solar_gain_cal&#39;</span><span class="p">:</span> <span class="s1">&#39;SolarCal&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;geometric_cal&#39;</span><span class="p">:</span> <span class="s1">&#39;GeoCal&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;ifu_cal&#39;</span><span class="p">:</span> <span class="s1">&#39;IFUCal&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;cube_shape&#39;</span><span class="p">:</span> <span class="s1">&#39;(100, 100)&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;threads&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span><span class="p">}</span>
+    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;DarkCalibration&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;raw_dark_dir&#39;</span><span class="p">:</span> <span class="n">raw_dir</span><span class="p">}</span>
+    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;InstrumentPolarization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;raw_pol_dir&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;raw_pol_dark_dir&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;threads&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span><span class="p">}</span>
+    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;LampGainCalibration&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;raw_lamp_gain_dir&#39;</span><span class="p">:</span> <span class="n">raw_dir</span><span class="p">}</span>
+    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;SolarGainCalibration&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;raw_solar_gain_dir&#39;</span><span class="p">:</span> <span class="n">raw_dir</span><span class="p">}</span>
+    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;IFUCalibration&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;raw_knife_dir&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;threads&#39;</span><span class="p">:</span> <span class="s1">&#39;4&#39;</span><span class="p">}</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="k">return</span></div>
+
 <span class="k">def</span> <span class="nf">command_line</span><span class="p">():</span>
     <span class="kn">import</span> <span class="nn">argparse</span>
     <span class="kn">import</span> <span class="nn">sys</span>
@@ -480,10 +518,16 @@
                         <span class="s1">&#39;the standard INI format&#39;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;config_file&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;INI-style file containing pipeline options&quot;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-b&#39;</span><span class="p">,</span> <span class="s1">&#39;--blank&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Generate a blank configuration file&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="s1">&#39;--default&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Generate a config file with sensible defaults&#39;</span><span class="p">,</span>
+                        <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;RAW_DATA_DIR&#39;</span><span class="p">)</span>
     <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">blank</span><span class="p">:</span>
         <span class="n">gen_blank_config</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">config_file</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">gen_sensible_config</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">config_file</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">default</span><span class="p">)</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">config_file</span><span class="p">):</span>
@@ -506,7 +550,7 @@
     </div>
    
     <div class="right-footer">
-      Last updated on 17 Sep 2019.
+      Last updated on 27 Sep 2019.
     </div>
     <div class="centre-footer">
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0

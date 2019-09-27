@@ -1,0 +1,6 @@
+gen_sensible_config
+===================
+
+.. currentmodule:: DLNIRSP_Pipeline.DLNIRSPPipeline
+
+.. autofunction:: gen_sensible_config

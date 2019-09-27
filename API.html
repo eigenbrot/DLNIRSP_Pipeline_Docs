@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Reference/API &#8212; DLNIRSP_Pipeline v0.6.0</title>
+    <title>Reference/API &#8212; DLNIRSP_Pipeline v0.6.1</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -180,6 +180,7 @@
 <li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.ensure_asdf.html">ensure_asdf</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.ensure_fits.html">ensure_fits</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.gen_blank_config.html">gen_blank_config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.gen_sensible_config.html">gen_sensible_config</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.gen_signame.html">gen_signame</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.generate_intermediate_objects.html">generate_intermediate_objects</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.get_pol_kwargs.html">get_pol_kwargs</a></li>
@@ -355,22 +356,25 @@
 <tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.gen_blank_config.html#DLNIRSP_Pipeline.DLNIRSPPipeline.gen_blank_config" title="DLNIRSP_Pipeline.DLNIRSPPipeline.gen_blank_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_blank_config</span></code></a>(filename)</p></td>
 <td><p>Create a blank configuration file.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.gen_signame.html#DLNIRSP_Pipeline.DLNIRSPPipeline.gen_signame" title="DLNIRSP_Pipeline.DLNIRSPPipeline.gen_signame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_signame</span></code></a>(filename)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.gen_sensible_config.html#DLNIRSP_Pipeline.DLNIRSPPipeline.gen_sensible_config" title="DLNIRSP_Pipeline.DLNIRSPPipeline.gen_sensible_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_sensible_config</span></code></a>(filename, raw_dir)</p></td>
+<td><p>Create a configuration file with most fields populated in a sane way.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.gen_signame.html#DLNIRSP_Pipeline.DLNIRSPPipeline.gen_signame" title="DLNIRSP_Pipeline.DLNIRSPPipeline.gen_signame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_signame</span></code></a>(filename)</p></td>
 <td><p>Add a ‘_sig’ suffix to a filename, before the fits extension</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.generate_intermediate_objects.html#DLNIRSP_Pipeline.DLNIRSPPipeline.generate_intermediate_objects" title="DLNIRSP_Pipeline.DLNIRSPPipeline.generate_intermediate_objects"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_intermediate_objects</span></code></a>(config)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.generate_intermediate_objects.html#DLNIRSP_Pipeline.DLNIRSPPipeline.generate_intermediate_objects" title="DLNIRSP_Pipeline.DLNIRSPPipeline.generate_intermediate_objects"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_intermediate_objects</span></code></a>(config)</p></td>
 <td><p>Generate/collect the intermediate Calibration Objects needed by the Science Calibration module.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.get_pol_kwargs.html#DLNIRSP_Pipeline.DLNIRSPPipeline.get_pol_kwargs" title="DLNIRSP_Pipeline.DLNIRSPPipeline.get_pol_kwargs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pol_kwargs</span></code></a>(config)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.get_pol_kwargs.html#DLNIRSP_Pipeline.DLNIRSPPipeline.get_pol_kwargs" title="DLNIRSP_Pipeline.DLNIRSPPipeline.get_pol_kwargs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pol_kwargs</span></code></a>(config)</p></td>
 <td><p>Get the somewhat hidden polarization correction keywords, using defaults if necessary</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.main.html#DLNIRSP_Pipeline.DLNIRSPPipeline.main" title="DLNIRSP_Pipeline.DLNIRSPPipeline.main"><code class="xref py py-obj docutils literal notranslate"><span class="pre">main</span></code></a>(config_file)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.main.html#DLNIRSP_Pipeline.DLNIRSPPipeline.main" title="DLNIRSP_Pipeline.DLNIRSPPipeline.main"><code class="xref py py-obj docutils literal notranslate"><span class="pre">main</span></code></a>(config_file)</p></td>
 <td><p>The main, runner script for the entire DL-NIRSP Pipeline.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.start_science_multiproc.html#DLNIRSP_Pipeline.DLNIRSPPipeline.start_science_multiproc" title="DLNIRSP_Pipeline.DLNIRSPPipeline.start_science_multiproc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_science_multiproc</span></code></a>(config, sci_kwargs, …)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.start_science_multiproc.html#DLNIRSP_Pipeline.DLNIRSPPipeline.start_science_multiproc" title="DLNIRSP_Pipeline.DLNIRSPPipeline.start_science_multiproc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_science_multiproc</span></code></a>(config, sci_kwargs, …)</p></td>
 <td><p>Manage a set of Science Calibration processes using multiprocessing.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.strip_fits.html#DLNIRSP_Pipeline.DLNIRSPPipeline.strip_fits" title="DLNIRSP_Pipeline.DLNIRSPPipeline.strip_fits"><code class="xref py py-obj docutils literal notranslate"><span class="pre">strip_fits</span></code></a>(filename)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DLNIRSPPipeline.strip_fits.html#DLNIRSP_Pipeline.DLNIRSPPipeline.strip_fits" title="DLNIRSP_Pipeline.DLNIRSPPipeline.strip_fits"><code class="xref py py-obj docutils literal notranslate"><span class="pre">strip_fits</span></code></a>(filename)</p></td>
 <td><p>Strip the ‘.fits’ extension from a filename</p></td>
 </tr>
 </tbody>
@@ -764,7 +768,7 @@
     </div>
    
     <div class="right-footer">
-      Last updated on 17 Sep 2019.
+      Last updated on 27 Sep 2019.
     </div>
     <div class="centre-footer">
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0
