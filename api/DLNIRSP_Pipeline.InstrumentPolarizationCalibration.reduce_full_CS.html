@@ -1,20 +1,20 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>reduce_full_CS &#8212; DLNIRSP_Pipeline v0.6.1</title>
+    <title>reduce_full_CS &#8212; DLNIRSP_Pipeline v0.8.0</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" type="text/css" />
     <link rel="stylesheet" href="../_static/dkist.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../_static/favico.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -172,9 +172,9 @@
       
   <div class="section" id="reduce-full-cs">
 <h1>reduce_full_CS<a class="headerlink" href="#reduce-full-cs" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="DLNIRSP_Pipeline.InstrumentPolarizationCalibration.reduce_full_CS">
-<code class="sig-prename descclassname">DLNIRSP_Pipeline.InstrumentPolarizationCalibration.</code><code class="sig-name descname">reduce_full_CS</code><span class="sig-paren">(</span><em class="sig-param">raw_pol_dir</em>, <em class="sig-param">raw_dark_dir</em>, <em class="sig-param">threads=1</em>, <em class="sig-param">dark_cal='DarkCal.fits'</em>, <em class="sig-param">geo_cal='InstPolGeoCal.asdf'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/DLNIRSP_Pipeline/InstrumentPolarizationCalibration.html#reduce_full_CS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DLNIRSP_Pipeline.InstrumentPolarizationCalibration.reduce_full_CS" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">DLNIRSP_Pipeline.InstrumentPolarizationCalibration.</code><code class="sig-name descname">reduce_full_CS</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">raw_pol_dir</span></em>, <em class="sig-param"><span class="n">raw_dark_dir</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">dark_cal</span><span class="o">=</span><span class="default_value">'PolDarkCal'</span></em>, <em class="sig-param"><span class="n">geo_cal</span><span class="o">=</span><span class="default_value">'InstPolGeoCal'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/DLNIRSP_Pipeline/InstrumentPolarizationCalibration.html#reduce_full_CS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DLNIRSP_Pipeline.InstrumentPolarizationCalibration.reduce_full_CS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Spawn the parallel reduction of an entire Calibration Sequence.</p>
 <p>This function sets up the right directories and default file names and then hands off the management to
 <a class="reference internal" href="DLNIRSP_Pipeline.InstrumentPolarizationCalibration.manage_CS_rdx.html#DLNIRSP_Pipeline.InstrumentPolarizationCalibration.manage_CS_rdx" title="DLNIRSP_Pipeline.InstrumentPolarizationCalibration.manage_CS_rdx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">manage_CS_rdx</span></code></a>.</p>
@@ -190,15 +190,15 @@
 <footer class="footer">
   <div class="container">
     <div class="left-footer">
-         &copy; 2019, Arthur Eigenbrot
+         &copy; 2020, Arthur Eigenbrot
        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
     </div>
    
     <div class="right-footer">
-      Last updated on 27 Sep 2019.
+      Last updated on 01 May 2020.
     </div>
     <div class="centre-footer">
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.3
     </div>
   </div>
 </footer>

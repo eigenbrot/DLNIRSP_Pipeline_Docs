@@ -1,20 +1,20 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>main &#8212; DLNIRSP_Pipeline v0.6.1</title>
+    <title>main &#8212; DLNIRSP_Pipeline v0.8.0</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" type="text/css" />
     <link rel="stylesheet" href="../_static/dkist.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../_static/favico.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -164,9 +164,9 @@
       
   <div class="section" id="main">
 <h1>main<a class="headerlink" href="#main" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="DLNIRSP_Pipeline.ScienceCalibration.main">
-<code class="sig-prename descclassname">DLNIRSP_Pipeline.ScienceCalibration.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><em class="sig-param">datasetData</em>, <em class="sig-param">MRN</em>, <em class="sig-param">outpre</em>, <em class="sig-param">dark_cal=None</em>, <em class="sig-param">instrument_pol_cal=None</em>, <em class="sig-param">solar_flat_cal=None</em>, <em class="sig-param">geometric_cal=None</em>, <em class="sig-param">dark_cal_sig=None</em>, <em class="sig-param">solar_flat_cal_sig=None</em>, <em class="sig-param">allow_no_pol=False</em>, <em class="sig-param">ifu_cal=None</em>, <em class="sig-param">cube_shape=(100</em>, <em class="sig-param">100)</em>, <em class="sig-param">telescope_db=None</em>, <em class="sig-param">remove_TM=True</em>, <em class="sig-param">include_M12=True</em>, <em class="sig-param">remove_parallactic=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/DLNIRSP_Pipeline/ScienceCalibration.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DLNIRSP_Pipeline.ScienceCalibration.main" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">DLNIRSP_Pipeline.ScienceCalibration.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">datasetData</span></em>, <em class="sig-param"><span class="n">MRN</span></em>, <em class="sig-param"><span class="n">outpre</span></em>, <em class="sig-param"><span class="n">dark_cal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">instrument_pol_cal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">solar_flat_cal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">geometric_cal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dark_cal_sig</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">solar_flat_cal_sig</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">allow_no_pol</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">ifu_cal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cube_shape</span><span class="o">=</span><span class="default_value">100, 100</span></em>, <em class="sig-param"><span class="n">telescope_db</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">remove_TM</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">include_M12</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">remove_parallactic</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/DLNIRSP_Pipeline/ScienceCalibration.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DLNIRSP_Pipeline.ScienceCalibration.main" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reduce DLNIRSP Science data</p>
 <p>Any intermediate Calibration objects that are provided will be applied to the data and are technically optional.
 If no Calibration objects are provided then the data will essentially be passed through, which is pretty boring.
@@ -222,15 +222,15 @@ with each of the four data_hdus containing all DL fibers stacked into a single s
 <footer class="footer">
   <div class="container">
     <div class="left-footer">
-         &copy; 2019, Arthur Eigenbrot
+         &copy; 2020, Arthur Eigenbrot
        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
     </div>
    
     <div class="right-footer">
-      Last updated on 27 Sep 2019.
+      Last updated on 01 May 2020.
     </div>
     <div class="centre-footer">
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.3
     </div>
   </div>
 </footer>

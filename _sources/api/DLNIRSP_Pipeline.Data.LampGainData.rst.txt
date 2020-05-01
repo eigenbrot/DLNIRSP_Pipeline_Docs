@@ -1,16 +1,16 @@
-ObservationData
-===============
+LampGainData
+============
 
 .. currentmodule:: DLNIRSP_Pipeline.Data
 
-.. autoclass:: ObservationData
+.. autoclass:: LampGainData
    :show-inheritance:
 
    .. rubric:: Attributes Summary
 
    .. autosummary::
 
-      ~ObservationData.task_dict
+      ~LampGainData.task_dict
 
    .. rubric:: Attributes Documentation
 

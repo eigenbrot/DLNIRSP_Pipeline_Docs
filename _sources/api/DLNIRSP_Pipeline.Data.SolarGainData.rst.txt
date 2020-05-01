@@ -1,16 +1,16 @@
-ObservationData
-===============
+SolarGainData
+=============
 
 .. currentmodule:: DLNIRSP_Pipeline.Data
 
-.. autoclass:: ObservationData
+.. autoclass:: SolarGainData
    :show-inheritance:
 
    .. rubric:: Attributes Summary
 
    .. autosummary::
 
-      ~ObservationData.task_dict
+      ~SolarGainData.task_dict
 
    .. rubric:: Attributes Documentation
 

@@ -1,20 +1,20 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>Reference/API &#8212; DLNIRSP_Pipeline v0.6.1</title>
+    <title>Reference/API &#8212; DLNIRSP_Pipeline v0.8.0</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" type="text/css" />
     <link rel="stylesheet" href="_static/dkist.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
     <link rel="shortcut icon" href="_static/favico.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -307,16 +307,17 @@
 <li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.AlignmentData.html">AlignmentData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.CSStep.html">CSStep</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.CalibrationCurveData.html">CalibrationCurveData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.CalibrationStepData.html">CalibrationStepData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.DarkData.html">DarkData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.DataSetData.html">DataSetData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.DemodulationData.html">DemodulationData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.FitsData.html">FitsData</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.GainData.html">GainData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.LampGainData.html">LampGainData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.MRNData.html">MRNData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.MosiacRepeatNumber.html">MosiacRepeatNumber</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.ObservationData.html">ObservationData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.SoCCData.html">SoCCData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.SolarGainData.html">SolarGainData</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#class-inheritance-diagram">Class Inheritance Diagram</a></li>
@@ -703,43 +704,43 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.AlignmentData.html#DLNIRSP_Pipeline.Data.AlignmentData" title="DLNIRSP_Pipeline.Data.AlignmentData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlignmentData</span></code></a>([data_dir, dataset_ID, memmap])</p></td>
-<td><p>AlignmentData is an extension of <code class="xref py py-obj docutils literal notranslate"><span class="pre">FitData</span></code> designed to only hold data from the Alignment InstrumentProgramTask (DKIST004).</p></td>
+<td><p>AlignmentData is an extension of <code class="xref py py-obj docutils literal notranslate"><span class="pre">FitData</span></code> designed to only hold data associated with Alignment.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.CSStep.html#DLNIRSP_Pipeline.Data.CSStep" title="DLNIRSP_Pipeline.Data.CSStep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CSStep</span></code></a>(header)</p></td>
 <td><p>This class allows for an easy way to quickly compare SPEC-0122 style headers to determine if they come from the same Calibration Sequence (CS) step.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.CalibrationCurveData.html#DLNIRSP_Pipeline.Data.CalibrationCurveData" title="DLNIRSP_Pipeline.Data.CalibrationCurveData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalibrationCurveData</span></code></a>([CS_step, memmap])</p></td>
-<td><p>CalibrationCurveData is an extension of FitsData that loads a single Calibration Curve from a directory containing a full Set of Calibration Curves (SoCC).</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.CalibrationStepData.html#DLNIRSP_Pipeline.Data.CalibrationStepData" title="DLNIRSP_Pipeline.Data.CalibrationStepData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalibrationStepData</span></code></a>([CS_step, memmap])</p></td>
+<td><p>CalibrationStepData is an extension of FitsData that loads a single Calibration Curve from a directory containing a full Set of Calibration Curves (SoCC).</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConfigParser</span></code>([defaults, dict_type, …])</p></td>
-<td><p>ConfigParser implementing interpolation.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.DarkData.html#DLNIRSP_Pipeline.Data.DarkData" title="DLNIRSP_Pipeline.Data.DarkData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DarkData</span></code></a>([data_dir, dataset_ID, memmap])</p></td>
+<td><p>DarkData is an extension of <code class="xref py py-obj docutils literal notranslate"><span class="pre">FitData</span></code> designed to only hold data associated with Dark.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.DarkData.html#DLNIRSP_Pipeline.Data.DarkData" title="DLNIRSP_Pipeline.Data.DarkData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DarkData</span></code></a>([data_dir, dataset_ID, memmap])</p></td>
-<td><p>DarkData is an extension of <code class="xref py py-obj docutils literal notranslate"><span class="pre">FitData</span></code> designed to only hold data from the Dark InstrumentProgramTask (DKIST004).</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.DataSetData.html#DLNIRSP_Pipeline.Data.DataSetData" title="DLNIRSP_Pipeline.Data.DataSetData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataSetData</span></code></a>([data_dir, dataset_ID, suffix])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.DataSetData.html#DLNIRSP_Pipeline.Data.DataSetData" title="DLNIRSP_Pipeline.Data.DataSetData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataSetData</span></code></a>([data_dir, dataset_ID, suffix])</p></td>
 <td><p>DataSetData performs 2 functions: First, it separates DL mosaic/repeat numbers (MRN) found among raw data in a directory.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.DemodulationData.html#DLNIRSP_Pipeline.Data.DemodulationData" title="DLNIRSP_Pipeline.Data.DemodulationData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DemodulationData</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.DemodulationData.html#DLNIRSP_Pipeline.Data.DemodulationData" title="DLNIRSP_Pipeline.Data.DemodulationData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DemodulationData</span></code></a>()</p></td>
 <td><p>DemodulationData is a small modification of the <a class="reference internal" href="api/DLNIRSP_Pipeline.Data.FitsData.html#DLNIRSP_Pipeline.Data.FitsData" title="DLNIRSP_Pipeline.Data.FitsData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FitsData</span></code></a> class.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.FitsData.html#DLNIRSP_Pipeline.Data.FitsData" title="DLNIRSP_Pipeline.Data.FitsData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FitsData</span></code></a>([load_obj, memmap, allow3D])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.FitsData.html#DLNIRSP_Pipeline.Data.FitsData" title="DLNIRSP_Pipeline.Data.FitsData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FitsData</span></code></a>([load_obj, memmap, allow3D])</p></td>
 <td><p>FitsData is a basically a wrapper for astropy.io.fits, with some extra methods and properties to aid the reduction of DKIST data.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.GainData.html#DLNIRSP_Pipeline.Data.GainData" title="DLNIRSP_Pipeline.Data.GainData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GainData</span></code></a>([data_dir, dataset_ID, memmap])</p></td>
-<td><p>GainData is an extension of <code class="xref py py-obj docutils literal notranslate"><span class="pre">FitData</span></code> designed to only hold data from the Gain InstrumentProgramTask (DKIST004).</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.LampGainData.html#DLNIRSP_Pipeline.Data.LampGainData" title="DLNIRSP_Pipeline.Data.LampGainData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LampGainData</span></code></a>([data_dir, dataset_ID, memmap])</p></td>
+<td><p>LampGainData is an extension of <code class="xref py py-obj docutils literal notranslate"><span class="pre">FitData</span></code> designed to only hold data associated with LampGain.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.MRNData.html#DLNIRSP_Pipeline.Data.MRNData" title="DLNIRSP_Pipeline.Data.MRNData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MRNData</span></code></a>(MRN[, memmap])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.MRNData.html#DLNIRSP_Pipeline.Data.MRNData" title="DLNIRSP_Pipeline.Data.MRNData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MRNData</span></code></a>(MRN[, memmap])</p></td>
 <td><p>MRNData is an extension of FitsData that loads a single DL-NIRSP mosaic/repeat number from a directory containing a full DL-NIRSP DataSet.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.MosiacRepeatNumber.html#DLNIRSP_Pipeline.Data.MosiacRepeatNumber" title="DLNIRSP_Pipeline.Data.MosiacRepeatNumber"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MosiacRepeatNumber</span></code></a>(header)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.MosiacRepeatNumber.html#DLNIRSP_Pipeline.Data.MosiacRepeatNumber" title="DLNIRSP_Pipeline.Data.MosiacRepeatNumber"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MosiacRepeatNumber</span></code></a>(header)</p></td>
 <td><p>This class allows for an easy way to quickly compare SPEC-0122 style headers to determine if they come from the same DL-NIRSP mosaic/repeat number (MRN).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.ObservationData.html#DLNIRSP_Pipeline.Data.ObservationData" title="DLNIRSP_Pipeline.Data.ObservationData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ObservationData</span></code></a>([data_dir, dataset_ID, memmap])</p></td>
-<td><p>ObservationData is an extension of <code class="xref py py-obj docutils literal notranslate"><span class="pre">FitData</span></code> designed to only hold data from the Observation InstrumentProgramTask (DKIST004).</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.ObservationData.html#DLNIRSP_Pipeline.Data.ObservationData" title="DLNIRSP_Pipeline.Data.ObservationData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ObservationData</span></code></a>([data_dir, dataset_ID, memmap])</p></td>
+<td><p>ObservationData is an extension of <code class="xref py py-obj docutils literal notranslate"><span class="pre">FitData</span></code> designed to only hold data associated with Observation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.SoCCData.html#DLNIRSP_Pipeline.Data.SoCCData" title="DLNIRSP_Pipeline.Data.SoCCData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SoCCData</span></code></a>([data_dir, suffix])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.SoCCData.html#DLNIRSP_Pipeline.Data.SoCCData" title="DLNIRSP_Pipeline.Data.SoCCData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SoCCData</span></code></a>([data_dir, suffix])</p></td>
 <td><p>SoCCData performs 2 functions: First, it separates and sorts Calibration Sequence (CS) steps found among raw data in a directory.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.SolarGainData.html#DLNIRSP_Pipeline.Data.SolarGainData" title="DLNIRSP_Pipeline.Data.SolarGainData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SolarGainData</span></code></a>([data_dir, dataset_ID, memmap])</p></td>
+<td><p>SolarGainData is an extension of <code class="xref py py-obj docutils literal notranslate"><span class="pre">FitData</span></code> designed to only hold data associated with SolarGain.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Time</span></code>(val[, val2, format, scale, precision, …])</p></td>
 <td><p>Represent and manipulate times and dates for astronomy.</p></td>
@@ -749,8 +750,8 @@
 </div>
 <div class="section" id="class-inheritance-diagram">
 <h3>Class Inheritance Diagram<a class="headerlink" href="#class-inheritance-diagram" title="Permalink to this headline">¶</a></h3>
-<div class="graphviz"><object data="_images/inheritance-c7a8825e2f5d489f52f277642ec3ab7c7a188150.svg" type="image/svg+xml" class="inheritance graphviz">
-<p class="warning">Inheritance diagram of DLNIRSP_Pipeline.Data.AlignmentData, DLNIRSP_Pipeline.Data.CSStep, DLNIRSP_Pipeline.Data.CalibrationCurveData, DLNIRSP_Pipeline.Data.DarkData, DLNIRSP_Pipeline.Data.DataSetData, DLNIRSP_Pipeline.Data.DemodulationData, DLNIRSP_Pipeline.Data.FitsData, DLNIRSP_Pipeline.Data.GainData, DLNIRSP_Pipeline.Data.MRNData, DLNIRSP_Pipeline.Data.MosiacRepeatNumber, DLNIRSP_Pipeline.Data.ObservationData, DLNIRSP_Pipeline.Data.SoCCData</p></object></div>
+<div class="graphviz"><object data="_images/inheritance-1d67219bf8860525846e39405636eeea51eedc7c.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">Inheritance diagram of DLNIRSP_Pipeline.Data.AlignmentData, DLNIRSP_Pipeline.Data.CSStep, DLNIRSP_Pipeline.Data.CalibrationStepData, DLNIRSP_Pipeline.Data.DarkData, DLNIRSP_Pipeline.Data.DataSetData, DLNIRSP_Pipeline.Data.DemodulationData, DLNIRSP_Pipeline.Data.FitsData, DLNIRSP_Pipeline.Data.LampGainData, DLNIRSP_Pipeline.Data.MRNData, DLNIRSP_Pipeline.Data.MosiacRepeatNumber, DLNIRSP_Pipeline.Data.ObservationData, DLNIRSP_Pipeline.Data.SoCCData, DLNIRSP_Pipeline.Data.SolarGainData</p></object></div>
 </div>
 </div>
 </div>
@@ -763,15 +764,15 @@
 <footer class="footer">
   <div class="container">
     <div class="left-footer">
-         &copy; 2019, Arthur Eigenbrot
+         &copy; 2020, Arthur Eigenbrot
        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
     </div>
    
     <div class="right-footer">
-      Last updated on 27 Sep 2019.
+      Last updated on 01 May 2020.
     </div>
     <div class="centre-footer">
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.3
     </div>
   </div>
 </footer>

@@ -1,20 +1,20 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>DLNIRSP_Pipeline.ScienceCalibration &#8212; DLNIRSP_Pipeline v0.6.1</title>
+    <title>DLNIRSP_Pipeline.ScienceCalibration &#8212; DLNIRSP_Pipeline v0.8.0</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" type="text/css" />
     <link rel="stylesheet" href="../../_static/dkist.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../../_static/favico.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -131,8 +131,9 @@
     <div class="body col-md-9 content" role="main">
       
   <h1>Source code for DLNIRSP_Pipeline.ScienceCalibration</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">DLNIRSP_Pipeline</span> <span class="k">import</span> <span class="n">Data</span><span class="p">,</span> <span class="n">generic</span>
-<span class="kn">from</span> <span class="nn">DLNIRSP_Pipeline.tag</span> <span class="k">import</span> <span class="n">tag</span>
+<span></span><span class="kn">from</span> <span class="nn">DLNIRSP_Pipeline</span> <span class="kn">import</span> <span class="n">Data</span><span class="p">,</span> <span class="n">generic</span>
+<span class="kn">from</span> <span class="nn">DLNIRSP_Pipeline.tag</span> <span class="kn">import</span> <span class="n">tag</span>
+<span class="kn">from</span> <span class="nn">DLNIRSP_Pipeline.data</span> <span class="kn">import</span> <span class="n">CONSTANTS</span>
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.ScienceCalibration.main.html#DLNIRSP_Pipeline.ScienceCalibration.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">datasetData</span><span class="p">,</span> <span class="n">MRN</span><span class="p">,</span> <span class="n">outpre</span><span class="p">,</span> <span class="n">dark_cal</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">instrument_pol_cal</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">solar_flat_cal</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
          <span class="n">geometric_cal</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dark_cal_sig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">solar_flat_cal_sig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_no_pol</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -203,7 +204,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: doing Dark Correction&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
 
         <span class="c1">## This is a stop-gap until I hear from SJ about how to really handle uncertainty/sigma frames</span>
-        <span class="kn">from</span> <span class="nn">DLNIRSP_Pipeline.utils</span> <span class="k">import</span> <span class="n">gen_fake_data</span>
+        <span class="kn">from</span> <span class="nn">DLNIRSP_Pipeline.utils</span> <span class="kn">import</span> <span class="n">gen_fake_data</span>
         <span class="n">data_sig</span> <span class="o">=</span> <span class="n">gen_fake_data</span><span class="o">.</span><span class="n">get_fake_sig</span><span class="p">(</span><span class="n">sciData</span><span class="p">)</span>
         <span class="c1">####</span>
 
@@ -227,7 +228,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: doing Solar Gain Correction&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
 
         <span class="c1">## This is a stop-gap until I hear from SJ about how to really handle uncertainty/sigma frames</span>
-        <span class="kn">from</span> <span class="nn">DLNIRSP_Pipeline.utils</span> <span class="k">import</span> <span class="n">gen_fake_data</span>
+        <span class="kn">from</span> <span class="nn">DLNIRSP_Pipeline.utils</span> <span class="kn">import</span> <span class="n">gen_fake_data</span>
         <span class="n">data_sig</span> <span class="o">=</span> <span class="n">gen_fake_data</span><span class="o">.</span><span class="n">get_fake_sig</span><span class="p">(</span><span class="n">sciData</span><span class="p">)</span>
         <span class="c1">####</span>
 
@@ -277,7 +278,7 @@
 <span class="sd">    `Data.FitsData`</span>
 <span class="sd">        Passthrough of ``fitsData``</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">outname</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_</span><span class="si">{}</span><span class="s1">.fits&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">outpre</span><span class="p">,</span> <span class="n">MRN</span><span class="o">.</span><span class="n">get_str</span><span class="p">())</span>
+    <span class="n">outname</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">outpre</span><span class="p">,</span> <span class="n">MRN</span><span class="o">.</span><span class="n">get_str</span><span class="p">(),</span> <span class="n">CONSTANTS</span><span class="p">[</span><span class="s1">&#39;Data&#39;</span><span class="p">][</span><span class="s1">&#39;suffix&#39;</span><span class="p">])</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: Saving data to </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="n">outname</span><span class="p">))</span>
     <span class="n">fitsData</span><span class="o">.</span><span class="n">write_out</span><span class="p">(</span><span class="n">outname</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -292,15 +293,15 @@
 <footer class="footer">
   <div class="container">
     <div class="left-footer">
-         &copy; 2019, Arthur Eigenbrot
+         &copy; 2020, Arthur Eigenbrot
        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
     </div>
    
     <div class="right-footer">
-      Last updated on 27 Sep 2019.
+      Last updated on 01 May 2020.
     </div>
     <div class="centre-footer">
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.3
     </div>
   </div>
 </footer>

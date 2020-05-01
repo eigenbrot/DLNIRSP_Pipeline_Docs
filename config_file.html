@@ -1,20 +1,20 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>Configuration File Format &#8212; DLNIRSP_Pipeline v0.6.1</title>
+    <title>Configuration File Format &#8212; DLNIRSP_Pipeline v0.8.0</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" type="text/css" />
     <link rel="stylesheet" href="_static/dkist.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
     <link rel="shortcut icon" href="_static/favico.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -213,23 +213,26 @@ folder or use the <code class="docutils literal notranslate"><span class="pre">s
 <dt class="field-even">cube_shape</dt>
 <dd class="field-even"><p><strong>(tuple)</strong> The (x, y) spatial pixel size of the final IFU cube.</p>
 </dd>
-<dt class="field-odd"><em>threads</em></dt>
-<dd class="field-odd"><p><strong>(int)</strong> The number of separate processes to spawn when reducing the raw science data.</p>
+<dt class="field-odd"><em>suffix</em></dt>
+<dd class="field-odd"><p>File suffix to use when looking for/generating/saving FITS files</p>
 </dd>
-<dt class="field-even"><em>remove_TM</em></dt>
-<dd class="field-even"><p><strong>(bool)</strong> If True, remove the DKIST telescope Mueller matrix (M1 - M6)</p>
+<dt class="field-even"><em>threads</em></dt>
+<dd class="field-even"><p><strong>(int)</strong> The number of separate processes to spawn when reducing the raw science data.</p>
 </dd>
-<dt class="field-odd"><em>include_M12</em></dt>
-<dd class="field-odd"><p><strong>(bool)</strong> If False, do NOT include M12 in the telescope Mueller matrix</p>
+<dt class="field-odd"><em>remove_TM</em></dt>
+<dd class="field-odd"><p><strong>(bool)</strong> If True, remove the DKIST telescope Mueller matrix (M1 - M6)</p>
 </dd>
-<dt class="field-even"><em>remove_parallactic</em></dt>
-<dd class="field-even"><p><strong>(bool)</strong> If False, do NOT apply a correction to bring data in to common DKIST reference frame.</p>
+<dt class="field-even"><em>include_M12</em></dt>
+<dd class="field-even"><p><strong>(bool)</strong> If False, do NOT include M12 in the telescope Mueller matrix</p>
 </dd>
-<dt class="field-odd"><em>telescope_db</em></dt>
-<dd class="field-odd"><p>The location of a file containing DKIST mirror parameters as a function of wavelength and time. If not provided the PA&amp;C default will be used (recommended).</p>
+<dt class="field-odd"><em>remove_parallactic</em></dt>
+<dd class="field-odd"><p><strong>(bool)</strong> If False, do NOT apply a correction to bring data in to common DKIST reference frame.</p>
 </dd>
-<dt class="field-even"><em>tmp_dir</em></dt>
-<dd class="field-even"><p>Directory to use for intermediate, temporary files. If not specified it will default to wherever the Level-1 Science Products are saved (see <code class="docutils literal notranslate"><span class="pre">output_prefix</span></code>).</p>
+<dt class="field-even"><em>telescope_db</em></dt>
+<dd class="field-even"><p>The location of a file containing DKIST mirror parameters as a function of wavelength and time. If not provided the PA&amp;C default will be used (recommended).</p>
+</dd>
+<dt class="field-odd"><em>tmp_dir</em></dt>
+<dd class="field-odd"><p>Directory to use for intermediate, temporary files. If not specified it will default to wherever the Level-1 Science Products are saved (see <code class="docutils literal notranslate"><span class="pre">output_prefix</span></code>).</p>
 </dd>
 </dl>
 </div>
@@ -341,15 +344,15 @@ dimension.</p>
 <footer class="footer">
   <div class="container">
     <div class="left-footer">
-         &copy; 2019, Arthur Eigenbrot
+         &copy; 2020, Arthur Eigenbrot
        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
     </div>
    
     <div class="right-footer">
-      Last updated on 27 Sep 2019.
+      Last updated on 01 May 2020.
     </div>
     <div class="centre-footer">
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.3
     </div>
   </div>
 </footer>

@@ -1,0 +1,17 @@
+CalibrationStepData
+===================
+
+.. currentmodule:: DLNIRSP_Pipeline.Data
+
+.. autoclass:: CalibrationStepData
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~CalibrationStepData.load_from_filelist
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: load_from_filelist

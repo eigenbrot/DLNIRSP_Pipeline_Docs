@@ -1,24 +1,24 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>CSStep &#8212; DLNIRSP_Pipeline v0.6.1</title>
+    <title>CSStep &#8212; DLNIRSP_Pipeline v0.8.0</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" type="text/css" />
     <link rel="stylesheet" href="../_static/dkist.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../_static/favico.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="CalibrationCurveData" href="DLNIRSP_Pipeline.Data.CalibrationCurveData.html" />
+    <link rel="next" title="CalibrationStepData" href="DLNIRSP_Pipeline.Data.CalibrationStepData.html" />
     <link rel="prev" title="AlignmentData" href="DLNIRSP_Pipeline.Data.AlignmentData.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -88,7 +88,7 @@
     </a>
   </li>
   <li>
-    <a href="DLNIRSP_Pipeline.Data.CalibrationCurveData.html" title="Next Chapter: CalibrationCurveData"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">CalibrationCurveData &raquo;</span>
+    <a href="DLNIRSP_Pipeline.Data.CalibrationStepData.html" title="Next Chapter: CalibrationStepData"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">CalibrationStepData &raquo;</span>
     </a>
   </li>
               
@@ -147,16 +147,17 @@
 <li class="toctree-l3 current"><a class="reference internal" href="../API.html#classes">Classes</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.AlignmentData.html">AlignmentData</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">CSStep</a></li>
-<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.CalibrationCurveData.html">CalibrationCurveData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.CalibrationStepData.html">CalibrationStepData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.DarkData.html">DarkData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.DataSetData.html">DataSetData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.DemodulationData.html">DemodulationData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.FitsData.html">FitsData</a></li>
-<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.GainData.html">GainData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.LampGainData.html">LampGainData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.MRNData.html">MRNData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.MosiacRepeatNumber.html">MosiacRepeatNumber</a></li>
 <li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.ObservationData.html">ObservationData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.SoCCData.html">SoCCData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.SolarGainData.html">SolarGainData</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../API.html#class-inheritance-diagram">Class Inheritance Diagram</a></li>
@@ -174,15 +175,15 @@
       
   <div class="section" id="csstep">
 <h1>CSStep<a class="headerlink" href="#csstep" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+<dl class="py class">
 <dt id="DLNIRSP_Pipeline.Data.CSStep">
-<em class="property">class </em><code class="sig-prename descclassname">DLNIRSP_Pipeline.Data.</code><code class="sig-name descname">CSStep</code><span class="sig-paren">(</span><em class="sig-param">header</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/DLNIRSP_Pipeline/Data.html#CSStep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DLNIRSP_Pipeline.Data.CSStep" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">DLNIRSP_Pipeline.Data.</code><code class="sig-name descname">CSStep</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">header</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/DLNIRSP_Pipeline/Data.html#CSStep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DLNIRSP_Pipeline.Data.CSStep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This class allows for an easy way to quickly compare SPEC-0122 style headers to determine if they come from the
 same Calibration Sequence (CS) step. Each step in a CS is defined by the configuration of the GOS, namely the
 status of the polarizer and retarder (in or out) and the angle of each. Because some CS schemes call for some
 GOS configurations to repeat a check is also made against the observation time for each object; the defaults for
-the ViSP Pipeline define a maximum difference in time where two exposures are considered different CS steps
+the DL-NIRSP Pipeline define a maximum difference in time where two exposures are considered different CS steps
 regardless of GOS configuration.</p>
 <p>This class can also be sorted. In this case, only the observation time is taken into account.</p>
 <p>Finally, this class is hashable for use in dictionaries. The hash is only based on the GOS configuration so that
@@ -209,15 +210,15 @@ conflicts with repeated CS steps are avoided.</p>
 <footer class="footer">
   <div class="container">
     <div class="left-footer">
-         &copy; 2019, Arthur Eigenbrot
+         &copy; 2020, Arthur Eigenbrot
        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
     </div>
    
     <div class="right-footer">
-      Last updated on 27 Sep 2019.
+      Last updated on 01 May 2020.
     </div>
     <div class="centre-footer">
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.3
     </div>
   </div>
 </footer>

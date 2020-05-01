@@ -1,20 +1,20 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>DLNIRSP_Pipeline.IFUCalibration &#8212; DLNIRSP_Pipeline v0.6.1</title>
+    <title>DLNIRSP_Pipeline.IFUCalibration &#8212; DLNIRSP_Pipeline v0.8.0</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" type="text/css" />
     <link rel="stylesheet" href="../../_static/dkist.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../../_static/favico.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -140,10 +140,11 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy.optimize</span> <span class="k">as</span> <span class="nn">spo</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">astropy.io</span> <span class="k">import</span> <span class="n">fits</span> <span class="k">as</span> <span class="n">pyfits</span>
-<span class="kn">from</span> <span class="nn">matplotlib.backends.backend_pgf</span> <span class="k">import</span> <span class="n">PdfPages</span> <span class="k">as</span> <span class="n">PDF</span>
-<span class="kn">from</span> <span class="nn">DLNIRSP_Pipeline</span> <span class="k">import</span> <span class="n">Data</span><span class="p">,</span> <span class="n">generic</span>
-<span class="kn">from</span> <span class="nn">DLNIRSP_Pipeline.tag</span> <span class="k">import</span> <span class="n">tag</span>
+<span class="kn">from</span> <span class="nn">astropy.io</span> <span class="kn">import</span> <span class="n">fits</span> <span class="k">as</span> <span class="n">pyfits</span>
+<span class="kn">from</span> <span class="nn">matplotlib.backends.backend_pgf</span> <span class="kn">import</span> <span class="n">PdfPages</span> <span class="k">as</span> <span class="n">PDF</span>
+<span class="kn">from</span> <span class="nn">DLNIRSP_Pipeline</span> <span class="kn">import</span> <span class="n">Data</span><span class="p">,</span> <span class="n">generic</span>
+<span class="kn">from</span> <span class="nn">DLNIRSP_Pipeline.tag</span> <span class="kn">import</span> <span class="n">tag</span>
+<span class="kn">from</span> <span class="nn">DLNIRSP_Pipeline.data</span> <span class="kn">import</span> <span class="n">S122</span><span class="p">,</span> <span class="n">CONSTANTS</span>
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../api/DLNIRSP_Pipeline.IFUCalibration.main.html#DLNIRSP_Pipeline.IFUCalibration.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">knifedir</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">dark_cal</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gain_cal</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">geo_cal</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_no_geo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Reduce and analyze a set of knife-edge scan images to determine the mapping from slit position to IFU position</span>
@@ -190,6 +191,7 @@
 <span class="sd">    dict</span>
 <span class="sd">        Dictionary containing the real FOV positions for the x and y dimensions</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#TODO: Why are basic and geometric separate steps??</span>
     <span class="n">cal_dict</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;xknife&#39;</span><span class="p">,</span> <span class="s1">&#39;yknife&#39;</span><span class="p">]):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: Starting analysis of </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="n">name</span><span class="o">.</span><span class="n">upper</span><span class="p">()))</span>
@@ -400,10 +402,10 @@
     <span class="n">data</span> <span class="o">=</span> <span class="n">hdl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
     <span class="n">header</span> <span class="o">=</span> <span class="n">hdl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span>
     <span class="k">if</span> <span class="n">knife_type</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span>
-        <span class="n">step</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s1">&#39;DLN__031&#39;</span><span class="p">]</span>
+        <span class="n">step</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="n">S122</span><span class="p">[</span><span class="s1">&#39;CurrentSpatialStepX&#39;</span><span class="p">]]</span>
     <span class="k">elif</span> <span class="n">knife_type</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
-        <span class="n">step</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s1">&#39;DLN__035&#39;</span><span class="p">]</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:}</span><span class="s1">/</span><span class="si">{:}</span><span class="s1">_step_</span><span class="si">{:04n}</span><span class="s1">.fits&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">outdir</span><span class="p">,</span> <span class="n">knife_type</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+        <span class="n">step</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="n">S122</span><span class="p">[</span><span class="s1">&#39;CurrentSpatialStepY&#39;</span><span class="p">]]</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:}</span><span class="s1">/</span><span class="si">{:}</span><span class="s1">_step_</span><span class="si">{:04n}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">outdir</span><span class="p">,</span> <span class="n">knife_type</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">CONSTANTS</span><span class="p">[</span><span class="s1">&#39;Data&#39;</span><span class="p">][</span><span class="s1">&#39;suffix&#39;</span><span class="p">])</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1"> step </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> -&gt; </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="n">knife_type</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
     <span class="n">slit_list</span> <span class="o">=</span> <span class="n">generic</span><span class="o">.</span><span class="n">apply_geo_corr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">geometric_calibration</span><span class="p">)</span>
     <span class="n">stack</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">slit_list</span><span class="p">)</span>
@@ -432,7 +434,7 @@
 
 <span class="sd">    3. Filter out positions with no/low signal</span>
 
-<span class="sd">    4. For each step:</span>
+<span class="sd">    4. For each slit location:</span>
 <span class="sd">       1. Compute the gradient of signal with step</span>
 <span class="sd">       2. Fit the peak in gradient</span>
 <span class="sd">       3. Compute the real position associated with the scan step at the peak gradient</span>
@@ -457,13 +459,13 @@
 <span class="sd">        Array of pixel locations of the slit locations with good data</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">fitsData</span><span class="o">.</span><span class="n">dataset_ID</span> <span class="o">==</span> <span class="s1">&#39;xknife&#39;</span><span class="p">:</span>
-        <span class="n">step0</span> <span class="o">=</span> <span class="n">fitsData</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;DLN__029&#39;</span><span class="p">]</span>
-        <span class="n">dsteps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">d</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;DLN__030&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">fitsData</span><span class="o">.</span><span class="n">data_hdus</span><span class="p">])</span>
-        <span class="n">stepnums</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">d</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;DLN__031&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">fitsData</span><span class="o">.</span><span class="n">data_hdus</span><span class="p">])</span>
+        <span class="n">step0</span> <span class="o">=</span> <span class="n">fitsData</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">S122</span><span class="p">[</span><span class="s1">&#39;StepCenterPositionX&#39;</span><span class="p">]]</span>
+        <span class="n">dsteps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">d</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="n">S122</span><span class="p">[</span><span class="s1">&#39;StepSizeX&#39;</span><span class="p">]]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">fitsData</span><span class="o">.</span><span class="n">data_hdus</span><span class="p">])</span>
+        <span class="n">stepnums</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">d</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="n">S122</span><span class="p">[</span><span class="s1">&#39;CurrentSpatialStepX&#39;</span><span class="p">]]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">fitsData</span><span class="o">.</span><span class="n">data_hdus</span><span class="p">])</span>
     <span class="k">elif</span> <span class="n">fitsData</span><span class="o">.</span><span class="n">dataset_ID</span> <span class="o">==</span> <span class="s1">&#39;yknife&#39;</span><span class="p">:</span>
-        <span class="n">step0</span> <span class="o">=</span> <span class="n">fitsData</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;DLN__033&#39;</span><span class="p">]</span>
-        <span class="n">dsteps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">d</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;DLN__034&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">fitsData</span><span class="o">.</span><span class="n">data_hdus</span><span class="p">])</span>
-        <span class="n">stepnums</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">d</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;DLN__035&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">fitsData</span><span class="o">.</span><span class="n">data_hdus</span><span class="p">])</span>
+        <span class="n">step0</span> <span class="o">=</span> <span class="n">fitsData</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">S122</span><span class="p">[</span><span class="s1">&#39;StepCenterPositionY&#39;</span><span class="p">]]</span>
+        <span class="n">dsteps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">d</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="n">S122</span><span class="p">[</span><span class="s1">&#39;StepSizeY&#39;</span><span class="p">]]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">fitsData</span><span class="o">.</span><span class="n">data_hdus</span><span class="p">])</span>
+        <span class="n">stepnums</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">d</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="n">S122</span><span class="p">[</span><span class="s1">&#39;CurrentSpatialStepY&#39;</span><span class="p">]]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">fitsData</span><span class="o">.</span><span class="n">data_hdus</span><span class="p">])</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Hmm, dataset ID is not xknife or yknife. This shouldn&#39;t happen&quot;</span><span class="p">)</span>
 
@@ -528,8 +530,8 @@
     <span class="sd">&quot;&quot;&quot;Quick little script I made for showing the knife edge move across the IFU&quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">matplotlib.animation</span> <span class="k">as</span> <span class="nn">animation</span>
     <span class="kn">import</span> <span class="nn">matplotlib</span>
-    <span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="k">import</span> <span class="n">Ellipse</span>
-    <span class="kn">from</span> <span class="nn">matplotlib.collections</span> <span class="k">import</span> <span class="n">PatchCollection</span>
+    <span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Ellipse</span>
+    <span class="kn">from</span> <span class="nn">matplotlib.collections</span> <span class="kn">import</span> <span class="n">PatchCollection</span>
 
     <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
@@ -571,15 +573,15 @@
 <footer class="footer">
   <div class="container">
     <div class="left-footer">
-         &copy; 2019, Arthur Eigenbrot
+         &copy; 2020, Arthur Eigenbrot
        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
     </div>
    
     <div class="right-footer">
-      Last updated on 27 Sep 2019.
+      Last updated on 01 May 2020.
     </div>
     <div class="centre-footer">
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.3
     </div>
   </div>
 </footer>

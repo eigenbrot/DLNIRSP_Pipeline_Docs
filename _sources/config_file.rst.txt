@@ -40,6 +40,8 @@ Calibration Objects by simply pointing the corresponding option to a file that d
 
 :cube_shape: **(tuple)** The (x, y) spatial pixel size of the final IFU cube.
 
+:*suffix*: File suffix to use when looking for/generating/saving FITS files
+
 :*threads*: **(int)** The number of separate processes to spawn when reducing the raw science data.
 
 :*remove_TM*: **(bool)** If True, remove the DKIST telescope Mueller matrix (M1 - M6)

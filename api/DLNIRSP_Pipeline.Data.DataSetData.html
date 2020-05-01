@@ -1,20 +1,20 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>DataSetData &#8212; DLNIRSP_Pipeline v0.6.1</title>
+    <title>DataSetData &#8212; DLNIRSP_Pipeline v0.8.0</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" type="text/css" />
     <link rel="stylesheet" href="../_static/dkist.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../_static/favico.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -147,16 +147,17 @@
 <li class="toctree-l3 current"><a class="reference internal" href="../API.html#classes">Classes</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.AlignmentData.html">AlignmentData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.CSStep.html">CSStep</a></li>
-<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.CalibrationCurveData.html">CalibrationCurveData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.CalibrationStepData.html">CalibrationStepData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.DarkData.html">DarkData</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">DataSetData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.DemodulationData.html">DemodulationData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.FitsData.html">FitsData</a></li>
-<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.GainData.html">GainData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.LampGainData.html">LampGainData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.MRNData.html">MRNData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.MosiacRepeatNumber.html">MosiacRepeatNumber</a></li>
 <li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.ObservationData.html">ObservationData</a></li>
 <li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.SoCCData.html">SoCCData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DLNIRSP_Pipeline.Data.SolarGainData.html">SolarGainData</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../API.html#class-inheritance-diagram">Class Inheritance Diagram</a></li>
@@ -174,10 +175,10 @@
       
   <div class="section" id="datasetdata">
 <h1>DataSetData<a class="headerlink" href="#datasetdata" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+<dl class="py class">
 <dt id="DLNIRSP_Pipeline.Data.DataSetData">
-<em class="property">class </em><code class="sig-prename descclassname">DLNIRSP_Pipeline.Data.</code><code class="sig-name descname">DataSetData</code><span class="sig-paren">(</span><em class="sig-param">data_dir=None</em>, <em class="sig-param">dataset_ID=''</em>, <em class="sig-param">suffix='*.fits'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/DLNIRSP_Pipeline/Data.html#DataSetData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DLNIRSP_Pipeline.Data.DataSetData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">DLNIRSP_Pipeline.Data.</code><code class="sig-name descname">DataSetData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dir</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dataset_ID</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">suffix</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/DLNIRSP_Pipeline/Data.html#DataSetData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DLNIRSP_Pipeline.Data.DataSetData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>DataSetData performs 2 functions: First, it separates DL mosaic/repeat numbers (MRN) found among raw data in a
 directory. Secondly, it can initialize and produce an <a class="reference internal" href="DLNIRSP_Pipeline.Data.MRNData.html#DLNIRSP_Pipeline.Data.MRNData" title="DLNIRSP_Pipeline.Data.MRNData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MRNData</span></code></a> object at a requested MRN.</p>
 <p>Initialize properties and maybe scan a directory for mosaic/repeat steps.</p>
@@ -222,21 +223,21 @@ directory. Secondly, it can initialize and produce an <a class="reference intern
 </tbody>
 </table>
 <p class="rubric">Attributes Documentation</p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="DLNIRSP_Pipeline.Data.DataSetData.MRN_list">
 <code class="sig-name descname">MRN_list</code><a class="headerlink" href="#DLNIRSP_Pipeline.Data.DataSetData.MRN_list" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="DLNIRSP_Pipeline.Data.DataSetData.num_MRN">
 <code class="sig-name descname">num_MRN</code><a class="headerlink" href="#DLNIRSP_Pipeline.Data.DataSetData.num_MRN" title="Permalink to this definition">¶</a></dt>
 <dd><p>The total number of mosaic/repeat steps found</p>
 </dd></dl>
 
 <p class="rubric">Methods Documentation</p>
-<dl class="method">
+<dl class="py method">
 <dt id="DLNIRSP_Pipeline.Data.DataSetData.get_MR_data">
-<code class="sig-name descname">get_MR_data</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">MRN</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/DLNIRSP_Pipeline/Data.html#DataSetData.get_MR_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DLNIRSP_Pipeline.Data.DataSetData.get_MR_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_MR_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">MRN</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/DLNIRSP_Pipeline/Data.html#DataSetData.get_MR_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DLNIRSP_Pipeline.Data.DataSetData.get_MR_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize a <a class="reference internal" href="DLNIRSP_Pipeline.Data.MRNData.html#DLNIRSP_Pipeline.Data.MRNData" title="DLNIRSP_Pipeline.Data.MRNData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MRNData</span></code></a> object for the requested mosaic/repeat number</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -247,16 +248,16 @@ directory. Secondly, it can initialize and produce an <a class="reference intern
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><a class="reference internal" href="DLNIRSP_Pipeline.Data.CalibrationCurveData.html#DLNIRSP_Pipeline.Data.CalibrationCurveData" title="DLNIRSP_Pipeline.Data.CalibrationCurveData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalibrationCurveData</span></code></a></dt><dd><p>Object containing data/metadata for the requested CS step</p>
+<dt><a class="reference internal" href="DLNIRSP_Pipeline.Data.CalibrationStepData.html#DLNIRSP_Pipeline.Data.CalibrationStepData" title="DLNIRSP_Pipeline.Data.CalibrationStepData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalibrationStepData</span></code></a></dt><dd><p>Object containing data/metadata for the requested CS step</p>
 </dd>
 </dl>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="DLNIRSP_Pipeline.Data.DataSetData.read_directory">
-<code class="sig-name descname">read_directory</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">data_dir</em>, <em class="sig-param">suffix='*.fits'</em>, <em class="sig-param">dataset_ID=''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/DLNIRSP_Pipeline/Data.html#DataSetData.read_directory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DLNIRSP_Pipeline.Data.DataSetData.read_directory" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">read_directory</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">data_dir</span></em>, <em class="sig-param"><span class="n">suffix</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">dataset_ID</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/DLNIRSP_Pipeline/Data.html#DataSetData.read_directory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DLNIRSP_Pipeline.Data.DataSetData.read_directory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read all files in a directory and assign all files a MRN identifier. Then populate a dictionary that maps
 mosaic/repeat number to a list of files corresponding to that MRN.</p>
 <dl class="field-list simple">
@@ -286,15 +287,15 @@ string to just load all data sets.</p>
 <footer class="footer">
   <div class="container">
     <div class="left-footer">
-         &copy; 2019, Arthur Eigenbrot
+         &copy; 2020, Arthur Eigenbrot
        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
     </div>
    
     <div class="right-footer">
-      Last updated on 27 Sep 2019.
+      Last updated on 01 May 2020.
     </div>
     <div class="centre-footer">
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.3
     </div>
   </div>
 </footer>

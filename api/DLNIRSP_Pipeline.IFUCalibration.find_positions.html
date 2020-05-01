@@ -1,20 +1,20 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>find_positions &#8212; DLNIRSP_Pipeline v0.6.1</title>
+    <title>find_positions &#8212; DLNIRSP_Pipeline v0.8.0</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700" type="text/css" />
     <link rel="stylesheet" href="../_static/dkist.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../_static/favico.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -171,9 +171,9 @@
       
   <div class="section" id="find-positions">
 <h1>find_positions<a class="headerlink" href="#find-positions" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
+<dl class="py function">
 <dt id="DLNIRSP_Pipeline.IFUCalibration.find_positions">
-<code class="sig-prename descclassname">DLNIRSP_Pipeline.IFUCalibration.</code><code class="sig-name descname">find_positions</code><span class="sig-paren">(</span><em class="sig-param">fitsData</em>, <em class="sig-param">thresh=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/DLNIRSP_Pipeline/IFUCalibration.html#find_positions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DLNIRSP_Pipeline.IFUCalibration.find_positions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">DLNIRSP_Pipeline.IFUCalibration.</code><code class="sig-name descname">find_positions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fitsData</span></em>, <em class="sig-param"><span class="n">thresh</span><span class="o">=</span><span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/DLNIRSP_Pipeline/IFUCalibration.html#find_positions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DLNIRSP_Pipeline.IFUCalibration.find_positions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find a single axis (x|y) of the IFU FOV position of each spatial pixel in the input data</p>
 <p>The input data must represent an ordered sequence of knife-edge (scan mirror) steps across the face of the IFU along
 a single axis. The positions found by this function will correspond to the direction of knife-edge motion.</p>
@@ -182,7 +182,7 @@ a single axis. The positions found by this function will correspond to the direc
 <li><p>Assign each scan step a real position in the FOV</p></li>
 <li><p>Collapse all steps along the wavelength dimension</p></li>
 <li><p>Filter out positions with no/low signal</p></li>
-<li><p>For each step:
+<li><p>For each slit location:
 1. Compute the gradient of signal with step
 2. Fit the peak in gradient
 3. Compute the real position associated with the scan step at the peak gradient</p></li>
@@ -219,15 +219,15 @@ particular fiber. Thus, these peaks show the real spatial location of each slit 
 <footer class="footer">
   <div class="container">
     <div class="left-footer">
-         &copy; 2019, Arthur Eigenbrot
+         &copy; 2020, Arthur Eigenbrot
        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
     </div>
    
     <div class="right-footer">
-      Last updated on 27 Sep 2019.
+      Last updated on 01 May 2020.
     </div>
     <div class="centre-footer">
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.3
     </div>
   </div>
 </footer>
