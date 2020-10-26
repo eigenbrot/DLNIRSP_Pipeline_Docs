@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Reference/API &#8212; DLNIRSP_Pipeline v0.8.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reference/API &#8212; DLNIRSP_Pipeline v0.8.2</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -24,9 +25,9 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js "></script>
 <script type="text/javascript" src="_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
 
   </head><body>
@@ -204,6 +205,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#id2">Functions</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DarkCalibration.generate_dark_calibration.html">generate_dark_calibration</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DarkCalibration.main.html">main</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DarkCalibration.prep_fits_header_for_asdf.html">prep_fits_header_for_asdf</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DarkCalibration.validate_dark_calibration.html">validate_dark_calibration</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/DLNIRSP_Pipeline.DarkCalibration.validate_dark_task_data.html">validate_dark_task_data</a></li>
 </ul>
@@ -421,10 +423,13 @@
 <tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DarkCalibration.main.html#DLNIRSP_Pipeline.DarkCalibration.main" title="DLNIRSP_Pipeline.DarkCalibration.main"><code class="xref py py-obj docutils literal notranslate"><span class="pre">main</span></code></a>(dark_dir, outpre)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DarkCalibration.validate_dark_calibration.html#DLNIRSP_Pipeline.DarkCalibration.validate_dark_calibration" title="DLNIRSP_Pipeline.DarkCalibration.validate_dark_calibration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_dark_calibration</span></code></a>(dark_calibration)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DarkCalibration.prep_fits_header_for_asdf.html#DLNIRSP_Pipeline.DarkCalibration.prep_fits_header_for_asdf" title="DLNIRSP_Pipeline.DarkCalibration.prep_fits_header_for_asdf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prep_fits_header_for_asdf</span></code></a>(header)</p></td>
+<td><p>astropy’s header COMMENT field is weird as hell and causes asdf to bork.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DarkCalibration.validate_dark_calibration.html#DLNIRSP_Pipeline.DarkCalibration.validate_dark_calibration" title="DLNIRSP_Pipeline.DarkCalibration.validate_dark_calibration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_dark_calibration</span></code></a>(dark_calibration)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DarkCalibration.validate_dark_task_data.html#DLNIRSP_Pipeline.DarkCalibration.validate_dark_task_data" title="DLNIRSP_Pipeline.DarkCalibration.validate_dark_task_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_dark_task_data</span></code></a>(darkData)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.DarkCalibration.validate_dark_task_data.html#DLNIRSP_Pipeline.DarkCalibration.validate_dark_task_data" title="DLNIRSP_Pipeline.DarkCalibration.validate_dark_task_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_dark_task_data</span></code></a>(darkData)</p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -704,7 +709,7 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.AlignmentData.html#DLNIRSP_Pipeline.Data.AlignmentData" title="DLNIRSP_Pipeline.Data.AlignmentData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlignmentData</span></code></a>([data_dir, dataset_ID, memmap])</p></td>
-<td><p>AlignmentData is an extension of <code class="xref py py-obj docutils literal notranslate"><span class="pre">FitData</span></code> designed to only hold data associated with Alignment.</p></td>
+<td><p>AlignmentData is an extension of <code class="xref py py-obj docutils literal notranslate"><span class="pre">FitData</span></code> designed to only hold data associated with Alignment. It inherits all of the functionality of <a class="reference internal" href="api/DLNIRSP_Pipeline.Data.FitsData.html#DLNIRSP_Pipeline.Data.FitsData" title="DLNIRSP_Pipeline.Data.FitsData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FitsData</span></code></a> and defines an extra method that loads all data from a directory who’s headers match the  following:                Key  Value                —  —–           DKIST004  Alignment.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.CSStep.html#DLNIRSP_Pipeline.Data.CSStep" title="DLNIRSP_Pipeline.Data.CSStep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CSStep</span></code></a>(header)</p></td>
 <td><p>This class allows for an easy way to quickly compare SPEC-0122 style headers to determine if they come from the same Calibration Sequence (CS) step.</p></td>
@@ -713,7 +718,7 @@
 <td><p>CalibrationStepData is an extension of FitsData that loads a single Calibration Curve from a directory containing a full Set of Calibration Curves (SoCC).</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.DarkData.html#DLNIRSP_Pipeline.Data.DarkData" title="DLNIRSP_Pipeline.Data.DarkData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DarkData</span></code></a>([data_dir, dataset_ID, memmap])</p></td>
-<td><p>DarkData is an extension of <code class="xref py py-obj docutils literal notranslate"><span class="pre">FitData</span></code> designed to only hold data associated with Dark.</p></td>
+<td><p>DarkData is an extension of <code class="xref py py-obj docutils literal notranslate"><span class="pre">FitData</span></code> designed to only hold data associated with Dark. It inherits all of the functionality of <a class="reference internal" href="api/DLNIRSP_Pipeline.Data.FitsData.html#DLNIRSP_Pipeline.Data.FitsData" title="DLNIRSP_Pipeline.Data.FitsData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FitsData</span></code></a> and defines an extra method that loads all data from a directory who’s headers match the  following:                Key  Value                —  —–           DKIST004  Dark.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.DataSetData.html#DLNIRSP_Pipeline.Data.DataSetData" title="DLNIRSP_Pipeline.Data.DataSetData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataSetData</span></code></a>([data_dir, dataset_ID, suffix])</p></td>
 <td><p>DataSetData performs 2 functions: First, it separates DL mosaic/repeat numbers (MRN) found among raw data in a directory.</p></td>
@@ -725,7 +730,7 @@
 <td><p>FitsData is a basically a wrapper for astropy.io.fits, with some extra methods and properties to aid the reduction of DKIST data.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.LampGainData.html#DLNIRSP_Pipeline.Data.LampGainData" title="DLNIRSP_Pipeline.Data.LampGainData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LampGainData</span></code></a>([data_dir, dataset_ID, memmap])</p></td>
-<td><p>LampGainData is an extension of <code class="xref py py-obj docutils literal notranslate"><span class="pre">FitData</span></code> designed to only hold data associated with LampGain.</p></td>
+<td><p>LampGainData is an extension of <code class="xref py py-obj docutils literal notranslate"><span class="pre">FitData</span></code> designed to only hold data associated with LampGain. It inherits all of the functionality of <a class="reference internal" href="api/DLNIRSP_Pipeline.Data.FitsData.html#DLNIRSP_Pipeline.Data.FitsData" title="DLNIRSP_Pipeline.Data.FitsData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FitsData</span></code></a> and defines an extra method that loads all data from a directory who’s headers match the  following:                Key  Value                —  —–           DKIST004  Gain           PAC__002  Lamp           PAC__003  On.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.MRNData.html#DLNIRSP_Pipeline.Data.MRNData" title="DLNIRSP_Pipeline.Data.MRNData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MRNData</span></code></a>(MRN[, memmap])</p></td>
 <td><p>MRNData is an extension of FitsData that loads a single DL-NIRSP mosaic/repeat number from a directory containing a full DL-NIRSP DataSet.</p></td>
@@ -734,13 +739,13 @@
 <td><p>This class allows for an easy way to quickly compare SPEC-0122 style headers to determine if they come from the same DL-NIRSP mosaic/repeat number (MRN).</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.ObservationData.html#DLNIRSP_Pipeline.Data.ObservationData" title="DLNIRSP_Pipeline.Data.ObservationData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ObservationData</span></code></a>([data_dir, dataset_ID, memmap])</p></td>
-<td><p>ObservationData is an extension of <code class="xref py py-obj docutils literal notranslate"><span class="pre">FitData</span></code> designed to only hold data associated with Observation.</p></td>
+<td><p>ObservationData is an extension of <code class="xref py py-obj docutils literal notranslate"><span class="pre">FitData</span></code> designed to only hold data associated with Observation. It inherits all of the functionality of <a class="reference internal" href="api/DLNIRSP_Pipeline.Data.FitsData.html#DLNIRSP_Pipeline.Data.FitsData" title="DLNIRSP_Pipeline.Data.FitsData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FitsData</span></code></a> and defines an extra method that loads all data from a directory who’s headers match the  following:                Key  Value                —  —–           DKIST004  Observation.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.SoCCData.html#DLNIRSP_Pipeline.Data.SoCCData" title="DLNIRSP_Pipeline.Data.SoCCData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SoCCData</span></code></a>([data_dir, suffix])</p></td>
 <td><p>SoCCData performs 2 functions: First, it separates and sorts Calibration Sequence (CS) steps found among raw data in a directory.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="api/DLNIRSP_Pipeline.Data.SolarGainData.html#DLNIRSP_Pipeline.Data.SolarGainData" title="DLNIRSP_Pipeline.Data.SolarGainData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SolarGainData</span></code></a>([data_dir, dataset_ID, memmap])</p></td>
-<td><p>SolarGainData is an extension of <code class="xref py py-obj docutils literal notranslate"><span class="pre">FitData</span></code> designed to only hold data associated with SolarGain.</p></td>
+<td><p>SolarGainData is an extension of <code class="xref py py-obj docutils literal notranslate"><span class="pre">FitData</span></code> designed to only hold data associated with SolarGain. It inherits all of the functionality of <a class="reference internal" href="api/DLNIRSP_Pipeline.Data.FitsData.html#DLNIRSP_Pipeline.Data.FitsData" title="DLNIRSP_Pipeline.Data.FitsData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FitsData</span></code></a> and defines an extra method that loads all data from a directory who’s headers match the  following:                Key  Value                —  —–           DKIST004  Gain           PAC__002  Clear            TELSCAN  [‘Raster’, ‘Random’, ‘Spiral’].</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Time</span></code>(val[, val2, format, scale, precision, …])</p></td>
 <td><p>Represent and manipulate times and dates for astronomy.</p></td>
@@ -769,10 +774,10 @@
     </div>
    
     <div class="right-footer">
-      Last updated on 01 May 2020.
+      Last updated on 26 Oct 2020.
     </div>
     <div class="centre-footer">
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.3
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1
     </div>
   </div>
 </footer>

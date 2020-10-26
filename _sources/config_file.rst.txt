@@ -54,6 +54,8 @@ Calibration Objects by simply pointing the corresponding option to a file that d
 
 :*tmp_dir*: Directory to use for intermediate, temporary files. If not specified it will default to wherever the Level-1 Science Products are saved (see ``output_prefix``).
 
+:*only_level1*: **(bool)** If False then don't look for, create, or apply the IFUCal
+
 DarkCalibration
 ---------------
 This section will only be used if the file specified by ``Main.dark_cal`` does not exist.
@@ -116,6 +118,7 @@ Example Config File
   remove_TM = True
   include_M12 = True
   remove_parallactic = False
+  only_level1 = False
 
   [DarkCalibration]
   raw_dark_dir = ../raw_0.5.0_cam3

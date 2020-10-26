@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>DLNIRSP_Pipeline.InstrumentPolarizationCalibration &#8212; DLNIRSP_Pipeline v0.8.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DLNIRSP_Pipeline.InstrumentPolarizationCalibration &#8212; DLNIRSP_Pipeline v0.8.2</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
@@ -22,9 +23,9 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js "></script>
 <script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
@@ -171,8 +172,8 @@
 <span class="sd">    `Data.DemodulationData`</span>
 <span class="sd">        The full-frame demoduation matrices. This array has shape (X, Y, 4, M) and lives in beam1 of this object</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">pol_rdx_dir</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/proc&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">raw_pol_dir</span><span class="p">)</span>
-    <span class="n">inst_geo_name</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/proc/InstPolGeoCal.asdf&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">raw_pol_dir</span><span class="p">)</span>
+    <span class="n">pol_rdx_dir</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/polcal_proc&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Data</span><span class="o">.</span><span class="n">TMPDIR</span><span class="p">)</span>
+    <span class="n">inst_geo_name</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/polcal_proc/InstPolGeoCal.asdf&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Data</span><span class="o">.</span><span class="n">TMPDIR</span><span class="p">)</span>
     <span class="n">dmod1_name</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/DMOD_beam1.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pol_rdx_dir</span><span class="p">,</span> <span class="n">CONSTANTS</span><span class="p">[</span><span class="s1">&#39;Data&#39;</span><span class="p">][</span><span class="s1">&#39;suffix&#39;</span><span class="p">])</span>
     <span class="n">dmod2_name</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/DMOD_beam2.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pol_rdx_dir</span><span class="p">,</span> <span class="n">CONSTANTS</span><span class="p">[</span><span class="s1">&#39;Data&#39;</span><span class="p">][</span><span class="s1">&#39;suffix&#39;</span><span class="p">])</span>
     <span class="n">cmp1_name</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/CUpars_beam1.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pol_rdx_dir</span><span class="p">,</span> <span class="n">CONSTANTS</span><span class="p">[</span><span class="s1">&#39;Data&#39;</span><span class="p">][</span><span class="s1">&#39;suffix&#39;</span><span class="p">])</span>
@@ -224,7 +225,7 @@
 <span class="sd">    This function sets up the right directories and default file names and then hands off the management to</span>
 <span class="sd">    `manage_CS_rdx`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">outdir</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/proc&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">raw_pol_dir</span><span class="p">)</span>
+    <span class="n">outdir</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/polcal_proc&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Data</span><span class="o">.</span><span class="n">TMPDIR</span><span class="p">)</span>
     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">outdir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="n">darkcal_file</span> <span class="o">=</span> <span class="n">DLNIRSPPipeline</span><span class="o">.</span><span class="n">ensure_fits</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">outdir</span><span class="p">,</span> <span class="n">dark_cal</span><span class="p">))</span>
@@ -574,10 +575,10 @@
     <span class="n">OG_shape</span> <span class="o">=</span> <span class="n">geo_cal</span><span class="p">[</span><span class="s1">&#39;MASK&#39;</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
     <span class="n">big_dmod</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">OG_shape</span> <span class="o">+</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">numm1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">borders</span><span class="o">.</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)[::</span><span class="mi">2</span><span class="p">]:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: filling [:, </span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">, :, :] with beam 1 [0, 0, </span><span class="si">{}</span><span class="s1">, :, :]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="n">borders</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">borders</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">i</span><span class="o">//</span><span class="mi">2</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: filling [:, </span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">, :, :] with beam 1 [:, 0, </span><span class="si">{}</span><span class="s1">, :, :]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="n">borders</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">borders</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">i</span><span class="o">//</span><span class="mi">2</span><span class="p">))</span>
         <span class="n">big_dmod</span><span class="p">[:,</span> <span class="n">borders</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="n">borders</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">dmodData</span><span class="o">.</span><span class="n">beam1</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:][:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">borders</span><span class="o">.</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: filling [:, </span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">, :, :] with beam 2 [0, 0, </span><span class="si">{}</span><span class="s1">, :, :]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="n">borders</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">borders</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">i</span><span class="o">//</span><span class="mi">2</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: filling [:, </span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">, :, :] with beam 2 [:, 0, </span><span class="si">{}</span><span class="s1">, :, :]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">(),</span> <span class="n">borders</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">borders</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">i</span><span class="o">//</span><span class="mi">2</span><span class="p">))</span>
         <span class="n">big_dmod</span><span class="p">[:,</span> <span class="n">borders</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="n">borders</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">dmodData</span><span class="o">.</span><span class="n">beam1</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:][:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
 
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: applying mask&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="p">()))</span>
@@ -606,10 +607,10 @@
     </div>
    
     <div class="right-footer">
-      Last updated on 01 May 2020.
+      Last updated on 26 Oct 2020.
     </div>
     <div class="centre-footer">
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.3
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1
     </div>
   </div>
 </footer>

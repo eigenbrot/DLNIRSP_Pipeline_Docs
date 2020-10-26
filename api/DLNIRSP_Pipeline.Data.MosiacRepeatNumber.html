@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>MosiacRepeatNumber &#8212; DLNIRSP_Pipeline v0.8.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MosiacRepeatNumber &#8212; DLNIRSP_Pipeline v0.8.2</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -24,9 +25,9 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js "></script>
 <script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
@@ -178,7 +179,7 @@
 <dl class="py class">
 <dt id="DLNIRSP_Pipeline.Data.MosiacRepeatNumber">
 <em class="property">class </em><code class="sig-prename descclassname">DLNIRSP_Pipeline.Data.</code><code class="sig-name descname">MosiacRepeatNumber</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">header</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/DLNIRSP_Pipeline/Data.html#MosiacRepeatNumber"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DLNIRSP_Pipeline.Data.MosiacRepeatNumber" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>This class allows for an easy way to quickly compare SPEC-0122 style headers to determine if they come from the
 same DL-NIRSP mosaic/repeat number (MRN). The smallest possible DL data unit is defined uniquely by a) its mosaic
 location in the FOV, and b) its repeat number. For example, if the Instrument Program requires a 2x2 mosaic of the
@@ -202,7 +203,7 @@ FOV to be repeated 3 times then there will be 12 unique data units. Each data un
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#DLNIRSP_Pipeline.Data.MosiacRepeatNumber.get_str" title="DLNIRSP_Pipeline.Data.MosiacRepeatNumber.get_str"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_str</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#DLNIRSP_Pipeline.Data.MosiacRepeatNumber.get_str" title="DLNIRSP_Pipeline.Data.MosiacRepeatNumber.get_str"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_str</span></code></a>()</p></td>
 <td><p>Condense the MRN vector into a string that can be used for file names and such</p></td>
 </tr>
 </tbody>
@@ -210,7 +211,7 @@ FOV to be repeated 3 times then there will be 12 unique data units. Each data un
 <p class="rubric">Methods Documentation</p>
 <dl class="py method">
 <dt id="DLNIRSP_Pipeline.Data.MosiacRepeatNumber.get_str">
-<code class="sig-name descname">get_str</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/DLNIRSP_Pipeline/Data.html#MosiacRepeatNumber.get_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DLNIRSP_Pipeline.Data.MosiacRepeatNumber.get_str" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_str</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/DLNIRSP_Pipeline/Data.html#MosiacRepeatNumber.get_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#DLNIRSP_Pipeline.Data.MosiacRepeatNumber.get_str" title="Permalink to this definition">¶</a></dt>
 <dd><p>Condense the MRN vector into a string that can be used for file names and such</p>
 </dd></dl>
 
@@ -231,10 +232,10 @@ FOV to be repeated 3 times then there will be 12 unique data units. Each data un
     </div>
    
     <div class="right-footer">
-      Last updated on 01 May 2020.
+      Last updated on 26 Oct 2020.
     </div>
     <div class="centre-footer">
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.3
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1
     </div>
   </div>
 </footer>
